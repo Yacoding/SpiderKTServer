@@ -1,6 +1,6 @@
 import urllib
-import webbrowser
 import redis
+import re 
 
 class SwussquoteReptile:
     def __init__(self):
@@ -16,6 +16,10 @@ def  openUrl(webHttp):
 def filterContext(context,filter):
     return context.find(filter)
 
+def filterContextAll(context):
+    pattern = re.compile(r'<item>')
+    return re.findall(pattern,context)
+
 def redisWrite(key,value):
     try :
         rediss = redis.StrictRedis(host='localhost', port=6379)
@@ -26,10 +30,15 @@ def redisWrite(key,value):
 
 if __name__ == '__main__':
     context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
+    print len(filterContextAll(context)) 
+    
+    
+    
+    
     startIndex =  filterContext(context,'<item>')
     endIndex =  filterContext(context,'</item>')+7
     itemContext =  context[startIndex:endIndex]
     linkurl = itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')]
     print 'urlLink---->  ' + linkurl
     #webbrowser.open_new(itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')])
-    redisWrite('linkurl',linkurl);
+    #redisWrite('linkurl',linkurl);
