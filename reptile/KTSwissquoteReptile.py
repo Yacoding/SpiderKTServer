@@ -1,5 +1,5 @@
 import urllib
-import re
+import webbrowser
 
 
 def  openUrl(webHttp):
@@ -15,6 +15,8 @@ def filterContext(context,filter):
 if __name__ == '__main__':
     context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
     startIndex =  filterContext(context,'<item>')
-    endIndex =  filterContext(context,'</item>')
-    print  context[startIndex:endIndex+7]
+    endIndex =  filterContext(context,'</item>')+7
+    itemContext =  context[startIndex:endIndex]
+    print 'urlLink---->  ' + itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')]
+    webbrowser.open_new(itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')])
     
