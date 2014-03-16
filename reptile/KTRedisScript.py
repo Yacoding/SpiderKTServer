@@ -12,6 +12,6 @@ def getRedisData(name):
     return returndata
 
 if __name__ == '__main__':
-    print  getRedisData('16a525f2-a3d1-467f-9b02-5ee619630696')
+    print  getRedisData('16a525f2-a3d1-467f-9b02-5ee619630696').decode('utf-8')
 
 

@@ -46,7 +46,8 @@ if __name__ == '__main__':
                 ,'title':filterFillaData(itemContext,'<title>','</title>')
                 ,'description':filterFillaData(itemContext,'<description>','</description>')}
         #rediss.set(filterFillaData(itemContext,'isPermaLink="false">','</guid>'), item)
-        print  rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
+        
+        print rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
         
         
         
