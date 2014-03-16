@@ -28,21 +28,30 @@ def redisWrite(key,value):
         print exception
     return 
 
+def filterFillaData(filterdata,startfilter,endfilter):
+    return  filterdata[filterContext(filterdata,startfilter)+len(startfilter):filterContext(filterdata,endfilter)]
+
 if __name__ == '__main__':
     context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
-    print len(filterContextAll(context)) 
-    
     startcontext = context
+    rediss = redis.StrictRedis(host='localhost', port=6379)
     for i in range(len(filterContextAll(context)) ):
         startIndex =  filterContext(startcontext,'<item>')
-        endIndex =  filterContext(startcontext,'</item>')+7
+        endIndex =  filterContext(startcontext,'</item>')+len('</item>')
         itemContext =  startcontext[startIndex:endIndex]
-        startcontext = startcontext[filterContext(startcontext,'</item>')+7:]
-        print  str(i)+'\n -------->'+itemContext
-    #startIndex =  filterContext(context,'<item>')
-    #endIndex =  filterContext(context,'</item>')+7
-    #itemContext =  context[startIndex:endIndex]
-    #linkurl = itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')]
-    #print 'urlLink---->  ' + linkurl
-    #webbrowser.open_new(itemContext[filterContext(itemContext,'<link>')+6:filterContext(itemContext,'</link>')])
-    #redisWrite('linkurl',linkurl);
+        startcontext = startcontext[filterContext(startcontext,'</item>')+len('</item>'):]
+        #ToMakeInfor
+        item = {'link':filterFillaData(itemContext,'<link>','</link>')
+                ,'author':filterFillaData(itemContext,'<author>','</author>')
+                ,'title':filterFillaData(itemContext,'<title>','</title>')
+                ,'description':filterFillaData(itemContext,'<description>','</description>')}
+        #rediss.set(filterFillaData(itemContext,'isPermaLink="false">','</guid>'), item)
+        print  rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
+        
+        
+        
+        
+        
+        
+        
+        
