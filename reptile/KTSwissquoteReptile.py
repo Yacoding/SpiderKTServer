@@ -43,7 +43,7 @@ if __name__ == '__main__':
         startcontext = startcontext[filterContext(startcontext,'</item>')+len('</item>'):]
         
         print filterFillaData(itemContext,'<link>','</link>')
-        webbrowser.open_new_tab(filterFillaData(itemContext,'<link>','</link>'))
+        
         
         #ToMakeInfor
         item = {'link':filterFillaData(itemContext,'<link>','</link>')
