@@ -1,6 +1,7 @@
 import urllib
 import redis
 import re 
+import webbrowser
 
 class SwussquoteReptile:
     def __init__(self):
@@ -40,6 +41,10 @@ if __name__ == '__main__':
         endIndex =  filterContext(startcontext,'</item>')+len('</item>')
         itemContext =  startcontext[startIndex:endIndex]
         startcontext = startcontext[filterContext(startcontext,'</item>')+len('</item>'):]
+        
+        print filterFillaData(itemContext,'<link>','</link>')
+        webbrowser.open_new_tab(filterFillaData(itemContext,'<link>','</link>'))
+        
         #ToMakeInfor
         item = {'link':filterFillaData(itemContext,'<link>','</link>')
                 ,'author':filterFillaData(itemContext,'<author>','</author>')
@@ -47,7 +52,7 @@ if __name__ == '__main__':
                 ,'description':filterFillaData(itemContext,'<description>','</description>')}
         #rediss.set(filterFillaData(itemContext,'isPermaLink="false">','</guid>'), item)
         
-        print rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
+        #print rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
         
         
         
