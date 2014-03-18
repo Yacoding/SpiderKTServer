@@ -15,3 +15,8 @@ def retrunStartContext(link):
 def findAllTarget(context):
     return CommonsSpiderUtils.findAllTarget(context,r'<tr class="record" valign="top">')
 
+def divisionTarget(startcontext,startfilter,endfilter):
+    startIndex = CommonsSpiderUtils.filterContext(startcontext,startfilter)
+    endIndex = CommonsSpiderUtils.filterContext(startcontext,endfilter)+len(endfilter)
+    return {'targetContext':startcontext[startIndex:endIndex],'nextContext':startcontext[endIndex:]}
+    
