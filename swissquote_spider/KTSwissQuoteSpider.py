@@ -1,7 +1,7 @@
 import urllib
 import redis
 import re 
-import webbrowser
+import SwissQuoteImageSpider
 
 class SwussquoteReptile:
     def __init__(self):
@@ -32,7 +32,7 @@ def redisWrite(key,value):
         print exception
     return 
 
-def filterFillaData(filterdata,startfilter,endfilter):
+def filterContextByTarget(filterdata,startfilter,endfilter):
     return  filterdata[filterContext(filterdata,startfilter)+len(startfilter):filterContext(filterdata,endfilter)]
 
 if __name__ == '__main__':
@@ -45,17 +45,16 @@ if __name__ == '__main__':
         itemContext =  startcontext[startIndex:endIndex]
         startcontext = startcontext[filterContext(startcontext,'</item>')+len('</item>'):]
         
-        print filterFillaData(itemContext,'<title>','</title>')
-        print filterFillaData(itemContext,'<description>','</description>')
-        
+        link = filterContextByTarget(itemContext,'<link>','</link>')
+        key = filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
         #ToMakeInfor
-        item = {'link':filterFillaData(itemContext,'<link>','</link>')
-                ,'author':filterFillaData(itemContext,'<author>','</author>')
-                ,'title':filterFillaData(itemContext,'<title>','</title>')
-                ,'description':filterFillaData(itemContext,'<description>','</description>')}
-        rediss.set(filterFillaData(itemContext,'isPermaLink="false">','</guid>'), item)
-        
-        #print rediss.get(filterFillaData(itemContext,'isPermaLink="false">','</guid>'))
+        item = {'link':link
+                ,'author':filterContextByTarget(itemContext,'<author>','</author>')
+                ,'title':filterContextByTarget(itemContext,'<title>','</title>')
+                ,'description':filterContextByTarget(itemContext,'<description>','</description>')
+                ,'imageurl':SwissQuoteImageSpider.filterSwissQuoteImage(link)}
+        rediss.set(key, item)       
+        print key
         
         
         

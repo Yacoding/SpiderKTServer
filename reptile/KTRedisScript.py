@@ -12,7 +12,7 @@ def getRedisData(name):
     return returndata
 
 if __name__ == '__main__':
-    dirt =  getRedisData('16a525f2-a3d1-467f-9b02-5ee619630696')
+    dirt =  getRedisData('8105ddce-3f39-43c2-bb74-9bc79e699ec4')
     print dirt
 
 
