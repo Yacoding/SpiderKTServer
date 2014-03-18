@@ -1,5 +1,4 @@
 import urllib
-import re
 
 class SwissQuoteDetail:
     def __init__(self):
@@ -16,8 +15,16 @@ def  openUrl(webHttp):
 def filterContextBy(context,filter):
     return context.find(filter)
 
-if __name__ == '__main__':
-    context = openUrl('http://cn.swissquote.com/fx/news/daily-fx-news/2014/3/17')
-    print filterContextBy(context,'<div class="contentArticle ">')
+def filterContextByTarget(context,startfilter,endfilter):
+    return context[filterContextBy(context,startfilter)+len(startfilter):filterContextBy(context,endfilter)]
+
+def filterSwissQuoteImage(link):
+    context = openUrl(link)
     filterContext = context[filterContextBy(context,'<div class="contentArticle ">'):]
+    imagelink = filterContextByTarget(filterContextByTarget(filterContext,'<div class="contentArticle ">','</div>'),'src=','width')
+    imageurl = imagelink[1:len(imagelink)-4]
+    return imageurl
+
+    
+    
     
