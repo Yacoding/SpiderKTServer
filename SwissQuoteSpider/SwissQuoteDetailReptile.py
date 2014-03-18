@@ -13,7 +13,11 @@ def  openUrl(webHttp):
     urlopen.close()
     return  context
 
+def filterContextBy(context,filter):
+    return context.find(filter)
 
 if __name__ == '__main__':
-    context = openUrl('http://cn.swissquote.com/fx/news/daily-fx-news/2014/3/14')
-    print context
+    context = openUrl('http://cn.swissquote.com/fx/news/daily-fx-news/2014/3/17')
+    print filterContextBy(context,'<div class="contentArticle ">')
+    filterContext = context[filterContextBy(context,'<div class="contentArticle ">'):]
+    
