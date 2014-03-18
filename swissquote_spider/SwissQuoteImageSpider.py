@@ -6,7 +6,6 @@ class SwissQuoteDetail:
         self.host = 'localhost'
         self.port = 6379 
     
-    
 def  openUrl(webHttp):
     urlopen  = urllib.urlopen(webHttp) 
     context = urlopen.read()

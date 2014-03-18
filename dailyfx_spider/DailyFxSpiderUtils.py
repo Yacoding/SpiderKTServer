@@ -1,0 +1,17 @@
+import sys
+sys.path.append("../commonutils_spider/")
+import  CommonsSpiderUtils
+
+class DailyFxSpiderUtils:
+    def __init__(self):
+        self.host = 'localhost'
+
+
+def retrunStartContext(link):
+    context = CommonsSpiderUtils.openUrl(link)
+    startContext = CommonsSpiderUtils.startContext(context,'<tr class="record" valign="top">')
+    return startContext
+
+def findAllTarget(context):
+    return CommonsSpiderUtils.findAllTarget(context,r'<tr class="record" valign="top">')
+

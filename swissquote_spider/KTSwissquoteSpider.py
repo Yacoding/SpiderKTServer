@@ -48,6 +48,8 @@ if __name__ == '__main__':
         link = filterContextByTarget(itemContext,'<link>','</link>')
         key = filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
         imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
+        #writeImage
+        #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
         #ToMakeInfor
         item = {'link':link
                 ,'author':filterContextByTarget(itemContext,'<author>','</author>')
