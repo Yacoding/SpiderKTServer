@@ -1,3 +1,4 @@
+
 import urllib
 
 class SwissQuoteDetail:
@@ -25,6 +26,8 @@ def filterSwissQuoteImage(link):
     imageurl = imagelink[1:len(imagelink)-4]
     return imageurl
 
+def writeSwissQuoteImage(imageurl):
+    urllib.urlretrieve(imageurl, imageurl[len('http://files.ac-markets.com/Newsletter/0000-00-00/'):])
     
     
     

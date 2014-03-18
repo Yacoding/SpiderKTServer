@@ -47,14 +47,15 @@ if __name__ == '__main__':
         
         link = filterContextByTarget(itemContext,'<link>','</link>')
         key = filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
+        imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
         #ToMakeInfor
         item = {'link':link
                 ,'author':filterContextByTarget(itemContext,'<author>','</author>')
                 ,'title':filterContextByTarget(itemContext,'<title>','</title>')
                 ,'description':filterContextByTarget(itemContext,'<description>','</description>')
-                ,'imageurl':SwissQuoteImageSpider.filterSwissQuoteImage(link)}
-        rediss.set(key, item)       
-        print key
+                ,'imageurl':imageurl}
+        #rediss.set(key, item)       
+        
         
         
         
