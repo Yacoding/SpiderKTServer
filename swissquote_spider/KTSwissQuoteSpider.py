@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 ,'description':filterContextByTarget(itemContext,'<description>','</description>')
                 ,'imageurl':SwissQuoteImageSpider.filterSwissQuoteImage(link)}
         rediss.set(key, item)       
-        print key
+        
         
         
         

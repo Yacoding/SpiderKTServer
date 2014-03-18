@@ -5,7 +5,7 @@ To use setuptools in your package's setup.py, include this
 file in the same directory and add this to the top of your setup.py::
 
     from ez_setup import use_setuptools
-    use_setuptools()
+    use_setuptools() 
 
 To require a specific version of setuptools, set a download
 mirror, or use an alternate download directory, simply supply

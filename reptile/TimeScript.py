@@ -3,7 +3,7 @@ Created on 2014-2-18
 @author: zhangjiajiang
 '''
 
-import time
+import time 
 
 def task():
     print "www.baidu.com"

@@ -1,7 +1,7 @@
 
 import urllib
 import re
-
+ 
 def  openUrl(webHttp):
     urlopen  = urllib.urlopen(webHttp) 
     context = urlopen.read()

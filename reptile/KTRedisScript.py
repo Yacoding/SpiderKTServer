@@ -1,5 +1,5 @@
 import redis  
-import webbrowser
+
 
 class DataBase :
     def __init__(self):
