@@ -1,6 +1,9 @@
 
 import DailyFxSpiderUtils
 
+class  DailyFxSpider:
+    def __init__(self):
+        self.host ='localhost'
 
 def  filterFinalTarget(sectionDict):
     if DailyFxSpiderUtils.filterTargetFlag(sectionDict, '<td style="background-color:#FFFFFF" width="100">'):
@@ -27,11 +30,9 @@ def  filterFinalTarget(sectionDict):
             return {'titletime':titletime,'descriptcontext':descriptcontext,'descriptdetails':descriptdetails}
 
 
-if __name__ =='__main__':
-    
+def dailyForexNews():
     startContext = DailyFxSpiderUtils.retrunStartContext('http://cdn.dailyfx.com.hk/livenews/index.html')
     length = len(DailyFxSpiderUtils.findAllTarget(startContext))
-    print length
     for i in range(length):
         dict = DailyFxSpiderUtils.divisionTarget(startContext,'<tr class="record" valign="top">', '</tr>')
         startContext = dict['nextContext']
@@ -40,7 +41,16 @@ if __name__ =='__main__':
         #print sectionDict(the final result)
         currentDict = filterFinalTarget(sectionDict)
         
-        print currentDict['titletime'] +'-----'+currentDict['descriptcontext']+'----'+currentDict['descriptdetails']
+        if currentDict['descriptdetails'] !='':
+            print currentDict['titletime'] +'-----'+currentDict['descriptcontext']+'----'+currentDict['descriptdetails']
+        else:
+            print currentDict['titletime'] +'-----'+currentDict['descriptcontext']
+    return ''
+
+if __name__ =='__main__':
+    dailyForexNews()
+    
+           
             
      
     

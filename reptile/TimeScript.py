@@ -4,9 +4,12 @@ Created on 2014-2-18
 '''
 
 import time 
+import sys
+sys.path.append("../dailyfx_spider/")
+import DailyFxSpider
 
 def task():
-    print "www.baidu.com"
+    DailyFxSpider.dailyForexNews()
     
 def timer(n):
     while True:
@@ -17,4 +20,4 @@ def timer(n):
 
 
 if __name__ == '__main__':
-    timer(5)
+    timer(60)
