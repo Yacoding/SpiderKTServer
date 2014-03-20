@@ -15,6 +15,12 @@ def retrunStartContext(link):
 def findAllTarget(context):
     return CommonsSpiderUtils.findAllTarget(context,r'<tr class="record" valign="top">')
 
+def filterTargetFlag(filterContext,filter):
+    if  CommonsSpiderUtils.filterContext(filterContext,filter) < 0:
+        return False
+    else:
+        return True
+        
 def divisionTarget(startcontext,startfilter,endfilter):
     startIndex = CommonsSpiderUtils.filterContext(startcontext,startfilter)
     endIndex = CommonsSpiderUtils.filterContext(startcontext,endfilter)+len(endfilter)
