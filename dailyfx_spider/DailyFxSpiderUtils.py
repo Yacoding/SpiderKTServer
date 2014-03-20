@@ -19,4 +19,9 @@ def divisionTarget(startcontext,startfilter,endfilter):
     startIndex = CommonsSpiderUtils.filterContext(startcontext,startfilter)
     endIndex = CommonsSpiderUtils.filterContext(startcontext,endfilter)+len(endfilter)
     return {'targetContext':startcontext[startIndex:endIndex],'nextContext':startcontext[endIndex:]}
+
+def filterSubSetContext(startcontext,startfilter,endfilter):
+    startIndex =  CommonsSpiderUtils.filterContext(startcontext,startfilter)+len(startfilter)
+    endIndex = CommonsSpiderUtils.filterContext(startcontext,endfilter)
+    return startcontext[startIndex:endIndex]
     

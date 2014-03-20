@@ -13,6 +13,11 @@ def getRedisData(name):
 
 if __name__ == '__main__':
     dirt =  getRedisData('8105ddce-3f39-43c2-bb74-9bc79e699ec4')
+    #str change to dirt
     print dirt
+    currentDirt = eval(dirt)
+    print currentDirt['description']
+    print currentDirt['title']
+    
 
 
