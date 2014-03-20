@@ -3,7 +3,7 @@ import redis
 import re 
 import SwissQuoteImageSpider
 
-class SwussquoteReptile:
+class SwissquoteSpider:
     def __init__(self):
         self.host = 'localhost'
         self.port = 6379
@@ -35,10 +35,11 @@ def redisWrite(key,value):
 def filterContextByTarget(filterdata,startfilter,endfilter):
     return  filterdata[filterContext(filterdata,startfilter)+len(startfilter):filterContext(filterdata,endfilter)]
 
-if __name__ == '__main__':
+# final method
+def swissquoteTodayNewsSpider():
     context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
     startcontext = context
-    rediss = redis.StrictRedis(host='localhost', port=6379)
+    #rediss = redis.StrictRedis(host='localhost', port=6379)
     for i in range(len(filterContextAllByIteam(context)) ):
         startIndex =  filterContext(startcontext,'<item>')
         endIndex =  filterContext(startcontext,'</item>')+len('</item>')
@@ -56,7 +57,12 @@ if __name__ == '__main__':
                 ,'title':filterContextByTarget(itemContext,'<title>','</title>')
                 ,'description':filterContextByTarget(itemContext,'<description>','</description>')
                 ,'imageurl':imageurl}
-        #rediss.set(key, item)       
+        #rediss.set(key, item)
+        print item['link']+'------'+item['title']+'------'+item['description']
+
+if __name__ == '__main__':
+    swissquoteTodayNewsSpider();
+              
         
         
         
