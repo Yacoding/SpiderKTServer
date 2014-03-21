@@ -1,0 +1,1 @@
+安装python的相应插件   https://github.com/dmajkic/redis/downloads
