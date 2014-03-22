@@ -22,3 +22,11 @@ def divisionTarget(startcontext,startfilter,endfilter):
 
 def filterContextByTarget(context,startfilter,endfilter):
     return context[CommonsSpiderUtils.filterContext(context,startfilter)+len(startfilter):CommonsSpiderUtils.filterContext(context,endfilter)]
+
+def returnImageListStartContext(link):
+    context = CommonsSpiderUtils.openUrl(link)
+    startContext = CommonsSpiderUtils.startContext(context,'<div class="thumbnailimage">')
+    return startContext
+
+def findAllImageTarget(startContext):
+    return len(CommonsSpiderUtils.findAllTarget(startContext,r'<div class="thumbnailimage">'))
