@@ -3,6 +3,10 @@ import CnforexSpiderUtils
 
 
 def findForexImage():
+    # init connection 
+    conn = CnforexSpiderUtils.getCnforexSpiderConn()
+    
+    #create data
     defaultLink = 'http://www.cnforex.com/news/tuce/'
     startcontext = CnforexSpiderUtils.returnStartContext('http://www.cnforex.com/news/tuce/')
     targetLen = CnforexSpiderUtils.findAllTarget(startcontext)
@@ -13,8 +17,8 @@ def findForexImage():
         title = CnforexSpiderUtils.filterContextByTarget(currentcontext, '<p>\r\n                        ', '</p>')
         imageurl = CnforexSpiderUtils.filterContextByTarget(currentcontext, '<img src="', '" />')
         currentlink = CnforexSpiderUtils.filterContextByTarget(currentcontext,'<a href="','">\r\n                        <img')
-        print {'title':title,'imageurl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
-
+        data = {'title':title,'imageurl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
+        conn.set(imageurl+'.cnforex',data)
         
 def findForexImageList(link):
     startcontext = CnforexSpiderUtils.returnImageListStartContext(link)

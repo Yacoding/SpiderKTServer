@@ -15,12 +15,11 @@ def getRedisConnByDB(host,port,db):
     
 def getRedisData(name):
     conn = getRedisConn('localhost',6379)
-    print conn.keys()
     returndata =  conn.get(name)
     return returndata
 
 if __name__ == '__main__':
-    conn = getRedisConnByDB('localhost', 6379, 'swissquote')
+    conn = getRedisConnByDB('localhost', 6379, 'cnforex')
     for i in  range(len(conn.keys())):
         print conn.keys()[i]
         print conn.get(conn.keys()[i])

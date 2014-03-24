@@ -1,10 +1,15 @@
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
+import CommonsRedisUtils
 
 class  CnforexSpiderUtils:
     def __init__(self):
         self.server = 'localhost'
+        
+def  getCnforexSpiderConn():
+    return CommonsRedisUtils.getRedisConnByDB('localhost',6379,'cnforex')        
+        
 
 def  returnStartContext(link):
     context = CommonsSpiderUtils.openUrl(link)
