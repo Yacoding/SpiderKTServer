@@ -5,19 +5,31 @@ class DataBase :
     def __init__(self):
         self.host='localhost'
         self.port=6379    
+
+
+def getRedisConn(host,port):
+    return redis.StrictRedis(host=host,port=port)
+
+def getRedisConnByDB(host,port,db):
+    return redis.StrictRedis(host=host,port=port,db=db)
     
 def getRedisData(name):
-    conn = redis.StrictRedis(host='localhost',port=6379)
+    conn = getRedisConn('localhost',6379)
+    print conn.keys()
     returndata =  conn.get(name)
     return returndata
 
 if __name__ == '__main__':
-    dirt =  getRedisData('8105ddce-3f39-43c2-bb74-9bc79e699ec4')
+    conn = getRedisConnByDB('localhost', 6379, 'swissquote')
+    for i in  range(len(conn.keys())):
+        print conn.keys()[i]
+        print conn.get(conn.keys()[i])
+    
     #str change to dirt
-    print dirt
-    currentDirt = eval(dirt)
-    print currentDirt['description']
-    print currentDirt['title']
+    #print dirt
+    #currentDirt = eval(dirt)
+    #print currentDirt['description']
+    #print currentDirt['title']
     
 
 

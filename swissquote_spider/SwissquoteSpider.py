@@ -26,7 +26,7 @@ def filterContextAllByIteam(context):
 
 def redisWrite(key,value):
     try :
-        rediss = redis.StrictRedis(host='localhost', port=6379)
+        rediss = redis.StrictRedis(host='localhost', port=6379,db='swissquote')
         rediss.set(key, value)
     except Exception , exception :
         print exception
@@ -39,7 +39,9 @@ def filterContextByTarget(filterdata,startfilter,endfilter):
 def swissquoteTodayNewsSpider():
     context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
     startcontext = context
-    #rediss = redis.StrictRedis(host='localhost', port=6379)
+    rediss = redis.StrictRedis(host='localhost', port=6379)
+    #clear database
+    rediss.flushdb()
     for i in range(len(filterContextAllByIteam(context)) ):
         startIndex =  filterContext(startcontext,'<item>')
         endIndex =  filterContext(startcontext,'</item>')+len('</item>')
@@ -50,14 +52,14 @@ def swissquoteTodayNewsSpider():
         key = filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
         imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
         #writeImage
-        SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
+        #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
         #ToMakeInfor
         item = {'link':link
                 ,'author':filterContextByTarget(itemContext,'<author>','</author>')
                 ,'title':filterContextByTarget(itemContext,'<title>','</title>')
                 ,'description':filterContextByTarget(itemContext,'<description>','</description>')
                 ,'imageurl':imageurl}
-        #rediss.set(key, item)
+        rediss.set(key+'.swissquote', item)
         print item['link']+'------'+item['title']+'------'+item['description']
 
 if __name__ == '__main__':
