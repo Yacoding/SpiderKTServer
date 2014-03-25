@@ -5,7 +5,7 @@ import CnforexSpiderUtils
 def findForexImage():
     # init connection 
     conn = CnforexSpiderUtils.getCnforexSpiderConn()
-    
+    conn.flushdb()
     #create data
     defaultLink = 'http://www.cnforex.com/news/tuce/'
     startcontext = CnforexSpiderUtils.returnStartContext('http://www.cnforex.com/news/tuce/')
