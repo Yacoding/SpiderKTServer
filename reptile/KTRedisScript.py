@@ -19,7 +19,7 @@ def getRedisData(name):
     return returndata
 
 if __name__ == '__main__':
-    conn = getRedisConnByDB('localhost', 6379, 'cnforex')
+    conn = getRedisConn('localhost',6379)
     for i in  range(len(conn.keys())):
         print conn.keys()[i]
         print conn.get(conn.keys()[i])
