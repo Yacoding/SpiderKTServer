@@ -18,7 +18,7 @@ def findForexImage():
         imageurl = CnforexSpiderUtils.filterContextByTarget(currentcontext, '<img src="', '" />')
         currentlink = CnforexSpiderUtils.filterContextByTarget(currentcontext,'<a href="','">\r\n                        <img')
         #data = {'title':title,'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
-        data = {'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
+        data = {'id':imageurl+'.cnforex','imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
         conn.set(imageurl+'.cnforex',data)
         
 def findForexImageList(link):
