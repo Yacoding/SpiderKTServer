@@ -17,7 +17,8 @@ def findForexImage():
         title = CnforexSpiderUtils.filterContextByTarget(currentcontext, '<p>\r\n                        ', '</p>')
         imageurl = CnforexSpiderUtils.filterContextByTarget(currentcontext, '<img src="', '" />')
         currentlink = CnforexSpiderUtils.filterContextByTarget(currentcontext,'<a href="','">\r\n                        <img')
-        data = {'title':title,'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
+        #data = {'title':title,'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
+        data = {'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
         conn.set(imageurl+'.cnforex',data)
         
 def findForexImageList(link):
@@ -31,7 +32,8 @@ def findForexImageList(link):
         imageUrlContext = CnforexSpiderUtils.filterContextByTarget(currentcontext, '/>', '<div class="large_thumb_border">')
         listImageUrl = CnforexSpiderUtils.filterContextByTarget(imageUrlContext, '<img src="', '" class=')
         imageDescription = CnforexSpiderUtils.filterContextByTarget(imageUrlContext, 'rel="', '" />')
-        returnResult.append({'imageUrl':listImageUrl,'imageDescription':imageDescription})
+        #returnResult.append({'imageUrl':listImageUrl,'imageDescription':imageDescription})
+        returnResult.append({'imageUrl':listImageUrl})
     return returnResult
         
 if __name__ == '__main__':

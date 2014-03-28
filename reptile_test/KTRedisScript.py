@@ -21,7 +21,6 @@ def getRedisData(name):
 if __name__ == '__main__':
     conn = getRedisConn('localhost',6379)
     for i in  range(len(conn.keys())):
-        print conn.keys()[i]
         print conn.get(conn.keys()[i])
     
     #str change to dirt
