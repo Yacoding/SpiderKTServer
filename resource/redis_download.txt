@@ -1,2 +1,2 @@
 安装python的相应插件   https://github.com/dmajkic/redis/downloads
-安装MySQLdb所用的模块为   MySQLdb
+安装MySQLdb所用的模块为   easy_install MySQL-python
