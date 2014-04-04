@@ -3,6 +3,8 @@ sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
 import CommonsRedisUtils
 import MySQLdb
+import time
+import re
 
 class  CnforexSpiderUtils:
     def __init__(self):
@@ -40,6 +42,19 @@ def findAllImageTarget(startContext):
 def returnMySQLConn():
     try:
         conn = MySQLdb.connect(host='localhost',user='root',passwd='4559065',db='ktproject',port=3306,charset='utf8')
-    except MySQLdb.Error , e:
+    except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
+
+def returnCreateDate(text):
+    currentYear = str(time.strftime('%Y',time.localtime(time.time())))
+    group = re.findall(r'[\d|.]+',text)
+    if len(group[0])<2:
+        group[0] ='0'+ group[0] 
+    if len(group[1])<2:
+        group[1] ='0'+ group[1]
+    return currentYear+'-'+ group[0]+'-'+group[1]
+    
+    
+    
+    
