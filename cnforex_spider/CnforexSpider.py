@@ -6,10 +6,16 @@ def findForexImage():
     # init connection 
     conn = CnforexSpiderUtils.getCnforexSpiderConn()
     conn.flushdb()
+    
+    #init MySQL Connection 
+    mysqlConn = CnforexSpiderUtils.returnMySQLConn()
+    mysqlCur = mysqlConn.cursor()
+    
     #create data
     defaultLink = 'http://www.cnforex.com/news/tuce/'
     startcontext = CnforexSpiderUtils.returnStartContext('http://www.cnforex.com/news/tuce/')
     targetLen = CnforexSpiderUtils.findAllTarget(startcontext)
+    currentResult = []
     for i in range(targetLen):
         targetContext = CnforexSpiderUtils.divisionTarget(startcontext, '<div class="imgModel">', '</div>')
         startcontext = targetContext['nextContext']
@@ -20,6 +26,13 @@ def findForexImage():
         #data = {'title':title,'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
         data = {'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
         conn.set(imageurl+'.cnforex',data)
+        print title
+        currentResult.append([imageurl+'.cnforex',imageurl,title])  
+    mysqlCur.executemany('INSERT  INTO  whkt_resource_table (ID,IMAGEURL,TITLE) VALUES (%s,%s,%s)',currentResult);
+    mysqlConn.commit()
+    mysqlConn.close();
+    mysqlCur.close();
+    
         
 def findForexImageList(link):
     startcontext = CnforexSpiderUtils.returnImageListStartContext(link)

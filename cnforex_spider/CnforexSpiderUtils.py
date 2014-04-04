@@ -2,6 +2,7 @@ import sys
 sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
 import CommonsRedisUtils
+import MySQLdb
 
 class  CnforexSpiderUtils:
     def __init__(self):
@@ -35,3 +36,10 @@ def returnImageListStartContext(link):
 
 def findAllImageTarget(startContext):
     return len(CommonsSpiderUtils.findAllTarget(startContext,r'<div class="thumbnailimage">'))
+
+def returnMySQLConn():
+    try:
+        conn = MySQLdb.connect(host='localhost',user='root',passwd='4559065',db='ktproject',port=3306,charset='utf8')
+    except MySQLdb.Error , e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+    return conn
