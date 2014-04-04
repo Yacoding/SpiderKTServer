@@ -5,7 +5,6 @@ import CnforexSpiderUtils
 def findForexImage():
     # init connection 
     conn = CnforexSpiderUtils.getCnforexSpiderConn()
-    conn.flushdb()
     
     #init MySQL Connection 
     mysqlConn = CnforexSpiderUtils.returnMySQLConn()
