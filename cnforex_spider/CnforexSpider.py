@@ -26,7 +26,9 @@ def findForexImage():
         data = {'imageUrl':imageurl,'linkImageList':findForexImageList(defaultLink+currentlink)}
         conn.set(imageurl+'.cnforex',data)
         createdate = CnforexSpiderUtils.returnCreateDate(title)
-        currentResult.append([imageurl+'.cnforex',imageurl,title,createdate])  
+        if CnforexSpiderUtils.judjeResult(imageurl+'.cnforex')==True:
+            currentResult.append([imageurl+'.cnforex',imageurl,title,createdate])
+        
     mysqlCur.executemany('INSERT  INTO  whkt_resource_table (ID,IMAGEURL,TITLE,CREATEDATE) VALUES (%s,%s,%s,%s)',currentResult);
     mysqlConn.commit()
     mysqlConn.close();

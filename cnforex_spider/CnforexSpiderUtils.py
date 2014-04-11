@@ -54,6 +54,18 @@ def returnCreateDate(text):
     if len(group[1])<2:
         group[1] ='0'+ group[1]
     return currentYear+'-'+ group[0]+'-'+group[1]
+
+def judjeResult(id):    
+    conn = returnMySQLConn()
+    cursor = conn.cursor()
+    sql = "SELECT  COUNT(*)  FROM   whkt_resource_table A  WHERE  A.ID ='%s' "%id
+    print sql
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if int(result[0])>0:
+        return False
+    else:
+        return True
     
     
     
