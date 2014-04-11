@@ -59,7 +59,6 @@ def judjeResult(id):
     conn = returnMySQLConn()
     cursor = conn.cursor()
     sql = "SELECT  COUNT(*)  FROM   whkt_resource_table A  WHERE  A.ID ='%s' "%id
-    print sql
     cursor.execute(sql)
     result = cursor.fetchone()
     if int(result[0])>0:
