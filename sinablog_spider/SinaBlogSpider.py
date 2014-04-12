@@ -1,7 +1,7 @@
 import SinaBlogSpiderUtils
 
 
-def dailySinaBlog(link):
+def dailySinaBlog(link,id):
     startcontext = SinaBlogSpiderUtils.returnStartContext(link)
     blogList = []
     for  i in range(SinaBlogSpiderUtils.findAllTarget(startcontext)):
@@ -12,11 +12,19 @@ def dailySinaBlog(link):
         linkUrl = SinaBlogSpiderUtils.filterContextByTarget(currentcontext, 'target="_blank" href="', '.html">')+'.html'
         pubDate = SinaBlogSpiderUtils.filtetContextExpertise(currentcontext,'<span class="atc_tm SG_txtc">','</span>')
         imageUrl = SinaBlogSpiderUtils.filtetContextExpertise(currentcontext, 'src="', '" width=')
-        print title
-        blogList.append({'title':title,'linkUrl':linkUrl,'pubDate':pubDate,'imageUrl':imageUrl})
+        blogList.append([id,title,linkUrl,pubDate,imageUrl])
     return blogList
 
 
+def writeDailySinaBlog():
+    conn = SinaBlogSpiderUtils.returnMySQLConn()
+    cursor = conn.cursor()
+    for row in SinaBlogSpiderUtils.returnAuthorList():
+        currentReult = dailySinaBlog(row[0],row[1])
+        cursor.executemany('INSERT  INTO  CJHY_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,IMAGEURL) VALUES (%s,%s,%s,%s,%s)',currentReult)
+        conn.commit()
+    cursor.close()
+    conn.close()
+    
 if __name__ =='__main__':
-    link ='http://blog.sina.com.cn/s/articlelist_1284139322_0_1.html'
-    print  dailySinaBlog(link)
+    writeDailySinaBlog()

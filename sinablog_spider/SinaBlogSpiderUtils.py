@@ -1,6 +1,7 @@
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
+import MySQLdb
 
 def returnStartContext(link):
     currentContext = CommonsSpiderUtils.openUrl(link)
@@ -22,3 +23,32 @@ def filtetContextExpertise(context,startfilter,endfilter):
     finterIndex =  CommonsSpiderUtils.filterContext(context,startfilter)
     filterContext = context[finterIndex:]
     return filterContextByTarget(filterContext,startfilter,endfilter)
+
+def returnMySQLConn():
+    try:
+        conn = MySQLdb.connect(host='127.0.0.1',user='root',passwd='4559065',db='ktproject',port=3306,charset='utf8')
+    except MySQLdb.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+    return conn
+
+def returnAuthorList():
+    conn = returnMySQLConn()
+    cursor = conn.cursor()
+    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM CJXJ_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='sina'"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    conn.close()
+    cursor.close()
+    return result
+
+def judjeResult(id):    
+    conn = returnMySQLConn()
+    cursor = conn.cursor()
+    sql = "SELECT  COUNT(*)  FROM   whkt_resource_table A  WHERE  A.ID ='%s' "%id
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if int(result[0])>0:
+        return False
+    else:
+        return True
+

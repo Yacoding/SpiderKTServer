@@ -61,10 +61,13 @@ def judjeResult(id):
     sql = "SELECT  COUNT(*)  FROM   whkt_resource_table A  WHERE  A.ID ='%s' "%id
     cursor.execute(sql)
     result = cursor.fetchone()
+    conn.close()
+    cursor.close()
     if int(result[0])>0:
         return False
     else:
         return True
+    
     
     
     
