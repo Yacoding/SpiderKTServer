@@ -12,6 +12,7 @@ def dailySinaBlog(link):
         linkUrl = SinaBlogSpiderUtils.filterContextByTarget(currentcontext, 'target="_blank" href="', '.html">')+'.html'
         pubDate = SinaBlogSpiderUtils.filtetContextExpertise(currentcontext,'<span class="atc_tm SG_txtc">','</span>')
         imageUrl = SinaBlogSpiderUtils.filtetContextExpertise(currentcontext, 'src="', '" width=')
+        print title
         blogList.append({'title':title,'linkUrl':linkUrl,'pubDate':pubDate,'imageUrl':imageUrl})
     return blogList
 
