@@ -34,7 +34,7 @@ def returnMySQLConn():
 def returnAuthorList():
     conn = returnMySQLConn()
     cursor = conn.cursor()
-    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM CJXJ_RESOURCE_DETAIL_TABLE CJXJ WHERE CJXJ.NET_FL='sina'"
+    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM CJXJ_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='sina'"
     cursor.execute(sql)
     result = cursor.fetchall()
     conn.close()
