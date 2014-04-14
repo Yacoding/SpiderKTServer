@@ -12,6 +12,19 @@ def returnStartContext(link):
 def findAllTarget(context):
     return len(CommonsSpiderUtils.findAllTarget(context,r"<div class='Article'>"))
 
+def findAllImageTarget(context,param):
+    return len(CommonsSpiderUtils.findAllTarget(context,r'%s'%param))
+
+def findImageResource(context):
+    if findAllImageTarget(context,'src="')==0:
+        return ''
+    else:
+        if  findAllImageTarget(context,'.jpg')!=0:
+            return filterContextByTarget(context,'src="','.jpg"')+'.jpg'
+        else:
+            if findAllImageTarget(context,'.png')!=0:
+                return filterContextByTarget(context,'src="','.png"')+'.png'
+        
 
 def divisionTarget(startcontext,startfilter,endfilter):
     startIndex = CommonsSpiderUtils.filterContext(startcontext,startfilter)

@@ -11,7 +11,8 @@ def searchHexunBlog(link,id):
         linkUrl = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"</span><a href='",".html'>")+'.html'
         pubDate = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"</a></span> [","]&nbsp;&nbsp;</div>")[7:]
         descriptContext = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"<div class='ArticleSubstanceText'>",'<p class="ArticleSpaceContent">')
-        blogList.append([id,title,linkUrl,pubDate,descriptContext])
+        imageUrl = HexunBlogSpiderUtils.findImageResource(descriptContext)
+        blogList.append([id,title,linkUrl,pubDate,descriptContext,imageUrl])
     return blogList
 
 def writeHexunBlog():
@@ -21,7 +22,7 @@ def writeHexunBlog():
     conn.commit()
     for row in HexunBlogSpiderUtils.returnAuthorList():
         currentReult = searchHexunBlog(row[0],row[1])
-        cursor.executemany('INSERT  INTO  HSHY_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,DESCRIPTCONTEXT) VALUES (%s,%s,%s,%s,%s)',currentReult)
+        cursor.executemany('INSERT  INTO  HSHY_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,DESCRIPTCONTEXT,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentReult)
         conn.commit()
     cursor.close()
     conn.close()
@@ -29,3 +30,12 @@ def writeHexunBlog():
 
 if __name__ =='__main__':
     writeHexunBlog()
+    
+    
+    
+    
+    
+    
+    
+    
+    
