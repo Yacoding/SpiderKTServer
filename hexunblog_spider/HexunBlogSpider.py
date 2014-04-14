@@ -11,7 +11,6 @@ def searchHexunBlog(link,id):
         linkUrl = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"</span><a href='",".html'>")+'.html'
         pubDate = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"</a></span> [","]&nbsp;&nbsp;</div>")[7:]
         descriptContext = HexunBlogSpiderUtils.filterContextByTarget(currentContext,"<div class='ArticleSubstanceText'>",'<p class="ArticleSpaceContent">')
-        print descriptContext
         blogList.append([id,title,linkUrl,pubDate,descriptContext])
     return blogList
 
