@@ -24,7 +24,6 @@ def findImageResource(context):
         else:
             if findAllImageTarget(context,'.png')!=0:
                 return filterContextByTarget(context,'src="','.png"')+'.png'
-        
 
 def divisionTarget(startcontext,startfilter,endfilter):
     startIndex = CommonsSpiderUtils.filterContext(startcontext,startfilter)
