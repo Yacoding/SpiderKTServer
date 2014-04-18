@@ -1,10 +1,6 @@
 
 import urllib
 
-class SwissQuoteDetail:
-    def __init__(self):
-        self.host = 'localhost'
-        self.port = 6379 
     
 def  openUrl(webHttp):
     urlopen  = urllib.urlopen(webHttp) 
