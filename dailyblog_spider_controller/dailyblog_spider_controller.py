@@ -6,7 +6,9 @@ import SinaBlogSpider
 
 
 def updateBlogData():
+    #HEXUN NET BLOG SPIDER
     HexunBlogSpider.writeHexunBlog()
+    #SINA NET BLOG SPIDER
     SinaBlogSpider.writeDailySinaBlog()
 
 if __name__ =="__main__":
