@@ -23,22 +23,28 @@ def crawlStockPool(link):
             filterLinkUrl = WlStockPoolSpiderUtils.filterContextByTarget(filterCurrentContext,"<a href='",' target="_blank">')
             linkUrl = filterLinkUrl[:len(filterLinkUrl)-1]
             stockSector = WlStockPoolSpiderUtils.filterContextByTarget(filterCurrentContext,'target="_blank">','</a>')
-            stockForumDescription = ''
-            filterStockPoolList(linkUrl)
-            filterCurrentForumSet.append([id,linkUrl,stockSector,stockForumDescription])
-        #print filterCurrentForumSet
+            stockSetId = str(uuid.uuid1())
+            stockSetMap = filterStockPoolList(linkUrl,stockSetId)
+            stockForumDescription = stockSetMap['stockForumDescription']
+            filterStockForum.append(stockSetMap['stockSet'])
+            filterCurrentForumSet.append([id,linkUrl,stockSector,stockForumDescription,stockSetId])
+        print filterCurrentForumSet
+        print filterStockForum
 
 
-def filterStockPoolList(link):
+def filterStockPoolList(link,stockSetId):
     startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist f14px">');
     stockForumDescription = WlStockPoolSpiderUtils.filterContextByTarget(startContext, '</strong>', '</p>')
+    stockSet = []
     for index in range(WlStockPoolSpiderUtils.findAllTarget(startContext, '<li>')):
         targetContext = WlStockPoolSpiderUtils.divisionTarget(startContext,'<li>','</li>')
         startContext = targetContext['nextContext']
         currentcontext = targetContext['targetContext']
-        print currentcontext
+        stockNumber = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'/gupiao/gegu/', '.aspx')
+        stockName = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'target="_blank">', '</A>')
+        stockSet.append([stockSetId,stockName,stockNumber])
+    return {'stockForumDescription':stockForumDescription,'stockSet':stockSet}    
         
-
 if __name__=="__main__":
     link = 'http://www.wlstock.com/GuPiao/StockPool.aspx'
     crawlStockPool(link)
