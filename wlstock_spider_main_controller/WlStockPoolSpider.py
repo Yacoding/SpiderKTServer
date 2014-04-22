@@ -3,6 +3,12 @@ import uuid
 
 
 def crawlStockPool(link):
+    
+    #init MySQL Connection 
+    mysqlConn = WlStockPoolSpiderUtils.getConnection()
+    mysqlCur = mysqlConn.cursor()
+    
+    #INIT STOCK POOL INFORMATION 
     startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist">');
     startcontext = WlStockPoolSpiderUtils.returnFilterMainContext(startContext,'<div class="arrowlist">', '<div class="clear marb"></div>')
     for i in range(WlStockPoolSpiderUtils.findAllTarget(startcontext,'<ul>')):
@@ -11,10 +17,11 @@ def crawlStockPool(link):
         currentcontext = targetContext['targetContext']
         stockMain = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'<b>','</b></h2>')
         gpcId = str(uuid.uuid1())
-        #print 'uuid: '+ gpcId +' stockMain: '+stockMain
+        print 'uuid: '+ gpcId +' stockMain: '+stockMain
         startFilterContext = currentcontext
         filterCurrentForumSet = []
         filterStockForum = []
+        
         ## FILTER CURRENT UL LIST
         for count in range(WlStockPoolSpiderUtils.findAllTarget(currentcontext, '<li>')):
             filterTargetContext = WlStockPoolSpiderUtils.divisionTarget(startFilterContext,'<li>','</li>')
@@ -26,10 +33,21 @@ def crawlStockPool(link):
             stockSetId = str(uuid.uuid1())
             stockSetMap = filterStockPoolList(linkUrl,stockSetId)
             stockForumDescription = stockSetMap['stockForumDescription']
-            filterStockForum.append(stockSetMap['stockSet'])
-            filterCurrentForumSet.append([id,linkUrl,stockSector,stockForumDescription,stockSetId])
-        print filterCurrentForumSet
-        print filterStockForum
+            filterStockForum += stockSetMap['stockSet']
+            filterCurrentForumSet.append([gpcId,linkUrl,stockSector,stockForumDescription,stockSetId])
+        print '-------------------------------------------------------------------------------------------'
+        sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')";
+        print sql
+        ##DATASET SUBMIT 
+        try:
+            mysqlCur.execute(sql)
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE(STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID)VALUES(s%,s%,s%,s%,s%)',filterCurrentForumSet)
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(s%,s%,s%)',filterStockForum)
+            mysqlConn.commit()
+        except:
+            mysqlConn.rollback()
+    mysqlConn.close()
+    mysqlCur.close()
 
 
 def filterStockPoolList(link,stockSetId):
