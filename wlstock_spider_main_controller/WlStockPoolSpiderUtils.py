@@ -30,3 +30,6 @@ def divisionTarget(startcontext,startfilter,endfilter):
 def filterContextByTarget(context,startfilter,endfilter):
     return context[CommonsSpiderUtils.filterContext(context,startfilter)+len(startfilter):CommonsSpiderUtils.filterContext(context,endfilter)]
 
+# INIT MYSQL CONNECTION 
+def getConnection():
+    return CommonsMysqlUtils.returnMySQLConn()
