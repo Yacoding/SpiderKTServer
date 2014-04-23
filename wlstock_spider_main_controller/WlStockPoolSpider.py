@@ -41,11 +41,24 @@ def crawlStockPool(link):
         ##DATASET SUBMIT 
         try:
             mysqlCur.execute(sql)
-            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE(STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID)VALUES(s%,s%,s%,s%,s%)',filterCurrentForumSet)
-            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(s%,s%,s%)',filterStockForum)
             mysqlConn.commit()
         except:
             mysqlConn.rollback()
+        
+        ## DATASET COMMIT  TO  STOCK_POOL_MAIN_THEME_TABLE
+        try:
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE(STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID)VALUES(s%,s%,s%,s%,s%)',filterCurrentForumSet) 
+            mysqlConn.commit()
+        except:
+            mysqlConn.rollback()
+            
+        ## DATASET COMMIT TO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE   
+        try:
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(s%,s%,s%)',filterStockForum)
+            mysqlConn.commit()
+        except:
+            mysqlConn.rollback() 
+        
     mysqlConn.close()
     mysqlCur.close()
 
