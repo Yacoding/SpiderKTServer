@@ -37,7 +37,6 @@ def crawlStockPool(link):
             filterCurrentForumSet.append([gpcId,linkUrl,stockSector,stockForumDescription,stockSetId])
         print '-------------------------------------------------------------------------------------------'
         sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')";
-        print sql
         ##DATASET SUBMIT 
         try:
             mysqlCur.execute(sql)
@@ -47,6 +46,7 @@ def crawlStockPool(link):
         
         ## DATASET COMMIT  TO  STOCK_POOL_MAIN_THEME_TABLE
         try:
+            print filterCurrentForumSet
             mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE(STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID)VALUES(s%,s%,s%,s%,s%)',filterCurrentForumSet) 
             mysqlConn.commit()
         except:
@@ -54,6 +54,7 @@ def crawlStockPool(link):
             
         ## DATASET COMMIT TO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE   
         try:
+            print filterStockForum
             mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(s%,s%,s%)',filterStockForum)
             mysqlConn.commit()
         except:
