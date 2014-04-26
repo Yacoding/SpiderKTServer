@@ -57,6 +57,11 @@ def swissquoteTodayNewsSpider():
         #rediss.set(key+'.swissquote', item)
         print item['link']+'------'+item['title']+'------'+item['description']
 
+def writeSwissquoteTodayNews():
+    
+    return 
+
+
 if __name__ == '__main__':
     swissquoteTodayNewsSpider();
               
