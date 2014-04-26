@@ -34,8 +34,8 @@ def crawlStockPool(link):
             stockForumDescription = stockSetMap['stockForumDescription']
             filterStockForum += stockSetMap['stockSet']
             filterCurrentForumSet.append([gpcId,linkUrl,stockSector,stockForumDescription,stockSetId])
-        print '-------------------------------------------------------------------------------------------'
         sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')";
+        
         ##DATASET SUBMIT 
         try:
             mysqlCur.execute(sql)
