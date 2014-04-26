@@ -17,7 +17,6 @@ def crawlStockPool(link):
         currentcontext = targetContext['targetContext']
         stockMain = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'<b>','</b></h2>')
         gpcId = str(uuid.uuid1())
-        print 'uuid: '+ gpcId +' stockMain: '+stockMain
         startFilterContext = currentcontext
         filterCurrentForumSet = []
         filterStockForum = []
@@ -33,13 +32,10 @@ def crawlStockPool(link):
             stockSetId = str(uuid.uuid1())
             stockSetMap = filterStockPoolList(linkUrl,stockSetId)
             stockForumDescription = stockSetMap['stockForumDescription']
-            print stockForumDescription
             filterStockForum += stockSetMap['stockSet']
-            print filterStockForum
             filterCurrentForumSet.append([gpcId,linkUrl,stockSector,stockForumDescription,stockSetId])
         print '-------------------------------------------------------------------------------------------'
         sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')";
-        
         ##DATASET SUBMIT 
         try:
             mysqlCur.execute(sql)
@@ -50,25 +46,20 @@ def crawlStockPool(link):
         
         ## DATASET COMMIT TO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE   
         try:
-            print filterStockForum
-            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(s%,s%,s%)',filterStockForum)
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(%s,%s,%s)',filterStockForum)
             mysqlConn.commit()
         except mysqlConn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             mysqlConn.rollback() 
         
-        
         ## DATASET COMMIT  TO  STOCK_POOL_MAIN_THEME_TABLE
         try:
-            print filterCurrentForumSet
-            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE (STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID) VALUES (s%,s%,s%,s%,s%)',filterCurrentForumSet) 
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_TABLE (STOCKPOOL_ID,LINKURL,STOCKSECTOR,STOCKFORUMDESCRIPTION,STOCKSETID) VALUES (%s,%s,%s,%s,%s)',filterCurrentForumSet) 
             mysqlConn.commit()
         except mysqlConn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             mysqlConn.rollback()
             
-       
-        
     mysqlConn.close()
     mysqlCur.close()
 
@@ -83,7 +74,7 @@ def filterStockPoolList(link,stockSetId):
         currentcontext = targetContext['targetContext']
         stockNumber = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'/gupiao/gegu/', '.aspx')
         stockName = WlStockPoolSpiderUtils.filterContextByTarget(currentcontext,'target="_blank">', '</A>')
-        stockSet.append([stockSetId,stockName.encode('GBK'),stockNumber])
+        stockSet.append([stockSetId,stockName,stockNumber])
     return {'stockForumDescription':stockForumDescription,'stockSet':stockSet}    
         
 if __name__=="__main__":
