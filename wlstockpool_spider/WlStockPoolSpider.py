@@ -9,7 +9,7 @@ def crawlStockPool(link):
     mysqlCur = mysqlConn.cursor()
     
     #INIT STOCK POOL INFORMATION 
-    startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist">');
+    startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist">')
     startcontext = WlStockPoolSpiderUtils.returnFilterMainContext(startContext,'<div class="arrowlist">', '<div class="clear marb"></div>')
     for i in range(WlStockPoolSpiderUtils.findAllTarget(startcontext,'<ul>')):
         targetContext = WlStockPoolSpiderUtils.divisionTarget(startcontext,'<ul>','</ul>')
@@ -34,7 +34,8 @@ def crawlStockPool(link):
             stockForumDescription = stockSetMap['stockForumDescription']
             filterStockForum += stockSetMap['stockSet']
             filterCurrentForumSet.append([gpcId,linkUrl,stockSector,stockForumDescription,stockSetId])
-        sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')";
+        
+        sql = "INSERT  INTO  STOCK_POOL_MAIN_TABLE (STOCK_MAIN,STOCKPOOL_ID)VALUES('"+stockMain+"','"+gpcId+"')"
         
         ##DATASET SUBMIT 
         try:
@@ -46,7 +47,7 @@ def crawlStockPool(link):
         
         ## DATASET COMMIT TO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE   
         try:
-            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE(STOCKSETID,STOCKNAME,STOCKNUMBER)VALUES(%s,%s,%s)',filterStockForum)
+            mysqlCur.executemany('INSERT  INTO  STOCK_POOL_MAIN_THEME_RESOURCE_TABLE (STOCKSETID,STOCKNAME,STOCKNUMBER) VALUES (%s,%s,%s)',filterStockForum)
             mysqlConn.commit()
         except mysqlConn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -65,7 +66,8 @@ def crawlStockPool(link):
 
 
 def filterStockPoolList(link,stockSetId):
-    startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist f14px">');
+    startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist f14px">')
+    print startContext
     stockForumDescription = WlStockPoolSpiderUtils.filterContextByTarget(startContext, '</strong>', '</p>')
     stockSet = []
     for index in range(WlStockPoolSpiderUtils.findAllTarget(startContext, '<li>')):
