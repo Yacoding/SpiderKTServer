@@ -17,12 +17,18 @@ def filterContextByTarget(context,startfilter,endfilter):
 def filterSwissQuoteImage(link):
     context = openUrl(link)
     filterContext = context[filterContextBy(context,'<div class="contentArticle ">'):]
+    print filterContext
     imagelink = filterContextByTarget(filterContextByTarget(filterContext,'<div class="contentArticle ">','</div>'),'src=','width')
     imageurl = imagelink[1:len(imagelink)-4]
     return imageurl
 
 def writeSwissQuoteImage(imageurl):
     urllib.urlretrieve(imageurl, imageurl[len('http://files.ac-markets.com/Newsletter/0000-00-00/'):])
+    
+if __name__ == '__main__':
+    link = 'http://cn.swissquote.com/fx/news/daily-fx-news/2014/4/25'
+    filterSwissQuoteImage(link)
+       
     
     
     

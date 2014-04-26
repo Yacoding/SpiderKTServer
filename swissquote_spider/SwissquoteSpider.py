@@ -1,69 +1,54 @@
-import urllib
-import redis
-import re 
 import SwissQuoteImageSpider
+import SwissquoteSpiderUtils
 
-#open url and read
-def  openUrl(webHttp):
-    urlopen  = urllib.urlopen(webHttp) 
-    context = urlopen.read()
-    urlopen.close()
-    return  context
-
-# filter context 
-def filterContext(context,filter):
-    return context.find(filter)
-
-
-def filterContextAllByIteam(context):
-    pattern = re.compile(r'<item>')
-    return re.findall(pattern,context)
-
-def redisWrite(key,value):
-    try :
-        rediss = redis.StrictRedis(host='localhost', port=6379,db='swissquote')
-        rediss.set(key, value)
-    except Exception , exception :
-        print exception
-    return 
-
-def filterContextByTarget(filterdata,startfilter,endfilter):
-    return  filterdata[filterContext(filterdata,startfilter)+len(startfilter):filterContext(filterdata,endfilter)]
 
 # final method
-def swissquoteTodayNewsSpider():
-    context = openUrl('http://apps.swissquote.com/rss/zh/DailyForexNews.rss')
+def swissquoteTodayNewsSpider(link):
+    context = SwissquoteSpiderUtils.openUrl(link)
     startcontext = context
     #rediss = redis.StrictRedis(host='localhost', port=6379)
     #clear database
     #rediss.flushdb()
-    for i in range(len(filterContextAllByIteam(context)) ):
-        startIndex =  filterContext(startcontext,'<item>')
-        endIndex =  filterContext(startcontext,'</item>')+len('</item>')
+    resultList = []
+    for i in range(len(SwissquoteSpiderUtils.filterContextAllByIteam(context)) ):
+        startIndex =  SwissquoteSpiderUtils.filterContext(startcontext,'<item>')
+        endIndex =  SwissquoteSpiderUtils.filterContext(startcontext,'</item>')+len('</item>')
         itemContext =  startcontext[startIndex:endIndex]
-        startcontext = startcontext[filterContext(startcontext,'</item>')+len('</item>'):]
+        startcontext = startcontext[SwissquoteSpiderUtils.filterContext(startcontext,'</item>')+len('</item>'):]
         
-        link = filterContextByTarget(itemContext,'<link>','</link>')
-        key = filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
+        link = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<link>','</link>')
+        key = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
+        print link 
         imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
+        author = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<author>','</author>')
+        title = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<title>','</title>')
+        description = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<description>','</description>')
+        print imageurl
+        resultList.append([key,link,author,title,description,imageurl])
+        
         #writeImage
         #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
+        
         #ToMakeInfor
-        item = {'link':link
-                ,'author':filterContextByTarget(itemContext,'<author>','</author>')
-                ,'title':filterContextByTarget(itemContext,'<title>','</title>')
-                ,'description':filterContextByTarget(itemContext,'<description>','</description>')
-                ,'imageurl':imageurl}
+        #item = {'link':link,'author':author,'title':title,'description':description,'imageurl':imageurl}
+        #print item['link']+'------'+item['title']+'------'+item['description']
         #rediss.set(key+'.swissquote', item)
-        print item['link']+'------'+item['title']+'------'+item['description']
+    return  resultList  
 
 def writeSwissquoteTodayNews():
-    
-    return 
+    link = 'http://apps.swissquote.com/rss/zh/DailyForexNews.rss'
+    currentResult = swissquoteTodayNewsSpider(link);
+    print currentResult
+    conn = SwissquoteSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    cursor.executemany('INSERT  INTO  DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 
 if __name__ == '__main__':
-    swissquoteTodayNewsSpider();
+    writeSwissquoteTodayNews()
               
         
         
