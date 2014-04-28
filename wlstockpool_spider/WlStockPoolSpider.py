@@ -68,7 +68,10 @@ def crawlStockPool(link):
 def filterStockPoolList(link,stockSetId):
     startContext = WlStockPoolSpiderUtils.returnStartContext(link,'<div class="arrowlist f14px">')
     print startContext
-    stockForumDescription = WlStockPoolSpiderUtils.filterContextByTarget(startContext, '</strong>', '</p>')
+    stockForumDescription=''
+    print WlStockPoolSpiderUtils.filterContextByTarget(startContext,'<div class="arrowlist f14px">','<ul>')
+    if WlStockPoolSpiderUtils.filterContextByTarget(startContext,'<div class="arrowlist f14px">','<ul>')!='':
+        stockForumDescription = WlStockPoolSpiderUtils.filterContextByTarget(startContext, '</strong>', '</p>')
     stockSet = []
     for index in range(WlStockPoolSpiderUtils.findAllTarget(startContext, '<li>')):
         targetContext = WlStockPoolSpiderUtils.divisionTarget(startContext,'<li>','</li>')
