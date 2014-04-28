@@ -33,3 +33,12 @@ def filterContextByTarget(context,startfilter,endfilter):
 # INIT MYSQL CONNECTION 
 def getConnection():
     return CommonsMysqlUtils.returnMySQLConn()
+
+# 
+def trimFilter(startContext,filterStart,filterEnd,mainFilter):
+    filterInfor = filterContextByTarget(startContext,filterStart,filterEnd)
+    if filterInfor.find(mainFilter)==-1:
+        return False
+    else:
+        return True
+    
