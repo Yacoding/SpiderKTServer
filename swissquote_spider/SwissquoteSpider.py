@@ -1,5 +1,6 @@
 import SwissQuoteImageSpider
 import SwissquoteSpiderUtils
+import uuid
 
 
 # final method
@@ -10,21 +11,21 @@ def swissquoteTodayNewsSpider(link):
     #clear database
     #rediss.flushdb()
     resultList = []
-    for i in range(len(SwissquoteSpiderUtils.filterContextAllByIteam(context)) ):
+    for i in range(len(SwissquoteSpiderUtils.filterContextAllByIteam(context))):
         startIndex =  SwissquoteSpiderUtils.filterContext(startcontext,'<item>')
         endIndex =  SwissquoteSpiderUtils.filterContext(startcontext,'</item>')+len('</item>')
         itemContext =  startcontext[startIndex:endIndex]
         startcontext = startcontext[SwissquoteSpiderUtils.filterContext(startcontext,'</item>')+len('</item>'):]
         
         link = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<link>','</link>')
-        key = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
-        print link 
+        ##key = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
+        key = str(uuid.uuid1())     
         imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
         author = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<author>','</author>')
         title = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<title>','</title>')
         description = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<description>','</description>')
         print imageurl
-        resultList.append([key,link,author,title,description,imageurl])
+        resultList.append([key,link,author,title,description])
         
         #writeImage
         #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
@@ -33,7 +34,7 @@ def swissquoteTodayNewsSpider(link):
         #item = {'link':link,'author':author,'title':title,'description':description,'imageurl':imageurl}
         #print item['link']+'------'+item['title']+'------'+item['description']
         #rediss.set(key+'.swissquote', item)
-    return  resultList  
+    return  resultList
 
 def writeSwissquoteTodayNews():
     link = 'http://apps.swissquote.com/rss/zh/DailyForexNews.rss'
@@ -41,7 +42,7 @@ def writeSwissquoteTodayNews():
     print currentResult
     conn = SwissquoteSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
-    cursor.executemany('INSERT  INTO  DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
+    cursor.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION) VALUES (%s,%s,%s,%s,%s)',currentResult)
     conn.commit()
     cursor.close()
     conn.close()

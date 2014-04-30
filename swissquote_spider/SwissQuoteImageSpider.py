@@ -17,7 +17,6 @@ def filterContextByTarget(context,startfilter,endfilter):
 def filterSwissQuoteImage(link):
     context = openUrl(link)
     filterContext = context[filterContextBy(context,'<div class="contentArticle ">'):]
-    print filterContext
     imagelink = filterContextByTarget(filterContextByTarget(filterContext,'<div class="contentArticle ">','</div>'),'src=','width')
     imageurl = imagelink[1:len(imagelink)-4]
     return imageurl
