@@ -22,8 +22,6 @@ def writeHexunBlog():
     conn.commit()
     for row in HexunBlogSpiderUtils.returnAuthorList():
         currentReult = searchHexunBlog(row[0],row[1])
-        print row[0]+row[1]
-        print currentReult
         try:
             cursor.executemany('INSERT  INTO  HSHY_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,DESCRIPTCONTEXT,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentReult)
             conn.commit()
