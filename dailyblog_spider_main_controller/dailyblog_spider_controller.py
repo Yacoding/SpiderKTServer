@@ -3,12 +3,14 @@ sys.path.append("../hexunblog_spider/")
 sys.path.append("../sinablog_spider/")
 import HexunBlogSpider
 import SinaBlogSpider
-
+from distutils import log
 
 def updateBlogData():
     #HEXUN NET BLOG SPIDER
+    log.info('The system crawling the informarion of  xehun net')
     HexunBlogSpider.writeHexunBlog()
     #SINA NET BLOG SPIDER
+    log.info('The system crawling the information of  sina blog')
     SinaBlogSpider.writeDailySinaBlog()
 
 if __name__ =="__main__":
