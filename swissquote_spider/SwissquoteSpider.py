@@ -24,8 +24,7 @@ def swissquoteTodayNewsSpider(link):
         author = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<author>','</author>')
         title = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<title>','</title>')
         description = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<description>','</description>')
-        print imageurl
-        resultList.append([key,link,author,title,description])
+        resultList.append([key,link,author,title,description,imageurl])
         
         #writeImage
         #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
@@ -42,7 +41,7 @@ def writeSwissquoteTodayNews():
     print currentResult
     conn = SwissquoteSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
-    cursor.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION) VALUES (%s,%s,%s,%s,%s)',currentResult)
+    cursor.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
     conn.commit()
     cursor.close()
     conn.close()
