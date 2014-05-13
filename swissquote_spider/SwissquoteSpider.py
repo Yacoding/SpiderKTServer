@@ -18,13 +18,19 @@ def swissquoteTodayNewsSpider(link):
         startcontext = startcontext[SwissquoteSpiderUtils.filterContext(startcontext,'</item>')+len('</item>'):]
         
         link = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<link>','</link>')
-        ##key = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
+        
+        #key = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'isPermaLink="false">','</guid>')
         key = str(uuid.uuid1())     
         imageurl = SwissQuoteImageSpider.filterSwissQuoteImage(link)
         author = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<author>','</author>')
         title = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<title>','</title>')
         description = SwissquoteSpiderUtils.filterContextByTarget(itemContext,'<description>','</description>')
-        resultList.append([key,link,author,title,description,imageurl])
+        
+        #GET LINK LEN AND GET PUBDATE  
+        linklen = len('http://cn.swissquote.com/fx/news/daily-fx-news/2014/')
+        pubDate = SwissquoteSpiderUtils.returnCreateDate(link[linklen:])
+            
+        resultList.append([key,link,author,title,description,imageurl,pubDate])
         
         #writeImage
         #SwissQuoteImageSpider.writeSwissQuoteImage(imageurl);
@@ -43,14 +49,14 @@ def writeSwissquoteTodayNews():
     mysqlCur = mysqlConn.cursor()
     
     try:
-        mysqlCur.execute("DELETE FROM  FOREX_DAILY_NEWS_RESOURCE_TABLE")
+        mysqlCur.execute("DELETE FROM  WHKT_NEWS_RESOURCE_TABLE")
         mysqlConn.commit()
     except mysqlConn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         mysqlConn.rollback()
     
     try:
-        mysqlCur.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
+        mysqlCur.executemany('INSERT  INTO  WHKT_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL,PUBDATE) VALUES (%s,%s,%s,%s,%s,%s,%s)',currentResult)
         mysqlConn.commit()
     except mysqlConn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -60,7 +66,8 @@ def writeSwissquoteTodayNews():
     mysqlConn.close()
 
         
-        
+if __name__=="__main__":
+    writeSwissquoteTodayNews();       
         
         
         
