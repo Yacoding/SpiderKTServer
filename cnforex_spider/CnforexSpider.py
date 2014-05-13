@@ -1,6 +1,4 @@
-
 import CnforexSpiderUtils
-
 
 def findForexImage():
     # init connection 
