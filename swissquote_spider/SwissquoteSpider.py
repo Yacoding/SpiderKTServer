@@ -39,17 +39,26 @@ def writeSwissquoteTodayNews():
     link = 'http://apps.swissquote.com/rss/zh/DailyForexNews.rss'
     currentResult = swissquoteTodayNewsSpider(link);
     print currentResult
-    conn = SwissquoteSpiderUtils.getMySQLConn()
-    cursor = conn.cursor()
-    cursor.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    mysqlConn = SwissquoteSpiderUtils.getMySQLConn()
+    mysqlCur = mysqlConn.cursor()
+    
+    try:
+        mysqlCur.execute("DELETE FROM  FOREX_DAILY_NEWS_RESOURCE_TABLE")
+        mysqlConn.commit()
+    except mysqlConn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        mysqlConn.rollback()
+    
+    try:
+        mysqlCur.executemany('INSERT  INTO  FOREX_DAILY_NEWS_RESOURCE_TABLE (KEYID,LINK,AUTHOR,TITLE,DESCRIPTION,IMAGEURL) VALUES (%s,%s,%s,%s,%s,%s)',currentResult)
+        mysqlConn.commit()
+    except mysqlConn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        mysqlConn.rollback()    
+    
+    mysqlCur.close()
+    mysqlConn.close()
 
-
-if __name__ == '__main__':
-    writeSwissquoteTodayNews()
-              
         
         
         
