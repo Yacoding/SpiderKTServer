@@ -10,5 +10,6 @@ def  updateDailyForexPic():
     CnforexSpider.findForexImage();
     log.info('The system crawling the resource of daily news of  forex ')
     SwissquoteSpider.writeSwissquoteTodayNews();
+    
 if __name__=="__main__":
     updateDailyForexPic()
