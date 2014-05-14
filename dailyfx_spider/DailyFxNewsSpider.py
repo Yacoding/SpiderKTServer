@@ -42,10 +42,33 @@ def dailyForexNews():
             currentList.append([currentDict['titletime'],currentDict['descriptcontext'],currentDict['descriptdetails']])
         else:
             currentList.append([currentDict['titletime'],currentDict['descriptcontext'],''])
-    print currentList
-
+    
+    return currentList
+    
+def writeDailyForexNews():
+    currentList = dailyForexNews()
+    conn = DailyFxSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("DELETE FROM  DAILY_FOREX_NEWS_RESOURCE_TABLE")
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    
+    try:
+        cursor.executemany('INSERT  INTO  DAILY_FOREX_NEWS_RESOURCE_TABLE (TITLETIME,DESCRIPTCONTEXT,DESCRIPTDETAILS) VALUES (%s,%s,%s)',currentList)
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    
+    cursor.close()
+    conn.close()
+        
 if __name__ =='__main__':
-    dailyForexNews()
+    writeDailyForexNews()
     
            
             

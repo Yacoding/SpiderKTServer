@@ -29,6 +29,6 @@ def filterSubSetContext(startcontext,startfilter,endfilter):
 
 # GET MYSQL CONNECTION
 def getMySQLConn():
-    CommonsMysqlUtils.returnMySQLConn()
+    return CommonsMysqlUtils.returnMySQLConn()
 
     
