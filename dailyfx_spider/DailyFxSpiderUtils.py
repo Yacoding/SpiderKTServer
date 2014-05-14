@@ -1,11 +1,7 @@
 import sys
 sys.path.append("../commonutils_spider/")
 import  CommonsSpiderUtils
-
-class DailyFxSpiderUtils:
-    def __init__(self):
-        self.host = 'localhost'
-
+import  CommonsMysqlUtils
 
 def retrunStartContext(link):
     context = CommonsSpiderUtils.openUrl(link)
@@ -30,4 +26,9 @@ def filterSubSetContext(startcontext,startfilter,endfilter):
     startIndex =  CommonsSpiderUtils.filterContext(startcontext,startfilter)+len(startfilter)
     endIndex = CommonsSpiderUtils.filterContext(startcontext,endfilter)
     return startcontext[startIndex:endIndex]
+
+# GET MYSQL CONNECTION
+def getMySQLConn():
+    CommonsMysqlUtils.returnMySQLConn()
+
     
