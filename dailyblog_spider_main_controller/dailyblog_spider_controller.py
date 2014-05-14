@@ -10,7 +10,7 @@ def updateBlogData():
     #SINA NET BLOG SPIDER
     log.info('The system crawling the information of  sina blog')
     SinaBlogSpider.writeDailySinaBlog()
-     #HEXUN NET BLOG SPIDER
+    #HEXUN NET BLOG SPIDER
     log.info('The system crawling the informarion of  xehun net')
     HexunBlogSpider.writeHexunBlog()
       
