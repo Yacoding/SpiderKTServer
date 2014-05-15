@@ -2,17 +2,18 @@ import CnfolBlogSpiderUtils
 
 
 
-def dailyCnfolBlogSpider():
-    
-    return 
+def dailyCnfolBlogSpider(linkUrl):
+    startContext =  CnfolBlogSpiderUtils.returnStartContext(linkUrl, '<div class="articleListAll">')            
+    print startContext
 
 
 def writeDailyCnfolBlogSpider():
-    return
+    linkUrl = 'http://new.blog.cnfol.com/zhangping626'
+    dailyCnfolBlogSpider(linkUrl)
 
 
 if __name__=='__main__':
-    print '----'
+    writeDailyCnfolBlogSpider()
 
 
 
