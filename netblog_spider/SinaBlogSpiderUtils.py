@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
-import MySQLdb
+import CommonsMysqlUtils
 
 def returnStartContext(link):
     currentContext = CommonsSpiderUtils.openUrl(link)
@@ -25,11 +25,7 @@ def filtetContextExpertise(context,startfilter,endfilter):
     return filterContextByTarget(filterContext,startfilter,endfilter)
 
 def returnMySQLConn():
-    try:
-        conn = MySQLdb.connect(host='127.0.0.1',user='root',passwd='4559065',db='ktproject',port=3306,charset='utf8')
-    except MySQLdb.Error,e:
-        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-    return conn
+    return CommonsMysqlUtils.returnMySQLConn()
 
 def returnAuthorList():
     conn = returnMySQLConn()

@@ -2,10 +2,6 @@ import urllib
 import re
 import urllib2
 
-class CommonsSpiderUtils:
-    def __init__(self):
-        self.host = 'localhost'
-        self.part = 6379
         
 #open url and read
 def  openUrl(webHttp):
