@@ -2,7 +2,7 @@ import time
 import sys
 import re
 
-sys.path.append("../dailyfx_spider/")
+sys.path.append("../dailyforex_spider/")
 import DailyFxNewsSpider
 
 def task():
