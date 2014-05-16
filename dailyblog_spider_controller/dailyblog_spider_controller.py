@@ -1,5 +1,5 @@
 import  sys
-sys.path.append("../netblog_spider/")
+sys.path.append("../dailyblog_spider/")
 import HexunBlogSpider
 import SinaBlogSpider
 from distutils import log
