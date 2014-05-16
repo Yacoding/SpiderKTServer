@@ -1,4 +1,5 @@
 import DailyFxSpiderUtils
+import uuid
 
 
 def  filterFinalTarget(sectionDict):
@@ -37,11 +38,11 @@ def dailyForexNews():
         sectionDict = dict['targetContext']
         #print sectionDict(the final result)
         currentDict = filterFinalTarget(sectionDict)
-        
+        keyid = str(uuid.uuid1())
         if currentDict['descriptdetails'] !='':
-            currentList.append([currentDict['titletime'],currentDict['descriptcontext'],currentDict['descriptdetails']])
+            currentList.append([keyid,currentDict['titletime'],currentDict['descriptcontext'],currentDict['descriptdetails']])
         else:
-            currentList.append([currentDict['titletime'],currentDict['descriptcontext'],''])
+            currentList.append([keyid,currentDict['titletime'],currentDict['descriptcontext'],''])
     
     return currentList
     
@@ -58,7 +59,7 @@ def writeDailyForexNews():
         conn.rollback()
     
     try:
-        cursor.executemany('INSERT  INTO  DAILY_FOREX_NEWS_RESOURCE_TABLE (TITLETIME,DESCRIPTCONTEXT,DESCRIPTDETAILS) VALUES (%s,%s,%s)',currentList)
+        cursor.executemany('INSERT  INTO  DAILY_FOREX_NEWS_RESOURCE_TABLE (KEYID,TITLETIME,DESCRIPTCONTEXT,DESCRIPTDETAILS) VALUES (%s,%s,%s,%s)',currentList)
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
