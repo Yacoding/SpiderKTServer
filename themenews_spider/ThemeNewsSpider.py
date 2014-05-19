@@ -1,6 +1,7 @@
 import ThemeNewsSpiderUtils;
 import uuid
 
+# CRAW THEME DAILY NEWS 
 def  crawThemeDailyNews(link):
     filterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews">')
     startContext = ThemeNewsSpiderUtils.filterContextByTarget(filterContext,'<ul>','</ul>')
@@ -19,8 +20,8 @@ def  crawThemeDailyNews(link):
     return currentList
 
 
+# GET DAILYNEWS BY LINKS  
 def writeThemeDailyNewsByLink(currentLinkList):
-    
     conn = ThemeNewsSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     
@@ -42,10 +43,15 @@ def writeThemeDailyNewsByLink(currentLinkList):
     cursor.close()
     conn.close()
 
+
+# WRITE THEME DAILY NEWS 
 def writeThemeDailyNews():
     currentLinkList = ['http://stock.stockstar.com/list/1577_1.shtml',
                        'http://stock.stockstar.com/list/1577_2.shtml']
     writeThemeDailyNewsByLink(currentLinkList)
+    
+    
+    
 if __name__=='__main__':
     writeThemeDailyNews()
    
