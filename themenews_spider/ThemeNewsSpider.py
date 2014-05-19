@@ -19,28 +19,33 @@ def  crawThemeDailyNews(link):
     return currentList
 
 
-def writeThemeDailyNews():
-    link = 'http://stock.stockstar.com/list/sectors.htm'    
-    currentResult = crawThemeDailyNews(link)
+def writeThemeDailyNewsByLink(currentLinkList):
+    
     conn = ThemeNewsSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
+    
     try:
         cursor.execute("DELETE FROM STOCK_POOL_THEME_NEWS_TABLE")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
-    
-    try:
-        cursor.executemany('INSERT INTO STOCK_POOL_THEME_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)',currentResult)
-        conn.commit()
-    except conn.Error,e:
-        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-        conn.rollback()
+        
+    for link in currentLinkList:
+        currentResult = crawThemeDailyNews(link)
+        try:
+            cursor.executemany('INSERT INTO STOCK_POOL_THEME_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)',currentResult)
+            conn.commit()
+        except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            conn.rollback()
     cursor.close()
     conn.close()
 
-
+def writeThemeDailyNews():
+    currentLinkList = ['http://stock.stockstar.com/list/1577_1.shtml',
+                       'http://stock.stockstar.com/list/1577_2.shtml']
+    writeThemeDailyNewsByLink(currentLinkList)
 if __name__=='__main__':
     writeThemeDailyNews()
    
