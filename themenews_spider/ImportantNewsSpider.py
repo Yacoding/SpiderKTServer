@@ -1,8 +1,8 @@
 import ThemeNewsSpiderUtils;
 import uuid
 
-# CRAW THEME DAILY NEWS 
-def  crawThemeDailyNews(link):
+# CRAW COMPANY NEWS 
+def  crawCompanyNews(link):
     filterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews">')
     startContext = ThemeNewsSpiderUtils.filterContextByTarget(filterContext,'<ul>','</ul>')
     len = ThemeNewsSpiderUtils.findAllTarget(startContext,'<li>')
@@ -19,23 +19,22 @@ def  crawThemeDailyNews(link):
             currentList.append([keyid,linkUrl,pubDate,title])
     return currentList
 
-
-# GET DAILYNEWS BY LINKS  
-def writeThemeDailyNewsByLink(currentLinkList):
+# WRITE COMPANY NEWS BY LINK 
+def writeCompanyNewsByLink(currentLinkList):
     conn = ThemeNewsSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
-    
     try:
-        cursor.execute("DELETE FROM STOCK_POOL_THEME_NEWS_TABLE")
+        cursor.execute("DELETE FROM STOCK_POOL_IMPORTANT_NEWS_TABLE")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
-        
+    
     for link in currentLinkList:
-        currentResult = crawThemeDailyNews(link)
+        currentResult = crawCompanyNews(link)
         try:
-            cursor.executemany('INSERT INTO STOCK_POOL_THEME_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)',currentResult)
+            cursor.executemany('INSERT INTO STOCK_POOL_IMPORTANT_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)'
+                           ,currentResult)
             conn.commit()
         except conn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -43,21 +42,14 @@ def writeThemeDailyNewsByLink(currentLinkList):
     cursor.close()
     conn.close()
 
+# WRITE COMPANY NEWS INFORMATION 
+def writeCompanyNews():
+    currentLinkList = ['http://stock.stockstar.com/list/majornews.htm']
+    writeCompanyNewsByLink(currentLinkList)
 
-# WRITE THEME DAILY NEWS 
-def writeThemeDailyNews():
-    currentLinkList = ['http://stock.stockstar.com/list/1577_1.shtml'
-                       ,'http://stock.stockstar.com/list/1577_2.shtml'
-                       ,'http://stock.stockstar.com/list/1577_3.shtml']
-    writeThemeDailyNewsByLink(currentLinkList)
-    
-    
-    
 if __name__=='__main__':
-    writeThemeDailyNews()
-   
-   
-   
-   
-   
-   
+    writeCompanyNews()
+
+
+
+
