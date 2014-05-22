@@ -5,7 +5,7 @@ import uuid
 def  crawThemeDailyNews(link):
     filterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews">')
     startContext = ThemeNewsSpiderUtils.filterContextByTarget(filterContext,'<ul>','</ul>')
-    len = ThemeNewsSpiderUtils.findAllTarget(startContext,'<li>')
+    len = ThemeNewsSpiderUtils.findAllTarget(startContext,'<li')
     currentList = []
     for  i in range(len):
         targetContext = ThemeNewsSpiderUtils.divisionTarget(startContext, '<li>', '</li>')

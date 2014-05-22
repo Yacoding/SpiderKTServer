@@ -3,9 +3,10 @@ import uuid
 
 # CRAW COMPANY NEWS 
 def  crawCompanyNews(link):
-    filterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews">')
+    filterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews" id="TacticNewsList1" >')
     startContext = ThemeNewsSpiderUtils.filterContextByTarget(filterContext,'<ul>','</ul>')
-    len = ThemeNewsSpiderUtils.findAllTarget(startContext,'<li>')
+    len = ThemeNewsSpiderUtils.findAllTarget(startContext,'<li')
+    newsFlag = 'good'
     currentList = []
     for  i in range(len):
         targetContext = ThemeNewsSpiderUtils.divisionTarget(startContext, '<li>', '</li>')
@@ -16,7 +17,22 @@ def  crawCompanyNews(link):
         pubDate = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<span>','</span>')
         title = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'">','</a>')
         if linkUrl != '':
-            currentList.append([keyid,linkUrl,pubDate,title])
+            currentList.append([keyid,linkUrl,pubDate,title,newsFlag])
+    
+    currentFilterContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="listnews" id="TacticNewsList2"  style="display:none;">')
+    currentstartContext = ThemeNewsSpiderUtils.filterContextByTarget(currentFilterContext,'<ul>','</ul>')
+    currentlen = ThemeNewsSpiderUtils.findAllTarget(currentstartContext,'<li')
+    newsFlag = 'bad'
+    for  m in range(currentlen):
+        targetContext = ThemeNewsSpiderUtils.divisionTarget(currentstartContext, '<li>', '</li>')
+        currentstartContext = targetContext['nextContext']
+        currentcontext =  targetContext['targetContext']
+        keyid = str(uuid.uuid1())
+        linkUrl = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<a href="', '">')
+        pubDate = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<span>','</span>')
+        title = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'">','</a>')
+        if linkUrl != '':
+            currentList.append([keyid,linkUrl,pubDate,title,newsFlag])
     return currentList
 
 # WRITE COMPANY NEWS BY LINK 
@@ -33,7 +49,7 @@ def writeCompanyNewsByLink(currentLinkList):
     for link in currentLinkList:
         currentResult = crawCompanyNews(link)
         try:
-            cursor.executemany('INSERT INTO STOCK_POOL_IMPORTANT_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)'
+            cursor.executemany('INSERT INTO STOCK_POOL_IMPORTANT_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE,NEWSFLAG) VALUES (%s,%s,%s,%s,%s)'
                            ,currentResult)
             conn.commit()
         except conn.Error,e:
