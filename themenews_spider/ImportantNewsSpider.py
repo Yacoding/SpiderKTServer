@@ -63,8 +63,7 @@ def writeCompanyNews():
     currentLinkList = ['http://stock.stockstar.com/list/majornews.htm']
     writeCompanyNewsByLink(currentLinkList)
 
-if __name__=='__main__':
-    writeCompanyNews()
+
 
 
 
