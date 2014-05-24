@@ -52,4 +52,21 @@ def findAllTarget(context,custompattern):
     pattern = re.compile(custompattern)
     return re.findall(pattern,context)
 
+def returnStartContext(link,startFlag):
+    currentContext = unicode(openInternetUrl(link),'GBK').encode('UTF-8')
+    startContext = startContext(currentContext,'%s'%startFlag)
+    return startContext
+
+def findAllTargets(context,filterTarget):
+    return len(findAllTarget(context,r'%s'%filterTarget)) 
+
+
+def filterContextByTargets(context,startfilter,endfilter):
+    return context[filterContext(context,startfilter)+len(startfilter):filterContext(context,endfilter)]
+
+def divisionTarget(startcontext,startfilter,endfilter):
+    startIndex = filterContext(startcontext,startfilter)
+    endIndex = filterContext(startcontext,endfilter)+len(endfilter)
+    return {'targetContext':startcontext[startIndex:endIndex],'nextContext':startcontext[endIndex:]}
+
     
