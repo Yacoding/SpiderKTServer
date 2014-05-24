@@ -31,8 +31,6 @@ def writeCurrentDailyNews():
     conn.close()
     cursor.close()
 
-if __name__ =='__main__':
-    link = 'http://b.stockstar.com/strong30'
-    writeCurrentDailyNews()
+
     
     
