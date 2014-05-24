@@ -44,10 +44,7 @@ def writeCompanyNewsByLink(currentLinkList):
 
 # WRITE COMPANY NEWS INFORMATION 
 def writeCompanyNews():
-    currentLinkList = ['http://stock.stockstar.com/list/3491_1.shtml'
-                       ,'http://stock.stockstar.com/list/3491_2.shtml'
-                       ,'http://stock.stockstar.com/list/3491_3.shtml'
-                       ,'http://stock.stockstar.com/list/3491_4.shtml']
+    currentLinkList = ['http://stock.stockstar.com/list/company.htm']
     writeCompanyNewsByLink(currentLinkList)
 
 
