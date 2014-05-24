@@ -10,3 +10,7 @@ def returnStartContext(link,startFlag):
 
 def findAllTarget(context,filter):
     return len(CommonsSpiderUtils.findAllTarget(context,r"s%"%filter))
+
+
+def filterContextByTarget(context,startfilter,endfilter):
+    return context[CommonsSpiderUtils.filterContext(context,startfilter)+len(startfilter):CommonsSpiderUtils.filterContext(context,endfilter)]

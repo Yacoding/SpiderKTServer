@@ -2,8 +2,11 @@ import StockstarBlogSpiderUtils
 
 def crawDailyNews(link):
     startContext = StockstarBlogSpiderUtils.returnStartContext(link, '<div class="list_article">')
-    print startContext
 
+    ##for i in range(findAllTarget(context,filter)):
+    filterStartContext = StockstarBlogSpiderUtils.filterContextByTarget(startContext,
+                         '<div class="list_article">', '<div class="list_loading"/>')    
+    print filterStartContext
 
 
 
