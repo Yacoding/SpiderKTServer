@@ -1,5 +1,4 @@
 import  sys
-sys.path.append("../swissquote_spider/")
 sys.path.append("../cnforex_spider/")
 import  CnforexSpider
 import  SwissquoteSpider
