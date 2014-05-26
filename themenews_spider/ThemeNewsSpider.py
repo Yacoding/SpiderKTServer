@@ -49,6 +49,7 @@ def writeThemeDailyNews():
     currentLinkList = ['http://stock.stockstar.com/list/1577_1.shtml'
                        ,'http://stock.stockstar.com/list/1577_2.shtml'
                        ,'http://stock.stockstar.com/list/1577_3.shtml'
-                       ,'http://stock.stockstar.com/list/1577_4.shtml']
+                       ,'http://stock.stockstar.com/list/1577_4.shtml'
+                       ,'http://stock.stockstar.com/list/1577_5.shtml']
     writeThemeDailyNewsByLink(currentLinkList)
     

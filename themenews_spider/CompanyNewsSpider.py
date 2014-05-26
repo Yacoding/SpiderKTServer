@@ -44,7 +44,16 @@ def writeCompanyNewsByLink(currentLinkList):
 
 # WRITE COMPANY NEWS INFORMATION 
 def writeCompanyNews():
-    currentLinkList = ['http://stock.stockstar.com/list/company.htm']
+    link = 'http://stock.stockstar.com/list/company.htm'
+    currentLinkList = [link]
+    currentContext = ThemeNewsSpiderUtils.returnStartContext(link,'<div class="pageControl">')
+    startContext = ThemeNewsSpiderUtils.filterContextByTarget(currentContext,'<span class="current">1</span>','</a></div>')
+    for i in [0,1,2,3,4,5]:
+        targetContext = ThemeNewsSpiderUtils.divisionTarget(startContext, '<a', '</a>')
+        startContext = targetContext['nextContext']
+        currentcontext =  targetContext['targetContext']
+        link = 'http://stock.stockstar.com'+ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<a href="','" target="_self"')
+        currentLinkList.append(link)
     writeCompanyNewsByLink(currentLinkList)
 
 
