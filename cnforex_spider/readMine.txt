@@ -1,0 +1,3 @@
+CnforexSpider.py   ---- 汇市看图，图片爬虫.
+SwissQuoteImageSpider.py  ---- 每日外汇新闻信息，爬虫
+

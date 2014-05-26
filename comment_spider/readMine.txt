@@ -1,0 +1,3 @@
+当日股市，汇市评论.
+HuiTongNetSpider.py  ----汇通网，外汇评论爬虫
+
