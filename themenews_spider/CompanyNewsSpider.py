@@ -16,7 +16,7 @@ def  crawCompanyNews(link):
         pubDate = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<span>','</span>')
         title = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'">','</a>')
         if linkUrl != '':
-            currentList.append([keyid,linkUrl,pubDate,title])
+            currentList.append([keyid,linkUrl,pubDate,title,'STOCKSTAR'])
     return currentList
 
 # WRITE COMPANY NEWS BY LINK 
@@ -24,7 +24,7 @@ def writeCompanyNewsByLink(currentLinkList):
     conn = ThemeNewsSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE FROM STOCK_POOL_COMPANY_NEWS_TABLE")
+        cursor.execute("DELETE FROM STOCK_POOL_COMPANY_NEWS_TABLE WHERE SOURCEFLAG = 'STOCKSTAR'")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -32,9 +32,9 @@ def writeCompanyNewsByLink(currentLinkList):
     
     for link in currentLinkList:
         currentResult = crawCompanyNews(link)
+        formatSQL = 'INSERT INTO STOCK_POOL_COMPANY_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s)'
         try:
-            cursor.executemany('INSERT INTO STOCK_POOL_COMPANY_NEWS_TABLE (KEYID,LINKURL,PUBDATE,TITLE) VALUES (%s,%s,%s,%s)'
-                           ,currentResult)
+            cursor.executemany(formatSQL,currentResult)
             conn.commit()
         except conn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
