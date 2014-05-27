@@ -2,4 +2,4 @@ ThemeNewsSpider.py    ---- 板块新闻爬虫
 CompanyNewsSpider.py  ---- 公司新闻爬虫
 ImportantNewsSpider.py   ----重要新闻爬虫工具类
 ThemeNewsSpiderUtils.py  ----主体爬虫工具类
-YiCaiCompanyNewsSpider.py ----第一财经
+YiCaiCompanyNewsSpider.py ----第一财经上市公司爬虫类
