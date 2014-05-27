@@ -11,7 +11,10 @@ def crawYiCaiCompanyNews(link):
         targetContext = currentContext['targetContext']
         keyid = str(uuid.uuid1())
         linkUrl = 'http://www.yicai.com/'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'href="','.html')+'.html'
-        title = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'title="', '" alt')
+        if YiCaiCompanyNewsSpiderUtils.findAllTarget(targetContext,'title="')>0:
+            title = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'title="', '" alt')
+        else:
+            title = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'html">', '</a>')    
         pubDate = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'<h3>','</h3>')[15:]
         descriptContext = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'<!--paging_filter-->','</p>')
         descriptContext = YiCaiCompanyNewsSpiderUtils.removeSpecialCharacter(descriptContext)
@@ -24,10 +27,12 @@ def crawYiCaiCompanyNews(link):
         newcurrentContext = YiCaiCompanyNewsSpiderUtils.divisionTarget(newFilterContext,'<li','</li>')
         newFilterContext = newcurrentContext['nextContext']
         newTargetContext = newcurrentContext['targetContext']
-        print newTargetContext
         newkeyId = str(uuid.uuid1())
         newlinkUrl = 'http://www.yicai.com/'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'href="','.html')+'.html'
-        newtitle = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'title="', '" alt')
+        if YiCaiCompanyNewsSpiderUtils.findAllTarget(newTargetContext,'title="')>0:
+            newtitle = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'title="', '" alt')
+        else:
+            newtitle = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'html">','</a>')    
         newpubDate = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'<h3>','</h3>')[15:]
         newdescriptContext = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'<!--paging_filter-->','</p>')
         newdescriptContext = YiCaiCompanyNewsSpiderUtils.removeSpecialCharacter(newdescriptContext)
@@ -57,4 +62,4 @@ def writeYiCaiCompanyNews():
 
 
 if __name__ =='__main__':
-    writeYiCaiCompanyNews();
+    writeYiCaiCompanyNews()
