@@ -34,7 +34,6 @@ def openInternetUrl(webHttp):
     resp.close();
     return html
 
-
 # filter context 
 def filterContext(context,filter):
     return context.find(filter)
@@ -57,6 +56,12 @@ def returnStartContext(link,startFlag):
     returnContext = startContext(currentContext,'%s'%startFlag)
     return returnContext
 
+def returnCommonStartContext(link,startFlag):
+    currentContext = openUrl(link)
+    returnContext = startContext(currentContext,'%s'%startFlag)
+    return returnContext
+
+
 def findAllTargets(context,filterTarget):
     return len(findAllTarget(context,r'%s'%filterTarget)) 
 
@@ -65,5 +70,8 @@ def divisionTarget(startcontext,startfilter,endfilter):
     startIndex = filterContext(startcontext,startfilter)
     endIndex = filterContext(startcontext,endfilter)+len(endfilter)
     return {'targetContext':startcontext[startIndex:endIndex],'nextContext':startcontext[endIndex:]}
+
+def removeSpecialCharacter(removeContext):
+    return removeContext.replace("\n", "").replace(" ", "").replace("<br>", "")
 
     
