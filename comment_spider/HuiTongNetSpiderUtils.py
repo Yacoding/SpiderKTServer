@@ -15,6 +15,9 @@ def findAllTarget(context,filterTarget):
 def divisionTarget(startcontext,startfilter,endfilter):
     return CommonsSpiderUtils.divisionTarget(startcontext,startfilter,endfilter);
 
+def removeSpecialCharacter(removeContext):
+    return CommonsSpiderUtils.removeSpecialCharacter(removeContext)
+
 # GET MYSQL CONNECTION
 def getMySQLConn():
     return CommonsMysqlUtils.returnMySQLConn()

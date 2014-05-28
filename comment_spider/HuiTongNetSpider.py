@@ -11,7 +11,7 @@ def crawDailyComments(link):
         targetContext = divideContext['targetContext']
         filterContext = divideContext['nextContext']
         print '--------------------------------------------------'
-        print targetContext
+        #print targetContext
     
     
     
