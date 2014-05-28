@@ -9,17 +9,19 @@ def updateBlogData():
    
     #SINA NET BLOG SPIDER
     log.info('The system crawling the information of  sina blog')
-    print '----SINA NET BLOG SPIDER START---'
+    print '----START SINA NET BLOG SPIDER START---'
     SinaBlogSpider.writeDailySinaBlog()
+    
+    #STOCK STAR BLOG SPIDER
+    print '---START STOCK STAR BLOG SPIDER---'
+    StockstarBlogSpider.writeCurrentDailyNews()
     
     #HEXUN NET BLOG SPIDER
     log.info('The system crawling the informarion of  xehun net')
-    print '---HEXUN NET BLOG SPIDER START---'
+    print '---START HEXUN NET BLOG SPIDER START---'
     HexunBlogSpider.writeHexunBlog()
     
-    #STOCK STAR BLOG SPIDER
-    print '---STOCK STAR BLOG SPIDER---'
-    StockstarBlogSpider.writeCurrentDailyNews()
+    
       
 if __name__ =="__main__":
     updateBlogData()
