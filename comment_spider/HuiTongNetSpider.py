@@ -4,23 +4,27 @@ def crawDailyComments(link):
     startContext = HuiTongNetSpiderUtils.returnStartContext(link,'<div class="list_content">')
     filterContext = HuiTongNetSpiderUtils.filterContextByTarget(startContext,
                      '<div class="list_content">','<div class="list_flip">')
-    print filterContext
-    #<div class="list_content01
-    i = 0
-    while  i< 8 :
-        divideContext =HuiTongNetSpiderUtils.divisionTarget(filterContext,
-                                            '<div class="list_content01','<div class="cb"></div>')
+    i = 1
+    while  i< 9 :
+        if i%2 ==0:
+            divideContext =HuiTongNetSpiderUtils.divisionTargetIncludeContext(filterContext,
+                                            '<div class="list_content01 ">','<div class="list_content01 bggrey">')
+        else:
+            divideContext = HuiTongNetSpiderUtils.divisionTargetIncludeContext(filterContext,
+                                            '<div class="list_content01 bggrey">','<div class="list_content01 ">')
         targetContext = divideContext['targetContext']
         filterContext = divideContext['nextContext']
-        print '--------------------------------------------------'
+        print '---------------'
         linkUrl = HuiTongNetSpiderUtils.filterContextByTarget(targetContext,'<a href="','.html"')+'.html'
         title = HuiTongNetSpiderUtils.filterContextByTarget(targetContext,'target="_blank">','</a>')
-        if i%2 ==0:
-            pubDate = HuiTongNetSpiderUtils.filterContextByTarget(targetContext,'<div class="list_content01_titler">',' </div>')
-        print linkUrl
-        print pubDate
-        #print targetContext
+        pubDate = HuiTongNetSpiderUtils.filterContextByTarget(targetContext,
+                                                '<div class="list_content01_titler">',' </div>')
+        currentContext = HuiTongNetSpiderUtils.filterAfterContext(targetContext,'<div class="list_content01_content">')
+        print currentContext
+        
+        
         i += 1
+        #print targetContext
     
     
     
