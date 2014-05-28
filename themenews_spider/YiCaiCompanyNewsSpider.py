@@ -10,7 +10,7 @@ def crawYiCaiCompanyNews(link):
         filterContext = currentContext['nextContext']
         targetContext = currentContext['targetContext']
         keyid = str(uuid.uuid1())
-        linkUrl = 'http://www.yicai.com/'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'href="','.html')+'.html'
+        linkUrl = 'http://www.yicai.com'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'href="','.html')+'.html'
         if YiCaiCompanyNewsSpiderUtils.findAllTarget(targetContext,'title="')>0:
             title = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(targetContext,'title="', '" alt')
         else:
@@ -28,7 +28,7 @@ def crawYiCaiCompanyNews(link):
         newFilterContext = newcurrentContext['nextContext']
         newTargetContext = newcurrentContext['targetContext']
         newkeyId = str(uuid.uuid1())
-        newlinkUrl = 'http://www.yicai.com/'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'href="','.html')+'.html'
+        newlinkUrl = 'http://www.yicai.com'+YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'href="','.html')+'.html'
         if YiCaiCompanyNewsSpiderUtils.findAllTarget(newTargetContext,'title="')>0:
             newtitle = YiCaiCompanyNewsSpiderUtils.filterContextByTarget(newTargetContext,'title="', '" alt')
         else:
