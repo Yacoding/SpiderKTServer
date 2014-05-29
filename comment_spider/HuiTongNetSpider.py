@@ -1,5 +1,6 @@
 import HuiTongNetSpiderUtils
 import time
+import uuid
 
 def crawDailyComments(link):
     startContext = HuiTongNetSpiderUtils.returnStartContext(link,'<div class="list_content">')
@@ -31,7 +32,7 @@ def crawDailyComments(link):
         if i%2 ==0:
             currentContext = HuiTongNetSpiderUtils.filterAfterContext(targetContext,'<div class="list_content01_content">')
             descriptContext = HuiTongNetSpiderUtils.filterContextByTarget(currentContext,'target="_blank">','</a>')
-            currentList.append([templinkUrl,temptitle,tempDate,descriptContext])
+            currentList.append([str(uuid.uuid1()),templinkUrl,temptitle,tempDate,descriptContext,'FOREX','FX678'])
         i += 1
         #print targetContext
     return currentList
@@ -40,8 +41,25 @@ def crawDailyComments(link):
 def writeDailyComments():
     link = 'http://www.fx678.com/news/forex/scpl.html'
     currentList = crawDailyComments(link);
-    
-        
-    
+    conn = HuiTongNetSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE  FROM  COMMENTS_NEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'FX678'")
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    formatSQL = 'INSERT COMMENTS_NEWS_RESOURCE_TABLE (KEYID,LINKURL,TITLE,PUBDATE,DESCRIPTCONTEXT,COMMENTFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+    try:
+        cursor.executemany(formatSQL,currentList)
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    cursor.close()
+    conn.close()
+
 if __name__ =='__main__':
     writeDailyComments()  
+    
+    
