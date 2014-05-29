@@ -19,7 +19,7 @@ def divisionTargetIncludeContext(startcontext,startfilter,endfilter):
     return CommonsSpiderUtils.divisionTargetIncludeContext(startcontext,startfilter,endfilter)
 
 def filterAfterContext(startContext,filterContext):
-    return CommonsSpiderUtils.filterContext(startContext,filterContext)
+    return startContext[CommonsSpiderUtils.filterContext(startContext,filterContext):]
 
 # GET MYSQL CONNECTION
 def getMySQLConn():
