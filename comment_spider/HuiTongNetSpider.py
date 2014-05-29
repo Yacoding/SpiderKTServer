@@ -32,6 +32,7 @@ def crawDailyComments(link):
         if i%2 ==0:
             currentContext = HuiTongNetSpiderUtils.filterAfterContext(targetContext,'<div class="list_content01_content">')
             descriptContext = HuiTongNetSpiderUtils.filterContextByTarget(currentContext,'target="_blank">','</a>')
+            descriptContext = HuiTongNetSpiderUtils.removeSpecialCharacter(descriptContext)
             currentList.append([str(uuid.uuid1()),templinkUrl,temptitle,tempDate,descriptContext,'FOREX','FX678'])
         i += 1
         #print targetContext
