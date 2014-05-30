@@ -13,12 +13,12 @@ def updateBlogData():
     SinaBlogSpider.writeDailySinaBlog()
     
     #STOCK STAR BLOG SPIDER
-    print '---START STOCK STAR BLOG SPIDER---'
+    print '----START STOCK STAR BLOG SPIDER----'
     StockstarBlogSpider.writeCurrentDailyNews()
     
     #HEXUN NET BLOG SPIDER
     log.info('The system crawling the informarion of  xehun net')
-    print '---START HEXUN NET BLOG SPIDER START---'
+    print '----START HEXUN NET BLOG SPIDER START----'
     HexunBlogSpider.writeHexunBlog()
     
     
