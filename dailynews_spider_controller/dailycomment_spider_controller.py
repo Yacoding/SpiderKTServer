@@ -9,6 +9,5 @@ def crawCommentsNews():
     HuiTongNetSpider.writeDailyComments()
     
 
-
 if __name__=='__main__':
     crawCommentsNews()
