@@ -78,6 +78,6 @@ def divisionTargetIncludeContext(startcontext,startfilter,endfilter):
     return {'targetContext':startcontext[startIndex:endIndex],'nextContext':startcontext[endIndex-len(endfilter):]}
 
 def removeSpecialCharacter(removeContext):
-    return removeContext.replace("\n", "").replace(" ", "").replace("<br>", "")
+    return removeContext.replace('\n','').replace(' ','').replace('<br>','').replace('<p>','').replace('</p>','').replace('<br/>','')
 
     
