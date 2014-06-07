@@ -20,7 +20,7 @@ def crawDailyMetalComments(link,webLink):
     startContext = JTMetalNetSpiderUtils.returnStartContext(link,'<ul id="lie">')
     startContext = JTMetalNetSpiderUtils.filterContextByTarget(startContext,'<ul id="lie">','</ul>')
     i = 0
-    while i <7:
+    while i <5:
         targetContext = JTMetalNetSpiderUtils.divisionTarget(startContext,'<li>','</li>')
         startContext = targetContext['nextContext']
         currentContext =  targetContext['targetContext']
