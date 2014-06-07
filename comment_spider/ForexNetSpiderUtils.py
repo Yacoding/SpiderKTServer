@@ -18,6 +18,9 @@ def removeSpecialCharacter(removeContext):
 def divisionTarget(startcontext,startfilter,endfilter):
     return CommonsSpiderUtils.divisionTarget(startcontext,startfilter,endfilter)
 
+def filterAfterContext(startContext,filterContext):
+    return startContext[CommonsSpiderUtils.filterContext(startContext,filterContext)+len(filterContext):]
+
 # GET MYSQL CONNECTION
 def getMySQLConn():
     return CommonsMysqlUtils.returnMySQLConn()
