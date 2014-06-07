@@ -4,3 +4,7 @@ AdsNetSpider.py      ----ADS网 ，外汇评论爬虫
 ForexNetSpider.py    ----嘉盛集团，外汇评论爬虫
 GXMetalNetSpider.py  ----国鑫贵金属，贵金属爬虫
 
+
+http://www.jiatai9999.com/    嘉泰贵金属
+http://www.ym206.com/         易鸣贵金属
+

@@ -14,7 +14,7 @@ def crawDailyComments(link):
         currentcontext = ForexNetSpiderUtils.filterAfterContext(currentcontext,'<h6 class="post_heading left narrow">')
         linkUrl = webAddress+ForexNetSpiderUtils.filterContextByTarget(currentcontext,"<a href='","'>")
         title = ForexNetSpiderUtils.filterContextByTarget(currentcontext,"'>","</a>")
-        pubDate = pubDate = time.strftime("%Y-%m-%d %X",time.localtime())
+        pubDate = time.strftime("%Y-%m-%d %X",time.localtime())
         descriptContext = ForexNetSpiderUtils.filterAfterContext(currentcontext,'</p>')
         descriptContext = ForexNetSpiderUtils.filterContextByTarget(descriptContext,'<p>','<span style="">')
         descriptContext = ForexNetSpiderUtils.removeSpecialCharacter(descriptContext)
