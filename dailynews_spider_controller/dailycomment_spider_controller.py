@@ -3,6 +3,7 @@ sys.path.append("../comment_spider/")
 import HuiTongNetSpider
 import AdsNetSpider
 import ForexNetSpider
+import GXMetalNetSpider
 
 
 def crawCommentsNews():
@@ -17,6 +18,10 @@ def crawCommentsNews():
     # CRAW FOREXNET COMMENTS NEWS SIPDER
     print '----START CRAW FOREXNET COMMENTS NEWS----'
     ForexNetSpider.writeDailyComments()
+    
+    # CRAW GXMETAL COMMENTS NEWS SIPDER
+    print '----START CRAW GXMETAL COMMENTS NEWS----'
+    GXMetalNetSpider.writeDailyMetalComments()
 
 if __name__=='__main__':
     crawCommentsNews()
