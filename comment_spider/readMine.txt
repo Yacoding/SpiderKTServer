@@ -2,4 +2,5 @@
 HuiTongNetSpider.py  ----汇通网，外汇评论爬虫
 AdsNetSpider.py      ----ADS网 ，外汇评论爬虫
 ForexNetSpider.py    ----嘉盛集团，外汇评论爬虫
+GXMetalNetSpider.py  ----国鑫贵金属，贵金属爬虫
 
