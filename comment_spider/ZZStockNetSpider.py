@@ -41,12 +41,12 @@ def writeDailyStockComments():
     conn = ZZStockNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE  FROM  COMMENTS_NEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'ZZNET'")
+        cursor.execute("DELETE  FROM  COMMENTS_STOCK_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'ZZNET'")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
-    formatSQL = 'INSERT COMMENTS_NEWS_RESOURCE_TABLE (KEYID,LINKURL,TITLE,PUBDATE,DESCRIPTCONTEXT,COMMENTFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+    formatSQL = 'INSERT COMMENTS_STOCK_RESOURCE_TABLE (KEYID,LINKURL,TITLE,PUBDATE,DESCRIPTCONTEXT,COMMENTFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s)'
     try:
         cursor.executemany(formatSQL,currentList)
         conn.commit()
