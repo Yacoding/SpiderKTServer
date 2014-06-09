@@ -4,7 +4,7 @@ import uuid
 
 
 
-def crawDailyStockComments(link,webNet):
+def crawDailyStockComments(link):
     currentList = []
     startContext = ZZStockNetSpiderUtils.returnStartContext(link,'<div class="column-box">')
     startContext = ZZStockNetSpiderUtils.filterContextByTarget(startContext,'<ul>','<li class="nobg">')
@@ -16,11 +16,11 @@ def crawDailyStockComments(link,webNet):
         currentYear = str(time.strftime('%Y',time.localtime(time.time())))+'-'
         pubDate = currentYear+ZZStockNetSpiderUtils.filterContextByTarget(currentContext,'<span class="ctime">(',')</span>')
         title = ZZStockNetSpiderUtils.filterContextByTarget(currentContext,'.html">','</a>')
-        linkUrl = ZZStockNetSpiderUtils.filterAfterContext(currentContext,'../.')
-        linkUrl = ZZStockNetSpiderUtils.filterContextByTarget(linkUrl,'./','">')
-        if linkUrl != '':
-            linkUrl = webNet + linkUrl
-            #descriptContext = crawDailyStockDescriptContext(linkUrl)
+        linkUrl = ZZStockNetSpiderUtils.removeSpecialCharacter(currentContext)
+        if linkUrl !='':
+            linkUrl = ZZStockNetSpiderUtils.filterContextByTarget(linkUrl,'<ahref="','html">')+'.html'
+            linkUrl = link + linkUrl
+            descriptContext = crawDailyStockDescriptContext(linkUrl)
             currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,'','STOCK','ZZNET'])
         #print linkUrl
     return currentList
@@ -36,8 +36,7 @@ def crawDailyStockDescriptContext(linkUrl):
     
 def writeDailyStockComments():
     link = 'http://www.cs.com.cn/gppd/zzkpd/01/'
-    webNet = 'http://www.cs.com.cn/gppd/'
-    currentList = crawDailyStockComments(link,webNet)
+    currentList = crawDailyStockComments(link)
     conn = ZZStockNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
