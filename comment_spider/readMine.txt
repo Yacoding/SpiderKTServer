@@ -10,3 +10,4 @@ SYMetalNetSpider.py  ----申银贵金属,贵金属爬虫
 http://www.jiatai9999.com/    嘉泰贵金属
 http://www.ym206.com/         易鸣贵金属
 http://www.ag022.com/sjhq/Huangjin/   申银贵金属
+http://finance.qq.com/l/stock/qwmy/index.htm 
