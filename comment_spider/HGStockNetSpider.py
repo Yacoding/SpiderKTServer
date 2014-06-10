@@ -15,8 +15,16 @@ def crawDailyStockComments(link,webNet):
         title = HGStockNetSpiderUtils.filterContextByTarget(currentContext,'">','</a>')
         currentYear = str(time.strftime('%Y',time.localtime(time.time())))+'-'
         pubDate = currentYear + HGStockNetSpiderUtils.filterContextByTarget(currentContext,'[',']')
-        currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,'','STOCK','HGNET'])
+        descriptContext = crawDailyDescriptContext(linkUrl)
+        currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,descriptContext,'STOCK','HGNET'])
     return currentList
+    
+
+def crawDailyDescriptContext(linkUrl):
+    startContext = HGStockNetSpiderUtils.returnStartContext(linkUrl,'<div class="article_con" id="div-article-content">')
+    filterContext = HGStockNetSpiderUtils.filterContextByTarget(startContext,'<p>','</p>')
+    filterContext = HGStockNetSpiderUtils.removeSpecialCharacter(filterContext)
+    return filterContext
     
     
 def writeDailyStockComments():
@@ -40,6 +48,3 @@ def writeDailyStockComments():
         conn.rollback()
     cursor.close()
     conn.close()
-
-if __name__=='__main__':
-    writeDailyStockComments()
