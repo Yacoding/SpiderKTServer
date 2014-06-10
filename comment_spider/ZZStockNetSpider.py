@@ -20,7 +20,7 @@ def crawDailyStockComments(link):
         if linkUrl !='':
             linkUrl = ZZStockNetSpiderUtils.filterContextByTarget(linkUrl,'<ahref="','html">')+'.html'
             linkUrl = link + linkUrl
-            descriptContext = crawDailyStockDescriptContext(linkUrl)
+            #descriptContext = crawDailyStockDescriptContext(linkUrl)
             currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,'','STOCK','ZZNET'])
         #print linkUrl
     return currentList
