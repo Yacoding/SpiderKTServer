@@ -9,6 +9,7 @@ import SYMetalNetSpider
 import ZZStockNetSpider
 import HGStockNetSpider
 import JFStockNetSpider
+import QJStockNetSpider
 
 def crawCommentsNews():
     # CRAW HUITONG COMMENTS NEWS SIPDER
@@ -46,6 +47,10 @@ def crawCommentsNews():
     # CRAW JFSTOCK COMMENTS NEWS SIPDER
     print '----START CRAW JFSTOCK COMMENTS NEWS----'
     JFStockNetSpider.writeDailyStockComments()
+    
+    # CRAW QJSTOCK COMMENTS NEWS SIPDER
+    print '----START CRAW QJSTOCK COMMENTS NEWS----'
+    QJStockNetSpider.writeDailyStockComments()
     
 if __name__=='__main__':
     crawCommentsNews()

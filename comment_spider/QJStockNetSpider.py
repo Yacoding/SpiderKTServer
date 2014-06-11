@@ -24,11 +24,13 @@ def crawDailyStockComments(link,webNet):
     
     
 def crawDailyDescriptContext(linkUrl):
+    print linkUrl
     startContext = QJStockNetSpiderUtils.returnStartContext(linkUrl,'<div class="text">')
-    filterContext = QJStockNetSpiderUtils.filterContextByTarget(startContext,'<div class="text">','</div>')
+    filterContext = QJStockNetSpiderUtils.filterContextByTarget(startContext,'<div class="text">','<p/>')
     #filterContext = QJStockNetSpiderUtils.removeSpecialCharacter(filterContext)
-    filterContext = QJStockNetSpiderUtils.filterContextByTarget(filterContext,'&nbsp;','</br>')
+    filterContext = QJStockNetSpiderUtils.filterContextByTarget(filterContext,'','<')
     filterContext = QJStockNetSpiderUtils.removeSpecialCharacter(filterContext)
+    print filterContext
     return filterContext
     
     
