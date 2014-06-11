@@ -30,7 +30,6 @@ def crawDailyDescriptContext(linkUrl):
     #filterContext = QJStockNetSpiderUtils.removeSpecialCharacter(filterContext)
     filterContext = QJStockNetSpiderUtils.filterContextByTarget(filterContext,'','<')
     filterContext = QJStockNetSpiderUtils.removeSpecialCharacter(filterContext)
-    print filterContext
     return filterContext
     
     
