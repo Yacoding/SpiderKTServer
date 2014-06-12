@@ -13,7 +13,7 @@ def findAllTarget(context,filterTarget):
     return CommonsSpiderUtils.findAllTargets(context,filterTarget) 
 
 def removeSpecialCharacter(removeContext):
-    return CommonsSpiderUtils.removeSpecialCharacter(removeContext).replace('./','').replace('&nbsp;','')
+    return CommonsSpiderUtils.removeSpecialCharacter(removeContext).replace('./','').replace('&nbsp;','').replace('...','')
 
 def divisionTarget(startcontext,startfilter,endfilter):
     return CommonsSpiderUtils.divisionTarget(startcontext,startfilter,endfilter)

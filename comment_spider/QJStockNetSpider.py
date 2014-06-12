@@ -1,6 +1,7 @@
 import QJStockNetSpiderUtils
 import time
 import uuid
+from logging import exception
 
 
 def crawDailyStockComments(link,webNet):
@@ -24,7 +25,10 @@ def crawDailyStockComments(link,webNet):
     
     
 def crawDailyDescriptContext(linkUrl):
-    startContext = QJStockNetSpiderUtils.returnStartContext(linkUrl,'<div class="text">')
+    try:
+        startContext = QJStockNetSpiderUtils.returnStartContext(linkUrl,'<div class="text">')
+    except :
+        return ''
     filterContext = QJStockNetSpiderUtils.filterContextByTarget(startContext,'<div class="text">','<p/>')
     #filterContext = QJStockNetSpiderUtils.removeSpecialCharacter(filterContext)
     filterContext = QJStockNetSpiderUtils.filterContextByTarget(filterContext,'','<')
