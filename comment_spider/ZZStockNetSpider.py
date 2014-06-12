@@ -27,7 +27,6 @@ def crawDailyStockComments(link):
     
     
 def crawDailyStockDescriptContext(linkUrl):
-    print linkUrl
     startContext = ZZStockNetSpiderUtils.returnStartContext(linkUrl,'<div class="Dtext z_content" id="ozoom1" style="zoom: 100%;">')
     print startContext
     filterContext = ZZStockNetSpiderUtils.filterContextByTarget(startContext,'<p>','</p>')

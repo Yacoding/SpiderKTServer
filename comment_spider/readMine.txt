@@ -5,7 +5,9 @@ ForexNetSpider.py    ----嘉盛集团，外汇评论爬虫
 GXMetalNetSpider.py  ----国鑫贵金属，贵金属爬虫
 JTMetalNetSpider.py  ----嘉泰贵金属,贵金属爬虫
 SYMetalNetSpider.py  ----申银贵金属,贵金属爬虫
-
+QJStockNetSpider.py  ----全景财经，股票信息爬虫
+QJFinanceNetSpider.py -----全景财经,宏观经济评论爬虫
+HGStockNetSpider.py   =====华股财经,股票信息爬虫
 
 http://www.jiatai9999.com/    嘉泰贵金属
 http://www.ym206.com/         易鸣贵金属
