@@ -14,5 +14,6 @@ IFengFinanceNetSpider.py ----凤凰网爬虫，宏观爬虫
 http://www.jiatai9999.com/    嘉泰贵金属
 http://www.ym206.com/         易鸣贵金属
 http://www.ag022.com/sjhq/Huangjin/   申银贵金属
-http://finance.qq.com/l/stock/qwmy/index.htm 
+http://finance.qq.com/l/stock/qwmy/index.htm   腾讯财经评论
 http://roll.finance.sina.com.cn/finance/pl1/hgds/index.shtml  宏观评论
+http://finance.qq.com/hgjj.htm   腾讯宏观分析
