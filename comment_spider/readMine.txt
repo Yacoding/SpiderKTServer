@@ -9,9 +9,11 @@ QJStockNetSpider.py  ----全景财经，股票信息爬虫
 QJFinanceNetSpider.py -----全景财经,宏观经济评论爬虫
 HGStockNetSpider.py   =====华股财经,股票信息爬虫
 JFStockNetSpider.py   -----巨丰财经,股票信息爬虫
-
+IFengFinanceNetSpider.py ----凤凰网爬虫，宏观爬虫
 
 http://www.jiatai9999.com/    嘉泰贵金属
 http://www.ym206.com/         易鸣贵金属
 http://www.ag022.com/sjhq/Huangjin/   申银贵金属
 http://finance.qq.com/l/stock/qwmy/index.htm 
+http://roll.finance.sina.com.cn/finance/pl1/hgds/index.shtml  宏观评论
+http://finance.ifeng.com/macro/   凤凰网财经
