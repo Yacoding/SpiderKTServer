@@ -4,7 +4,7 @@ import CommonsSpiderUtils
 import CommonsMysqlUtils
 
 def returnStartContext(link,startTarget):
-    return CommonsSpiderUtils.returnStartContext(link,startTarget)
+    return CommonsSpiderUtils.returnCommonStartContext(link,startTarget).decode('gb2312').decode('UTF-8')
 
 def filterContextByTarget(context,startfilter,endfilter):
     return CommonsSpiderUtils.filterContextByTarget(context,startfilter,endfilter)
