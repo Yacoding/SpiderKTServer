@@ -11,7 +11,7 @@ def crawDailyFinanceComments(link):
         targetContext = IFengFinanceNetSpiderUtils.divisionTarget(startContext,'<li>','</li>')
         startContext = targetContext['nextContext']
         currentContext =  targetContext['targetContext']
-        linkUrl = IFengFinanceNetSpiderUtils.filterContextByTarget(currentContext,'<a href="','shtml')+'.shtml'
+        linkUrl = IFengFinanceNetSpiderUtils.filterContextByTarget(currentContext,'<a href="','shtml')+'shtml'
         title = IFengFinanceNetSpiderUtils.filterContextByTarget(currentContext,'title="','">')
         descriptContext = IFengFinanceNetSpiderUtils.filterContextByTarget(currentContext,'<p>','...')+'...'
         pubDate = IFengFinanceNetSpiderUtils.filterContextByTarget(currentContext,'<div class="date">','</div>')
