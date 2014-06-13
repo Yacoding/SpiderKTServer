@@ -12,6 +12,7 @@ import JFStockNetSpider
 import QJStockNetSpider
 import QJFinanceNetSpider
 import IFengFinanceNetSpider
+import SinaFinanceNetSpider
 
 def crawCommentsNews():
     
@@ -62,6 +63,10 @@ def crawCommentsNews():
     # CRAW IFENG COMMENTS NEWS SIPDER
     print '----START CRAW IFENG COMMENTS NEWS----'
     IFengFinanceNetSpider.writeDailyFinanceComments()
+    
+    # CRAW SINAFINANCE COMMENTS NEWS SIPDER
+    print '----START CRAW SINAFINANCE COMMENTS NEWS----'
+    SinaFinanceNetSpider.writeDailyFinanceComments()
     
 if __name__=='__main__':
     crawCommentsNews()

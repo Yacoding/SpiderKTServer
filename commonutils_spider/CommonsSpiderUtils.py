@@ -61,6 +61,10 @@ def returnCommonStartContext(link,startFlag):
     returnContext = startContext(currentContext,'%s'%startFlag)
     return returnContext
 
+def returnTranscodeStartContext(link,startFlag):
+    currentContext = openUrl(link).decode('GB2312').encode('UTF-8')
+    returnContext = startContext(currentContext,'%s'%startFlag)
+    return returnContext
 
 def findAllTargets(context,filterTarget):
     return len(findAllTarget(context,r'%s'%filterTarget)) 
