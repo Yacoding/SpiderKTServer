@@ -20,12 +20,12 @@ def crawDailyFinanceComments(link,webNet):
         currentYear = time.strftime("%Y",time.localtime())
         currentMonth = pubDate[0:2]
         currentDay = pubDate[3:5]
-        currentTime = pubDate[10:]
+        currentTime = pubDate[7:9]+':'+pubDate[10:]
         currentFilterTime = time.strftime("%Y-%m-%d",time.localtime())
         pubDate = currentYear+"-"+currentMonth+"-"+currentDay
         if currentFilterTime == pubDate:
-            pubDate = pubDate+currentTime
-            currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,descriptContext,'FINANCE','QQFINANCENET'])
+            pubDate = pubDate+' '+currentTime
+            currentList.append([str(uuid.uuid1()),linkUrl,title,pubDate,descriptContext,'FINANCE','QQNET'])
         i += 1
     return currentList
     
@@ -36,7 +36,7 @@ def writeDailyFinanceComments():
     conn = QQFinanceNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE  FROM  COMMENTS_FINANCE_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQFINANCENET'")
+        cursor.execute("DELETE  FROM  COMMENTS_FINANCE_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQNET'")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
@@ -50,3 +50,6 @@ def writeDailyFinanceComments():
         conn.rollback()
     cursor.close()
     conn.close()
+    
+if __name__=='__main__':
+    writeDailyFinanceComments()     
