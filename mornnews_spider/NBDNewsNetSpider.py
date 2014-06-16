@@ -5,13 +5,13 @@ import time
 
 def crawFinanceDailyNews(linkUrl,WebNet):
     currentList = []
-    startContext = NBDNewsNetSpiderUtils.returnStartContext(linkUrl,'<div id="frontPageSlide" class="frontPage_content_slide">')
+    startContext = NBDNewsNetSpiderUtils.returnStartContext(linkUrl,'<div class="col-md-7 headlines mainnews">')
     print startContext
     
     return currentList
     
 def writeFinanceDailyNews():
-    link = 'http://www.nbd.com.cn/'
+    link = 'http://www.xinhua08.com/'
     webNet = ''
     currentList = crawFinanceDailyNews(link,webNet)
     
