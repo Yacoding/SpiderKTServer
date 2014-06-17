@@ -3,7 +3,7 @@ import time
 import uuid
 
 
-def crawFinanceDailyNews(linkUrl,WebNet):
+def crawMorningDailyNews(linkUrl,WebNet):
     currentList = []
     startContext = HEJNewsNetSpiderUtils.returnStartContext(linkUrl,'<div class="view-content">')
     i = 0
@@ -32,10 +32,10 @@ def crawFinanceDailyNews(linkUrl,WebNet):
     return currentList
 
 
-def writeFinanceDailyNews():
+def writeMorningDailyNews():
     link = 'http://wallstreetcn.com/topnews'
     webNet = 'http://wallstreetcn.com'
-    currentList =  crawFinanceDailyNews(link,webNet)
+    currentList =  crawMorningDailyNews(link,webNet)
     conn = HEJNewsNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:

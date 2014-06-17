@@ -3,7 +3,7 @@ import uuid
 import time
 
 
-def crawFinanceDailyNews(linkUrl,WebNet):
+def crawMorningDailyNews(linkUrl,WebNet):
     currentList = []
     startContext = QQFinanceNetSpiderUtils.returnStartContext(linkUrl,'<ul class="jdbgList">')
     startContext = QQFinanceNetSpiderUtils.filterContextByTarget(startContext,'<ul class="jdbgList">','</ul>')
@@ -22,10 +22,10 @@ def crawFinanceDailyNews(linkUrl,WebNet):
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'CHINA','QQNET'])
     return currentList
     
-def writeFinanceDailyNews():
+def writeMorningDailyNews():
     link = 'http://finance.qq.com/focus.htm'
     webNet = ''
-    currentList =  crawFinanceDailyNews(link,webNet)
+    currentList =  crawMorningDailyNews(link,webNet)
     conn = QQFinanceNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
@@ -43,7 +43,3 @@ def writeFinanceDailyNews():
         conn.rollback()
     cursor.close()
     conn.close()
-
-    
-if __name__=='__main__':
-    writeFinanceDailyNews()
