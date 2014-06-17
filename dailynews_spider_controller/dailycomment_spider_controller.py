@@ -14,6 +14,7 @@ import QJFinanceNetSpider
 import IFengFinanceNetSpider
 import SinaFinanceNetSpider
 import QQFinanceNetSpider
+import SilverMetalNetSpider
 
 def crawCommentsNews():
     
@@ -72,6 +73,10 @@ def crawCommentsNews():
     # CRAW QQFINANCE COMMENTS NEWS SIPDER
     print '----START CRAW QQFINANCE COMMENTS NEWS----'
     QQFinanceNetSpider.writeDailyFinanceComments()
+    
+    # CRAW SILVERMETAL COMMENTS NEWS SIPDER
+    print '----START CRAW SILVERMETAL COMMENTS NEWS----'
+    SilverMetalNetSpider.writeDailyMetalComments()
     
 if __name__=='__main__':
     crawCommentsNews()
