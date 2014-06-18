@@ -32,12 +32,12 @@ def writeMorningDailyNews():
     conn = NBDNewsNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE  FROM  MORNING_NEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'NBDNET'")
+        cursor.execute("DELETE  FROM  MORNING_FINANCENEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'NBDNET'")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
-    formatSQL = 'INSERT MORNING_NEWS_RESOURCE_TABLE (KEYID,LINKURL,IMAGEURL,TITLE,PUBDATE,DESCRIPTCONTEXT,NEWSFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+    formatSQL = 'INSERT MORNING_FINANCENEWS_RESOURCE_TABLE (KEYID,LINKURL,IMAGEURL,TITLE,PUBDATE,DESCRIPTCONTEXT,NEWSFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
     try:
         cursor.executemany(formatSQL,currentList)
         conn.commit()
