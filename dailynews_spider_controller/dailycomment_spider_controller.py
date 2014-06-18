@@ -68,7 +68,10 @@ def crawCommentsNews():
     
     # CRAW SINAFINANCE COMMENTS NEWS SIPDER
     print '----START CRAW SINAFINANCE COMMENTS NEWS----'
-    SinaFinanceNetSpider.writeDailyFinanceComments()
+    try :
+        SinaFinanceNetSpider.writeDailyFinanceComments()
+    except Exception,e:
+        print e
     
     # CRAW QQFINANCE COMMENTS NEWS SIPDER
     print '----START CRAW QQFINANCE COMMENTS NEWS----'

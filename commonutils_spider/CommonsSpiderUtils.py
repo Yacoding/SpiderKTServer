@@ -67,7 +67,7 @@ def returnSpecialStartContext(link,startFlag):
     return returnContext
 
 def returnTranscodeStartContext(link,startFlag):
-    currentContext = openUrl(link).decode('GB2312').encode('UTF-8')
+    currentContext = openInternetUrl(link).decode('GB2312').encode('UTF-8')
     returnContext = startContext(currentContext,'%s'%startFlag)
     return returnContext
 
