@@ -8,3 +8,5 @@ QQNewsNetSpider.py  ---腾讯网爬虫,爬取财经新闻
 NBDNewsNetSpider.py ---每经网爬虫,爬取财经新闻
 HEJNewsNetSpider.py ---华尔街见闻,爬取财经新闻
 FXNewsForexNetSpider.py ---FX168网,爬取外汇新闻
+FXNewsMetalNetSpider.py ---FX168网,爬取贵金属新闻
+
