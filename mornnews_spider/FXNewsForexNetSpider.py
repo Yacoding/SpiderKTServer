@@ -17,7 +17,6 @@ def crawMorningForexDailyNews(linkUrl):
         currentContext = FXNewsForexNetSpiderUtils.filterAfterContext(currentContext,'<divclass="yjl_fx168_news_listPhoto">')
         linkUrl = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'href="','"title=')
         title = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'title="','><imglazy-src')
-        print title
         imageUrl = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'imglazy-src="','"width=')
         descriptContext = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'<pclass="del">','</div></li>')
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'FOREX','FXNET'])

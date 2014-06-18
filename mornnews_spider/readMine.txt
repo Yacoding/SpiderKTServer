@@ -3,3 +3,8 @@ http://news.fx168.com/top/gold/
 http://news.fx168.com/top/future/
 http://www.cngold.org/
 早财快讯 ---模块爬虫
+
+QQNewsNetSpider.py  ---腾讯网爬虫,爬取财经新闻
+NBDNewsNetSpider.py ---每经网爬虫,爬取财经新闻
+HEJNewsNetSpider.py ---华尔街见闻,爬取财经新闻
+FXNewsForexNetSpider.py ---FX168网,爬取外汇新闻
