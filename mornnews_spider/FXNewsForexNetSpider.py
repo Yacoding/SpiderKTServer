@@ -17,6 +17,7 @@ def crawMorningForexDailyNews(linkUrl):
         currentContext = FXNewsForexNetSpiderUtils.filterAfterContext(currentContext,'<divclass="yjl_fx168_news_listPhoto">')
         linkUrl = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'href="','"title=')
         title = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'title="','><imglazy-src')
+        print title
         imageUrl = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'imglazy-src="','"width=')
         descriptContext = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'<pclass="del">','</div></li>')
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'FOREX','FXNET'])
@@ -28,11 +29,12 @@ def writeMorningForexDailyNews():
     conn = FXNewsForexNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE  FROM  MORNING_OTHERNEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQNET'")
+        cursor.execute("DELETE  FROM  MORNING_OTHERNEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'FXNET' AND  NEWSFLAG='FOREX'")
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
+        
     formatSQL = 'INSERT MORNING_OTHERNEWS_RESOURCE_TABLE (KEYID,LINKURL,IMAGEURL,TITLE,PUBDATE,DESCRIPTCONTEXT,NEWSFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
     try:
         cursor.executemany(formatSQL,currentList)
@@ -42,3 +44,7 @@ def writeMorningForexDailyNews():
         conn.rollback()
     cursor.close()
     conn.close()
+
+if __name__=='__main__':
+    writeMorningForexDailyNews()
+
