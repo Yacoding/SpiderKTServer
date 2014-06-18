@@ -1,6 +1,7 @@
 http://news.fx168.com/top/forex/
 http://news.fx168.com/top/gold/
 http://news.fx168.com/top/future/
+http://news.fx168.com/top/stock/ ----股市链接地址
 http://www.cngold.org/
 早财快讯 ---模块爬虫
 
@@ -10,4 +11,5 @@ HEJNewsNetSpider.py ---华尔街见闻,爬取财经新闻
 FXNewsForexNetSpider.py ---FX168网,爬取外汇新闻
 FXNewsMetalNetSpider.py ---FX168网,爬取贵金属新闻
 FXNewsFutureNetSpider.py ---FX168网,爬取期货新闻
+FXNewsStockNetSpider.py  ---FX168网,爬取股市新闻
 

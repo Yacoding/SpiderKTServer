@@ -6,6 +6,7 @@ import NBDNewsNetSpider
 import FXNewsForexNetSpider
 import FXNewsMetalNetSpider
 import FXNewsFutureNetSpider
+import FXNewsStockNetSpider
 
 def crawDailyNews():
     
@@ -32,6 +33,10 @@ def crawDailyNews():
     # CRAW FXNEWSFUTURE COMMENTS NEWS SIPDER
     print '----START CRAW FXNEWSFUTURE NEWS----'
     FXNewsFutureNetSpider.writeMorningFutureDailyNews()
+    
+    # CRAW FXNEWSSTOCK COMMENTS NEWS SIPDER
+    print '----START CRAW FXNEWSSTOCK NEWS----'
+    FXNewsStockNetSpider.writeMorningStockDailyNews()
     
 if __name__=='__main__':
     crawDailyNews()
