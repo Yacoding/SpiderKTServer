@@ -5,3 +5,4 @@ ThemeNewsSpiderUtils.py  ----主体爬虫工具类
 YiCaiCompanyNewsSpider.py ----第一财经上市公司爬虫类
 
 http://www.p5w.net/stock/gpyb/hyfx/  题材爬虫链接
+http://www.huagu.com/
