@@ -1,7 +1,4 @@
 import ForexGoldDataNetSpiderUtils
-import uuid
-import time
-
 
 def crawForexGoldDataSource(link):
     currentList = []
