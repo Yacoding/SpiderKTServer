@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../commondatasource_spider/')
+sys.path.append('../datacenter_spider/')
 import ForexGoldDataNetSpider
 
 
