@@ -35,20 +35,6 @@ def crawForexGoldDataSource(link):
     
     
 def writeForexGoldDataSource():
-    startPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx'
-    startPageList = crawForexGoldDataSource(startPageLink)
-    secondPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=2'
-    secondPageList = crawForexGoldDataSource(secondPageLink)
-    thirdPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=3'
-    thirdPageLink = crawForexGoldDataSource(thirdPageLink)
-    fourPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=4'
-    fourPageLink = crawForexGoldDataSource(fourPageLink)
-    fivePageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=5'
-    fivePageLink = crawForexGoldDataSource(fivePageLink)
-    sixPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=6'
-    sixPageLink = crawForexGoldDataSource(sixPageLink)
-    currentList = startPageList+secondPageList+thirdPageLink+fourPageLink+fivePageLink+sixPageLink
-    
     conn = ForexGoldDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
@@ -57,6 +43,14 @@ def writeForexGoldDataSource():
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
+    
+    currentList = []    
+    i = 1    
+    while i <6 :
+        link = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page='+str(i)
+        currentList += crawForexGoldDataSource(link)
+        i +=1
+   
     formatSQL = 'INSERT INTO  DATACENTER_GOLDFOREX_RESOURCE_TABLE(CURRENTDATE,FOREXSTORA,FOREXSTORATB,FOREXSTORAHB,GOLDSTORA,GOLDSTORATB,GOLDSTORAHB) VALUES (%s,%s,%s,%s,%s,%s,%s)'
     try:
         cursor.executemany(formatSQL,currentList)

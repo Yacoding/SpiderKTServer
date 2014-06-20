@@ -1,4 +1,6 @@
 PlateDataNetSpider.py   ----热门板块数据源爬取
 ForexGoldDataNetSpider.py ----国家黄金和外汇储备数据爬虫
+MarketSentimentDataNetSpider.py  ----市场情绪指标动态数据爬虫
+
 
 http://www.wlstock.com/ShuJu/StockAccountStat.aspx  数据中心
