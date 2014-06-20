@@ -41,7 +41,13 @@ def writeForexGoldDataSource():
     secondPageList = crawForexGoldDataSource(secondPageLink)
     thirdPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=3'
     thirdPageLink = crawForexGoldDataSource(thirdPageLink)
-    currentList = startPageList+secondPageList+thirdPageLink
+    fourPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=4'
+    fourPageLink = crawForexGoldDataSource(fourPageLink)
+    fivePageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=5'
+    fivePageLink = crawForexGoldDataSource(fivePageLink)
+    sixPageLink = 'http://www.wlstock.com/ShuJu/GoldAndForeignExchange.aspx?page=6'
+    sixPageLink = crawForexGoldDataSource(sixPageLink)
+    currentList = startPageList+secondPageList+thirdPageLink+fourPageLink+fivePageLink+sixPageLink
     
     conn = ForexGoldDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()

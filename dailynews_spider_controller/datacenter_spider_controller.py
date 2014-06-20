@@ -6,8 +6,8 @@ import ForexGoldDataNetSpider
 def  crawDataCenter():
     
     
-    # CRAW ForexGold DATA SIPDER
-    print '----START CRAW ForexGold DATA----'
+    # CRAW FOREXGOLD DATA SIPDER
+    print '----START CRAW FOREXGOLD DATA----'
     ForexGoldDataNetSpider.writeForexGoldDataSource()
 
 
