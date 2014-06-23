@@ -27,7 +27,7 @@ def openInternetUrl(webHttp):
         "Keep-Alive":"115",  
         "Connection":"keep-alive"  
     }  
-    req_timeout = 5
+    req_timeout = 30
     req = urllib2.Request(webHttp,None,req_header)
     resp = urllib2.urlopen(req,None,req_timeout)
     html = resp.read()
