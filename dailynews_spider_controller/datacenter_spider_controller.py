@@ -3,6 +3,7 @@ sys.path.append('../datacenter_spider/')
 import ForexGoldDataNetSpider
 import MarketSentimentDataNetSpider
 import StockAccountDataNetSpider
+import TradeActivityDataNetSpider
 
 def  crawDataCenter():
     
@@ -17,8 +18,11 @@ def  crawDataCenter():
     
     # CRAW STOCKACCOUNT DATA SIPDER
     print '----START CRAW STOCKACCOUNT DATA----'
-    StockAccountDataNetSpider.writeStockAccountDataCenter()
+    #StockAccountDataNetSpider.writeStockAccountDataCenter()
 
+    # CRAW TRADEACTIVITY DATA SIPDER
+    print '----START CRAW TRADEACTIVITY DATA----'
+    TradeActivityDataNetSpider.writeTradeActivityDataCenter()
 
 if __name__=='__main__':
     crawDataCenter()
