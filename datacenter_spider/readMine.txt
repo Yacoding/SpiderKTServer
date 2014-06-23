@@ -6,3 +6,4 @@ TradeActivityDataNetSpider.py    ----交易活跃度爬虫
 
 
 http://www.wlstock.com/ShuJu/StockAccountStat.aspx  数据中心
+http://finance.qq.com/stock/
