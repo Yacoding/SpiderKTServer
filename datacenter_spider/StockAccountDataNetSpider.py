@@ -122,7 +122,7 @@ def writeStockAccountDataCenter():
     webNet = 'http://www.wlstock.com/ShuJu/'
     currentList = []
     i = 1 
-    while i <26:
+    while i <15:
         link = 'http://www.wlstock.com/ShuJu/StockAccountStat.aspx?page='+str(i)
         currentList += crawStockAccountDataCenter(link,webNet)
         i +=1  
