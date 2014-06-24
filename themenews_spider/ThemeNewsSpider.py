@@ -1,5 +1,6 @@
 import ThemeNewsSpiderUtils;
 import uuid
+import time
 
 # CRAW THEME DAILY NEWS 
 def  crawThemeDailyNews(link):
@@ -15,6 +16,9 @@ def  crawThemeDailyNews(link):
         linkUrl = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<a href="', '">')
         pubDate = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<span>','</span>')
         title = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'">','</a>')
+        currentTime = time.strftime("%Y-%m-%d",time.localtime())
+        if(pubDate[:10]!=currentTime):
+            break
         if linkUrl != '':
             currentList.append([keyid,linkUrl,pubDate,title])
     return currentList
@@ -47,9 +51,10 @@ def writeThemeDailyNewsByLink(currentLinkList):
 # WRITE THEME DAILY NEWS 
 def writeThemeDailyNews():
     currentLinkList = ['http://stock.stockstar.com/list/1577_1.shtml'
-                       ,'http://stock.stockstar.com/list/1577_2.shtml'
-                       ,'http://stock.stockstar.com/list/1577_3.shtml'
-                       ,'http://stock.stockstar.com/list/1577_4.shtml'
-                       ,'http://stock.stockstar.com/list/1577_5.shtml']
+                       ,'http://stock.stockstar.com/list/1577_2.shtml']
     writeThemeDailyNewsByLink(currentLinkList)
+    
+if __name__=='__main__':
+    writeThemeDailyNews()
+    
     

@@ -6,3 +6,5 @@ YiCaiCompanyNewsSpider.py ----第一财经上市公司爬虫类
 
 http://www.p5w.net/stock/gpyb/hyfx/  题材爬虫链接
 http://www.huagu.com/
+http://gb.cri.cn/45731/more/45772/more45772.htm  
+http://www.p5w.net/stock/gpyb/hyfx/

@@ -1,5 +1,6 @@
 import ThemeNewsSpiderUtils;
 import uuid
+import time
 
 # CRAW COMPANY NEWS 
 def  crawCompanyNews(link):
@@ -15,6 +16,9 @@ def  crawCompanyNews(link):
         linkUrl = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<a href="', '">')
         pubDate = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'<span>','</span>')
         title = ThemeNewsSpiderUtils.filterContextByTarget(currentcontext,'">','</a>')
+        currentTime = time.strftime("%Y-%m-%d",time.localtime())
+        if(pubDate[:10]!=currentTime):
+            break
         if linkUrl != '':
             currentList.append([keyid,linkUrl,pubDate,title,'STOCKSTAR'])
     return currentList
