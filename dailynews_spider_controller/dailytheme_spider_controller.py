@@ -4,6 +4,7 @@ import CompanyNewsSpider
 import ImportantNewsSpider
 import ThemeNewsSpider
 import YiCaiCompanyNewsSpider
+import PwThemeNewsSpider
 
 def  crawThemeNews():
     # CRAW THE IMPORT NEWS
@@ -21,6 +22,10 @@ def  crawThemeNews():
     #CRAW THE YICAI NEWS
     print '----START CRAW THE YICAI NEWS----'
     YiCaiCompanyNewsSpider.writeYiCaiCompanyNews()
+    
+    #CRAW THE PWTHEME NEWS
+    print '----START CRAW THE PWTHEME NEWS----'
+    PwThemeNewsSpider.writeDailyThemeNews()
     
 if __name__ == '__main__':
     crawThemeNews()   
