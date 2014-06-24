@@ -4,6 +4,7 @@ import ForexGoldDataNetSpider
 import MarketSentimentDataNetSpider
 import StockAccountDataNetSpider
 import TradeActivityDataNetSpider
+import PlateConceptNetSpider
 
 def  crawDataCenter():
     
@@ -23,6 +24,10 @@ def  crawDataCenter():
     # CRAW TRADEACTIVITY DATA SIPDER
     print '----START CRAW TRADEACTIVITY DATA----'
     TradeActivityDataNetSpider.writeTradeActivityDataCenter()
+    
+    # CRAW PLATECONCEPT DATA SIPDER
+    print '----START CRAW PLATECONCEPT DATA----'
+    PlateConceptNetSpider.writePlateConceptDataSource()
 
 if __name__=='__main__':
     crawDataCenter()
