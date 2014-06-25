@@ -3,7 +3,7 @@ import uuid
 import time
 
 
-def crawDailyThemeNews(link,webNet):
+def crawDailyCompanyNews(link,webNet):
     currentList = []
     startContext = CriCompanyNewsSpiderUtils.returnStartContext(link,'<table width="100%">')
     startContext = CriCompanyNewsSpiderUtils.filterContextByTarget(startContext,'<table width="100%">','</table>')
@@ -27,10 +27,10 @@ def crawDailyThemeNews(link,webNet):
             currentList.append([keyid,linkUrl,pubDate,title,'','CRINET'])  
     return currentList
     
-def writeDailyThemeNews():
+def writeDailyCompanyNews():
     link = 'http://gb.cri.cn/45731/more/45768/more45768.htm'  
     webNet = 'http://gb.cri.cn'  
-    currentList = crawDailyThemeNews(link,webNet)
+    currentList = crawDailyCompanyNews(link,webNet)
     conn = CriCompanyNewsSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:

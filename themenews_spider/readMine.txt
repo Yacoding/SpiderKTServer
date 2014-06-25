@@ -3,8 +3,11 @@ CompanyNewsSpider.py  ---- 公司新闻爬虫
 ImportantNewsSpider.py   ----重要新闻爬虫工具类
 ThemeNewsSpiderUtils.py  ----主体爬虫工具类
 YiCaiCompanyNewsSpider.py ----第一财经上市公司爬虫类
+PwThemeNewsSpider.py   ----全景网在线题材爬虫
+CriCompanyNewsSpider.py  ----国际在线公司股票信息爬虫
 
 http://www.p5w.net/stock/gpyb/hyfx/  题材爬虫链接
 http://www.huagu.com/
 http://gb.cri.cn/45731/more/45772/more45772.htm  
 http://www.p5w.net/stock/gpyb/hyfx/
+http://stock.stcn.com/bankuai/1.shtml   ----证券时报，板块新闻

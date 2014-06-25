@@ -30,7 +30,7 @@ def  crawThemeNews():
     
     #CRAW THE CRICOMPANY NEWS
     print '----START CRAW THE CRICOMPANY NEWS----'
-    CriCompanyNewsSpider.writeDailyThemeNews()
+    CriCompanyNewsSpider.writeDailyCompanyNews()
     
 if __name__ == '__main__':
     crawThemeNews()   
