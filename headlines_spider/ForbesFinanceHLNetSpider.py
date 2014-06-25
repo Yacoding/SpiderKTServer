@@ -17,13 +17,31 @@ def crawFinanceHLDataSource(link,webNet):
     descriptContext = ForbesFinanceHLNetSpiderUtils.removeSpecialCharacter(descriptContext)
     startContext =  ForbesFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<divclass="news_link3">')
     pubDate = ForbesFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'','</div>')
-    print  pubDate
+    currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'MACRO','FORBESCHINA'])
     return currentList
      
 def writeFinanceHLDataSource():
     link = 'http://www.forbeschina.com/investment/macrography/'
     webNet = 'http://www.forbeschina.com'
     currentList = crawFinanceHLDataSource(link,webNet)
+    conn = ForbesFinanceHLNetSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE  FROM  HEADLINE_FINANCENEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'FORBESCHINA'")
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    formatSQL = 'INSERT HEADLINE_FINANCENEWS_RESOURCE_TABLE (KEYID,LINKURL,IMAGEURL,TITLE,PUBDATE,DESCRIPTCONTEXT,NEWSFLAG,SOURCEFLAG) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+    try:
+        cursor.executemany(formatSQL,currentList)
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    cursor.close()
+    conn.close()
+    
     
 if __name__=='__main__':
     writeFinanceHLDataSource()
