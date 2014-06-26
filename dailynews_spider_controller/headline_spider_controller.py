@@ -2,6 +2,7 @@ import sys
 sys.path.append('../headlines_spider/')
 import ForbesFinanceHLNetSpider
 import FortuneFinanceHLNetSpider
+import FTFinanceHLNetSpider
 
 def crawDataCenter():
     
@@ -12,6 +13,10 @@ def crawDataCenter():
     # CRAW FORTUREFINANCE DATA SIPDER
     print '----START CRAW FORTUREFINANCE DATA----'
     FortuneFinanceHLNetSpider.writeFinanceHLDataSource()
+    
+    # CRAW FTFINANCEHL DATA SIPDER
+    print '----START CRAW FTFINANCEHL DATA----'
+    FTFinanceHLNetSpider.writeFinanceHLDataSource()
     
 if __name__=='__main__':
     crawDataCenter()  
