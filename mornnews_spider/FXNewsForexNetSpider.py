@@ -19,6 +19,9 @@ def crawMorningForexDailyNews(linkUrl):
         title = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'title="','><imglazy-src')
         imageUrl = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'imglazy-src="','"width=')
         descriptContext = FXNewsForexNetSpiderUtils.filterContextByTarget(currentContext,'<pclass="del">','</div></li>')
+        currentTime = time.strftime("%Y-%m-%d",time.localtime()) 
+        if  pubDate[:10]!=currentTime:
+            break
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'FOREX','FXNET'])
     return currentList
     
@@ -42,4 +45,4 @@ def writeMorningForexDailyNews():
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
         conn.rollback()
     cursor.close()
-    conn.close()
+    conn.close()    

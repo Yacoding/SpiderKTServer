@@ -18,6 +18,9 @@ def crawMorningFutureDailyNews(linkUrl):
         title = FXNewsFutureNetSpiderUtils.filterContextByTarget(currentContext,'title="','><imglazy-src')
         imageUrl = FXNewsFutureNetSpiderUtils.filterContextByTarget(currentContext,'imglazy-src="','"width=')
         descriptContext = FXNewsFutureNetSpiderUtils.filterContextByTarget(currentContext,'<pclass="del">','</div></li>')
+        currentTime = time.strftime("%Y-%m-%d",time.localtime()) 
+        if  pubDate[:10]!=currentTime:
+            break
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'FUTURE','FXNET'])
     return currentList
     

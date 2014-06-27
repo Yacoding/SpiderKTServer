@@ -1,6 +1,6 @@
 import FXNewsStockNetSpiderUtils
 import uuid
-
+import time
 
 def crawMorningStockDailyNews(linkUrl):
     currentList = []
@@ -18,6 +18,9 @@ def crawMorningStockDailyNews(linkUrl):
         title = FXNewsStockNetSpiderUtils.filterContextByTarget(currentContext,'title="','><imglazy-src')
         imageUrl = FXNewsStockNetSpiderUtils.filterContextByTarget(currentContext,'imglazy-src="','"width=')
         descriptContext = FXNewsStockNetSpiderUtils.filterContextByTarget(currentContext,'<pclass="del">','</div></li>')
+        currentTime = time.strftime("%Y-%m-%d",time.localtime()) 
+        if  pubDate[:10]!=currentTime:
+            break
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'STOCK','FXNET'])
     return currentList
     

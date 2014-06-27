@@ -23,11 +23,14 @@ def crawMorningDailyNews(linkUrl,WebNet):
             flag = True    
         pubDate = HEJNewsNetSpiderUtils.filterContextByTarget(pubDate,'<spanclass="meta-item">','</span>')
         pubDate = pubDate[:4]+"-"+pubDate[7:9]+'-'+pubDate[12:14]+' '+pubDate[17:]
+        currentTime = time.strftime("%Y-%m-%d",time.localtime())
         descriptContext = HEJNewsNetSpiderUtils.filterContextByTarget(currentContext,'<divclass="media-content">','</div></div><!--mediabodyend-->')
         if flag:
-            currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'CHINA','HEJNET'])
+            if pubDate[:10] == currentTime:
+                currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'CHINA','HEJNET'])
         else:
-            currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'EUROPE','HEJNET'])
+            if pubDate[:10] == currentTime:
+                currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'EUROPE','HEJNET'])
         i +=1
     return currentList
 
@@ -53,3 +56,6 @@ def writeMorningDailyNews():
         conn.rollback()
     cursor.close()
     conn.close()
+    
+if __name__=='__main__':
+    writeMorningDailyNews()
