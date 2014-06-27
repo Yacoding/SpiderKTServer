@@ -4,22 +4,21 @@ import uuid
 
 def crawFinanceHLDataSource(link):
     currentList = []
-    target ='<div class="ZXTJ">'
+    target ='<div class="p3_box">'
     startContext = TakFinanceHLNetSpiderUtils.returnStartContext(link,target)
-    startContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext, target,'<div id="bdshare"')    
+    startContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,target,'<div class="clear"></div>')
     startContext = TakFinanceHLNetSpiderUtils.removeSpecialCharacter(startContext)
     linkUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<ahref="','"target')
-    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'style') 
-    title = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'>','</a>')
-    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'</a>') 
-    descriptContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'>','<ahref')
-    imageUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<imgsrc="','"/></a>')
+    title = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'blank">','</a></div>')
+    imageUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<imgsrc="','"border')
+    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<divclass="summary">')
+    descriptContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'','<ahref')
     pubDate = time.strftime("%Y-%m-%d",time.localtime()) 
     currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'MACRO','TAKCHINA'])
     return currentList
      
 def writeFinanceHLDataSource():
-    link = 'http://finance.takungpao.com/gscy/topic/exposure/'
+    link = 'http://finance.takungpao.com/'
     currentList = crawFinanceHLDataSource(link)
     conn = TakFinanceHLNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()

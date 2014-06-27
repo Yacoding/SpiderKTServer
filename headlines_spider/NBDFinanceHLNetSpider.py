@@ -4,22 +4,24 @@ import uuid
 
 def crawFinanceHLDataSource(link):
     currentList = []
-    target ='<div class="frontPage_content">'
+    target ='<ul class="articles  unorderList unorderList-orange">'
     startContext = TakFinanceHLNetSpiderUtils.returnStartContext(link,target)
-    startContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,target,'<ul')
+    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext, target)
+    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext, target)
+    startContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<li','</li>')
     startContext = TakFinanceHLNetSpiderUtils.removeSpecialCharacter(startContext)
-    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<divclass="hd">')
     linkUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<ahref="','"target')
-    title = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'title="','">')
-    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<divclass="hd">')
+    startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'title="')
+    title = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'>','</a>')
+    pubDate = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<span>','</span>')
+    pubDate = pubDate[:10]+' '+pubDate[10:]
     imageUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'src="','"width')
-    descriptContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<pclass="frontPage_intro">')
-    pubDate = time.strftime("%Y-%m-%d",time.localtime())
+    descriptContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<pclass="articleMaterial_digest_3row">','</div>')
     currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'MACRO','NBDCHINA'])
     return currentList
      
 def writeFinanceHLDataSource():
-    link = 'http://www.nbd.com.cn/'
+    link = 'http://www.nbd.com.cn/columns/2'
     currentList = crawFinanceHLDataSource(link)
     conn = TakFinanceHLNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
