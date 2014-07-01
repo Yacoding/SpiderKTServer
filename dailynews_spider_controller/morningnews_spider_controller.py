@@ -17,8 +17,10 @@ def crawDailyNews():
     
     # CRAW QQNEWS COMMENTS NEWS SIPDER
     print '----START CRAW QQNEWS NEWS----'
-    QQNewsNetSpider.writeMorningDailyNews()
-    
+    try :
+        QQNewsNetSpider.writeMorningDailyNews()
+    except Exception,e:
+        print e
     # CRAW NBDNEWS COMMENTS NEWS SIPDER
     print '----START CRAW NBDNEWS NEWS----'
     NBDNewsNetSpider.writeMorningDailyNews()
