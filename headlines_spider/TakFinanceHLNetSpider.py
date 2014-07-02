@@ -13,7 +13,7 @@ def crawFinanceHLDataSource(link):
     imageUrl = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<imgsrc="','"border')
     startContext = TakFinanceHLNetSpiderUtils.filterAfterContext(startContext,'<divclass="summary">')
     descriptContext = TakFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'','<ahref')
-    pubDate = time.strftime("%Y-%m-%d",time.localtime()) 
+    pubDate = time.strftime("%Y-%m-%d %X",time.localtime()) 
     currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'MACRO','TAKCHINA'])
     return currentList
      
