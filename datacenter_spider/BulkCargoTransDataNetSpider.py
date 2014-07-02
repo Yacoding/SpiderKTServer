@@ -18,17 +18,30 @@ def crawBulkCargoTransDataSource(link):
         currentContext = BulkCargoTransDataNetSpiderUtils.filterAfterContext(currentContext,'</td>')
         indexValue = BulkCargoTransDataNetSpiderUtils.filterContextByTarget(currentContext,'<td>','</td>')
         currentContext = BulkCargoTransDataNetSpiderUtils.filterAfterContext(currentContext,'<span')
-        increaseValue = BulkCargoTransDataNetSpiderUtils.filterContextByTarget(currentContext, '>','</span>')
+        increaseValue = BulkCargoTransDataNetSpiderUtils.filterContextByTarget(currentContext, '>','</span>').replace('%','')
         currentContext = BulkCargoTransDataNetSpiderUtils.filterAfterContext(currentContext,'<span')
-        increaseRange = BulkCargoTransDataNetSpiderUtils.filterContextByTarget(currentContext,'>','</span>')
+        increaseRange = BulkCargoTransDataNetSpiderUtils.filterContextByTarget(currentContext,'>','</span>').replace('%','')
         currentList.append([currentTime,indexValue,increaseValue,increaseRange])
     return currentList
 
 def writeBulkCargoTransDataSource():
     link = 'http://app.finance.ifeng.com/data/indu/jgzs.php?symbol=58'
     currentList = crawBulkCargoTransDataSource(link)
+    conn = BulkCargoTransDataNetSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE FROM DATACENTER_BULKCARGOTRANS_RESOURCE_TABLE")
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
     
-
-
-if __name__=='__main__':
-    writeBulkCargoTransDataSource()
+    formatSQL = 'INSERT INTO  DATACENTER_BULKCARGOTRANS_RESOURCE_TABLE(CURRENTTIME,INDEXVALUE,INCREASEVALUE,INCREASERANGE) VALUES (%s,%s,%s,%s)'
+    try:
+        cursor.executemany(formatSQL,currentList)
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    cursor.close()
+    conn.close()

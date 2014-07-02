@@ -7,6 +7,7 @@ import YiCaiCompanyNewsSpider
 import PwThemeNewsSpider
 import CriCompanyNewsSpider
 import StcnThemeNewsSpider
+import BulkCargoTransDataNetSpider
 
 def  crawThemeNews():
     # CRAW THE IMPORT NEWS
@@ -36,6 +37,10 @@ def  crawThemeNews():
     #CRAW THE StcnTheme NEWS
     print '----START CRAW THE StcnTheme NEWS----'
     StcnThemeNewsSpider.writeDailyThemeNews();
+    
+    #CRAW THE BulkCargoTransData NEWS
+    print '----START CRAW THE BulkCargoTransData NEWS----'
+    BulkCargoTransDataNetSpider.writeBulkCargoTransDataSource()
     
 if __name__ == '__main__':
     crawThemeNews()   
