@@ -10,3 +10,5 @@ http://finance.qq.com/stock/
 http://gb.cri.cn/45731/more/45768/more45768.htm  股市财经
 http://www.gushi001.com/indexfuture
 http://data.eastmoney.com/IF/Data/Contract.html
+
+http://app.finance.ifeng.com/data/indu/jgzs.php?symbol=58 ---干散货运输市场波罗的海综合运价指数BDI

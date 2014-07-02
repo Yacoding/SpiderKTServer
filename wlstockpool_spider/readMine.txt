@@ -1,1 +1,2 @@
 WlStockPoolSpider.py   ---- 股票池爬虫.
+http://xueqiu.com/hq#exchange=CN&firstName=%E6%B2%AA%E6%B7%B1%E8%82%A1%E5%B8%82&secondName=%E6%B2%AA%E6%B7%B1%E4%B8%80%E8%A7%88
