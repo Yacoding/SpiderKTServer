@@ -6,6 +6,8 @@ import StockAccountDataNetSpider
 import TradeActivityDataNetSpider
 import PlateConceptNetSpider
 import IndexFutureDataNetSpider
+import BulkCargoTransDataNetSpider
+
 
 def  crawDataCenter():
     
@@ -34,5 +36,9 @@ def  crawDataCenter():
     print '----START CRAW INDEXFUTURE DATA----'
     IndexFutureDataNetSpider.writeIndexFutureDataSource()
 
+    #CRAW THE BULKCARGOTRANS DATA
+    print '----START CRAW THE BULKCARGOTRANS DATA----'
+    BulkCargoTransDataNetSpider.writeBulkCargoTransDataSource()
+     
 if __name__=='__main__':
     crawDataCenter()
