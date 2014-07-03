@@ -8,6 +8,7 @@ import FXNewsMetalNetSpider
 import FXNewsFutureNetSpider
 import FXNewsStockNetSpider
 import TakNewsStockNetSpider
+import YiCaiStockNetSpider
 
 def crawDailyNews():
     
@@ -44,6 +45,10 @@ def crawDailyNews():
     # CRAW TAKNEWSSTOCK COMMENTS NEWS SIPDER
     print '----START CRAW TAKNEWSSTOCK NEWS----'
     TakNewsStockNetSpider.writeFinanceHLDataSource()
+    
+    # CRAW YICAISTOCK COMMENTS NEWS SIPDER
+    print '----START CRAW YICAISTOCK NEWS----'
+    YiCaiStockNetSpider.writeYiCaiStockDataSource()
     
 if __name__=='__main__':
     crawDailyNews()
