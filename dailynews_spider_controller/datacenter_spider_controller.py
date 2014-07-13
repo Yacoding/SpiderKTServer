@@ -22,7 +22,7 @@ def  crawDataCenter():
     
     # CRAW STOCKACCOUNT DATA SIPDER
     print '----START CRAW STOCKACCOUNT DATA----'
-    #StockAccountDataNetSpider.writeStockAccountDataCenter()
+    StockAccountDataNetSpider.writeStockAccountDataCenter()
 
     # CRAW TRADEACTIVITY DATA SIPDER
     print '----START CRAW TRADEACTIVITY DATA----'
