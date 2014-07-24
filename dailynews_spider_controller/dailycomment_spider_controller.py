@@ -1,4 +1,5 @@
 import  sys
+from warnings import catch_warnings
 sys.path.append("../comment_spider/")
 import HuiTongNetSpider
 import AdsNetSpider
@@ -15,8 +16,14 @@ import IFengFinanceNetSpider
 import SinaFinanceNetSpider
 import QQFinanceNetSpider
 import SilverMetalNetSpider
+import CommonsRecodeErrorUtils
+import uuid
+import time
 
 def crawCommentsNews():
+    
+    currentList = []
+    currentTime = time.strftime("%Y-%m-%d %X",time.localtime());
     
     # CRAW HUITONG COMMENTS NEWS SIPDER
     print '----START CRAW HUITONG COMMENTS NEWS----'
@@ -36,8 +43,11 @@ def crawCommentsNews():
     
     # CRAW JTMETAL COMMENTS NEWS SIPDER
     print '----START CRAW JTMETAL COMMENTS NEWS----'
-    JTMetalNetSpider.writeDailyMetalComments()
-
+    try:
+        JTMetalNetSpider.writeDailyMetalComments()
+    except Exception ,e: 
+        currentList.append([currentTime,str(uuid.uuid1()),'JTMetalNetSpider.writeDailyMetalComments',e])
+     
     # CRAW SYMETAL COMMENTS NEWS SIPDER
     print '----START CRAW SYMETAL COMMENTS NEWS----'
     SYMetalNetSpider.writeDailyMetalComments()
@@ -71,7 +81,7 @@ def crawCommentsNews():
     try :
         SinaFinanceNetSpider.writeDailyFinanceComments()
     except Exception,e:
-        print e
+        currentList.append([currentTime,str(uuid.uuid1()),'SinaFinanceNetSpider.writeDailyFinanceComments',e])
     
     # CRAW QQFINANCE COMMENTS NEWS SIPDER
     print '----START CRAW QQFINANCE COMMENTS NEWS----'
@@ -79,7 +89,15 @@ def crawCommentsNews():
     
     # CRAW SILVERMETAL COMMENTS NEWS SIPDER
     print '----START CRAW SILVERMETAL COMMENTS NEWS----'
-    SilverMetalNetSpider.writeDailyMetalComments()
+    try :
+        SilverMetalNetSpider.writeDailyMetalComments()
+    except Exception,e:
+        currentList.append([currentTime,str(uuid.uuid1()),'SilverMetalNetSpider.writeDailyMetalComments',e])
+    
+    
+    print '----START CRAW ERROR INFORMATION----'
+    CommonsRecodeErrorUtils.commonRedcodeError(currentList)
+    
     
 if __name__=='__main__':
     crawCommentsNews()

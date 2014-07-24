@@ -1,11 +1,11 @@
 import CommonsMysqlUtils
 
-def commonRedcodeError():
+def commonRedcodeError(currentList):
     conn = CommonsMysqlUtils.returnErrorMysqlConn()
     cursor = conn.cursor()
-    finalFormatSQL = 'INSERT INTO SPIDER_CRAW_ERROR_TABLE (ERRORTIME,KEYID,SPIDERNAME,ERRORINFOR) VALUES (%s,%s,%s,%s,%s)'
+    finalFormatSQL = 'INSERT INTO SPIDER_CRAW_ERROR_TABLE (ERRORTIME,KEYID,SPIDERNAME,ERRORINFOR) VALUES (%s,%s,%s,%s)'
     try:
-        cursor.execute(finalFormatSQL)
+        cursor.executemany(finalFormatSQL,currentList)
         conn.commit()
     except conn.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
