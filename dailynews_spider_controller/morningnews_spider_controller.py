@@ -1,7 +1,6 @@
 import sys
 sys.path.append('../mornnews_spider/')
 import HEJNewsNetSpider
-import QQNewsNetSpider
 import NBDNewsNetSpider
 import FXNewsForexNetSpider
 import FXNewsMetalNetSpider
@@ -19,7 +18,7 @@ def crawDailyNews():
     
     # CRAW QQNEWS COMMENTS NEWS SIPDER
     print '----START CRAW QQNEWS NEWS----'
-    try :
+    try:
         QQNewsNetSpider.writeMorningDailyNews()
     except Exception,e:
         print e

@@ -36,7 +36,7 @@ def  crawThemeNews():
     
     #CRAW THE StcnTheme NEWS
     print '----START CRAW THE StcnTheme NEWS----'
-    StcnThemeNewsSpider.writeDailyThemeNews();
+    StcnThemeNewsSpider.writeDailyThemeNews()
     
 if __name__ == '__main__':
     crawThemeNews()   
