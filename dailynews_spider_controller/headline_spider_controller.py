@@ -33,8 +33,11 @@ def crawDataCenter():
     
     # CRAW CCTVFINANCEHL DATA SIPDER
     print '----START CRAW CCTVFINANCEHL DATA----'
-    CCTVFinanceHLNetSpider.writeFinanceHLDataSource()
-    
+    try:
+        CCTVFinanceHLNetSpider.writeFinanceHLDataSource()
+    except Exception,e:
+        print e
+
     # CRAW JRJFINANCEHL DATA SIPDER
     print '----START CRAW JRJFINANCEHL DATA----'
     JRJFinanceHLNetSpider.writeFinanceHLDataSource()
