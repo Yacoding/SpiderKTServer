@@ -4,3 +4,6 @@ HexunBlogSpider.py ----和讯网爬虫
 HexunBlogSpiderUtils.py ----和讯网爬虫工具类
 SinaBlogSpider.py ---新浪博客爬虫
 SinaBlogSpiderUtils.py ----新浪博客爬虫工具类
+
+
+博客爬虫脚本

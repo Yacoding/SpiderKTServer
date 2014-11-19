@@ -29,8 +29,8 @@ def findForexImage():
         
     mysqlCur.executemany('INSERT  INTO  whkt_resource_table (ID,IMAGEURL,TITLE,CREATEDATE) VALUES (%s,%s,%s,%s)',currentResult);
     mysqlConn.commit()
-    mysqlConn.close();
-    mysqlCur.close();
+    mysqlConn.close()
+    mysqlCur.close()
     
         
 def findForexImageList(link):
