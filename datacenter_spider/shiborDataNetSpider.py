@@ -1,10 +1,11 @@
 import shiborDataNetSpiderUtils
 
 def  crawShiborDataSource(link):
-    startContext = shiborDataNetSpiderUtils.returnStartContext(link,'class="shiborquxian" >')
-    ##startContext = shiborDataNetSpiderUtils.removeSpecialCharacter(startContext)
-    startContext = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'class="shiborquxian">','<TR>')
-    startContext = shiborDataNetSpiderUtils.filterAfterContext(startContext,'>')
+    startContext = shiborDataNetSpiderUtils.returnStartContext(link,'class="infoTitleW">')
+    currentTime  = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'class="infoTitleW">','&nbsp;')
+    print currentTime
+    startContext = shiborDataNetSpiderUtils.filterAfterContext(startContext,'class="shiborquxian"')
+    startContext = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'>','<TR>')
     len = shiborDataNetSpiderUtils.findAllTarget(startContext,'<tr>')
     for i in range(len):
         targetContext = shiborDataNetSpiderUtils.divisionTarget(startContext,'<tr>','</tr>')
@@ -14,7 +15,6 @@ def  crawShiborDataSource(link):
         shiborValue = shiborDataNetSpiderUtils.filterContextByTarget(currentContext,'<tdwidth="35%"align="center">'
                       ,'</td><tdwidth="10%"align="right">')
         print  shiborValue
-    print startContext
 
 def writePlateConceptDataSource():
     link = 'http://www.shibor.org/shibor/web/html/shibor.html'
