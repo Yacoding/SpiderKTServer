@@ -42,6 +42,8 @@ def  crawShiborDataSource(link):
     currentArray.append([currentTime[0:10],shiborONValue,shibor1WValue,shibor2WValue,shibor1MValue,
                          shibor3MValue,shibor6MValue,shibor9MValue,shibor1YValue])
     print currentArray
+
+
 def writePlateConceptDataSource():
     link = 'http://www.shibor.org/shibor/web/html/shibor.html'
 
