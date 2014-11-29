@@ -7,6 +7,7 @@ import TradeActivityDataNetSpider
 import PlateConceptNetSpider
 import IndexFutureDataNetSpider
 import BulkCargoTransDataNetSpider
+import shiborDataNetSpider
 
 
 def  crawDataCenter():
@@ -39,6 +40,10 @@ def  crawDataCenter():
     #CRAW THE BULKCARGOTRANS DATA
     print '----START CRAW THE BULKCARGOTRANS DATA----'
     BulkCargoTransDataNetSpider.writeBulkCargoTransDataSource()
+
+    #CRAW THE SHIBOR DATA
+    print '----START CRAW THE SHIBOR DATA----'
+    shiborDataNetSpider.writeShiborConceptDataSource()
      
 if __name__=='__main__':
     crawDataCenter()
