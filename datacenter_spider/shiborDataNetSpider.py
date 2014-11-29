@@ -1,10 +1,9 @@
 import shiborDataNetSpiderUtils
 
-def  crawShiborDataSource(link):
+def crawShiborDataSource(link):
     currentArray = []
     startContext = shiborDataNetSpiderUtils.returnStartContext(link,'class="infoTitleW">')
     currentTime  = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'class="infoTitleW">','&nbsp;')
-    print currentTime
     startContext = shiborDataNetSpiderUtils.filterAfterContext(startContext,'class="shiborquxian"')
     startContext = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'>','<TR>')
     len = shiborDataNetSpiderUtils.findAllTarget(startContext,'<tr>')
@@ -41,13 +40,25 @@ def  crawShiborDataSource(link):
             shibor1YValue = shiborValue
     currentArray.append([currentTime[0:10],shiborONValue,shibor1WValue,shibor2WValue,shibor1MValue,
                          shibor3MValue,shibor6MValue,shibor9MValue,shibor1YValue])
-    print currentArray
+    return currentArray
 
 
-def writePlateConceptDataSource():
+def writeShiborConceptDataSource():
     link = 'http://www.shibor.org/shibor/web/html/shibor.html'
+    currentList = crawShiborDataSource(link)
+    conn = shiborDataNetSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    formatSQL = 'INSERT INTO  DATACENTER_SHIBOR_RESOURCE_TABLE(CURRENTTIME,SHIBORON,SHIBOR1W,SHIBOR2W,SHIBOR1M,SHIBOR3M,SHIBOR6M,SHIBOR9M,SHIBOR1Y)' \
+                'VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    try:
+        cursor.executemany(formatSQL,currentList)
+        conn.commit()
+    except conn.Error,e:
+        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+        conn.rollback()
+    cursor.close()
+    conn.close()
 
-    crawShiborDataSource(link)
 
 if __name__=='__main__':
-    writePlateConceptDataSource()
+    writeShiborConceptDataSource()
