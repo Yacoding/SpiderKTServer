@@ -1,7 +1,7 @@
 import shiborDataNetSpiderUtils
+import MySQLdb
 
 def crawShiborDataSource(link):
-    currentArray = []
     startContext = shiborDataNetSpiderUtils.returnStartContext(link,'class="infoTitleW">')
     currentTime  = shiborDataNetSpiderUtils.filterContextByTarget(startContext,'class="infoTitleW">','&nbsp;')
     startContext = shiborDataNetSpiderUtils.filterAfterContext(startContext,'class="shiborquxian"')
@@ -38,23 +38,47 @@ def crawShiborDataSource(link):
             shibor9MValue = shiborValue
         elif i==7:
             shibor1YValue = shiborValue
-    currentArray.append([currentTime[0:10],shiborONValue,shibor1WValue,shibor2WValue,shibor1MValue,
-                         shibor3MValue,shibor6MValue,shibor9MValue,shibor1YValue])
-    return currentArray
+    currentArray = [currentTime[0:10],shiborONValue,shibor1WValue,shibor2WValue,shibor1MValue,
+                         shibor3MValue,shibor6MValue,shibor9MValue,shibor1YValue]
+    existArray =  {'CT':currentTime[0:10],'ON':shiborONValue,'1W':shibor1WValue,
+                   '2W':shibor2WValue,'1M':shibor1MValue,
+                   '3M':shibor3MValue,'6M':shibor6MValue,
+                   '9M':shibor9MValue,'1Y':shibor1YValue}
+    currentDict = {'CURRENTTIME':currentTime[0:10],'EXISTARRAY':existArray,'CURRENTARRAY':currentArray}
+    return currentDict
 
 
 def writeShiborConceptDataSource():
     link = 'http://www.shibor.org/shibor/web/html/shibor.html'
-    currentList = crawShiborDataSource(link)
+    currentDict = crawShiborDataSource(link)
     conn = shiborDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
-    formatSQL = 'INSERT INTO  DATACENTER_SHIBOR_RESOURCE_TABLE(CURRENTTIME,SHIBORON,SHIBOR1W,SHIBOR2W,SHIBOR1M,SHIBOR3M,SHIBOR6M,SHIBOR9M,SHIBOR1Y)' \
-                'VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    try:
-        cursor.executemany(formatSQL,currentList)
-        conn.commit()
-    except conn.Error,e:
-        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-        conn.rollback()
+    flag = shiborDataNetSpiderUtils.decideMessageExist(currentDict['CURRENTTIME'])
+    if(flag):
+       SQL = ' UPDATE DATACENTER_SHIBOR_RESOURCE_TABLE RESOURCE SET RESOURCE.SHIBORON=%s ' \
+             ' ,RESOURCE.SHIBOR1W=%s , RESOURCE.SHIBOR2W=%s , RESOURCE.SHIBOR1M = %s ' \
+             ' ,RESOURCE.SHIBOR3M=%s , RESOURCE.SHIBOR6M=%s , RESOURCE.SHIBOR9M = %s ' \
+             ' ,RESOURCE.SHIBOR1Y=%s WHERE 1=1 AND RESOURCE.CURRENTTIME=%s '
+       dict = currentDict['EXISTARRAY']
+       params = (dict['ON'],dict['1W'],dict['2W'],
+                 dict['1M'],dict['3M'],dict['6M'],dict['9M'],
+                 dict['1Y'],dict['CT'])
+       try:
+            cursor.execute(SQL,params)
+            conn.commit()
+       except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            conn.rollback()
+
+    else:
+       SQL = ' INSERT INTO  DATACENTER_SHIBOR_RESOURCE_TABLE(CURRENTTIME,SHIBORON,SHIBOR1W,SHIBOR2W,SHIBOR1M,' \
+                ' SHIBOR3M,SHIBOR6M,SHIBOR9M,SHIBOR1Y)' \
+                ' VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+       try:
+            cursor.executemany(SQL,currentDict['CURRENTARRAY'])
+            conn.commit()
+       except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            conn.rollback()
     cursor.close()
     conn.close()
