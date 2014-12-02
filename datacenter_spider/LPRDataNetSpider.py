@@ -1,7 +1,7 @@
 import LPRDataNetSpiderUtils
 
 
-def crawShiborDataSource(link):
+def crawLPRDataSource(link):
     startContext = LPRDataNetSpiderUtils.returnStartContext(link,'class="infoTitleW">')
     currentTime  = LPRDataNetSpiderUtils.filterContextByTarget(startContext,'class="infoTitleW">','&nbsp;')
     currentTime = currentTime[0:10]
@@ -22,9 +22,9 @@ def crawShiborDataSource(link):
             LPR1YValue = lprValue
     return {'LPR1Y':LPR1YValue,'CURRENTTIME':currentTime}
 
-def writeShiborConceptDataSource():
+def writeLPRConceptDataSource():
     link  = 'http://www.shibor.org/shibor/web/html/LPR.html'
-    dict = crawShiborDataSource(link)
+    dict = crawLPRDataSource(link)
     conn = LPRDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     flag = LPRDataNetSpiderUtils.decideMessageExist(dict['CURRENTTIME'])
@@ -50,4 +50,4 @@ def writeShiborConceptDataSource():
             conn.rollback()
 
 if __name__=='__main__':
-   writeShiborConceptDataSource()
+   writeLPRConceptDataSource()
