@@ -25,7 +25,8 @@ def decideMessageExist(currenttime):
     conn = getMySQLConn()
     cursor = conn.cursor()
     sql = " SELECT COUNT(RESOURCE.CURRENTTIME) AS COUNTS  DATACENTER_LPR_RESOURCE_TABLE AS RESOURCE" \
-          " WHERE RESOURCE.CURRENTTIME='%s'"%currenttime
+          " WHERE 1=1 " \
+          " AND  DATE_FORMAT(RESOURCE.CURRENTTIME,'YYYY-MM-DD')='%s'"%currenttime
     flag =False
     try:
         cursor.execute(sql)
