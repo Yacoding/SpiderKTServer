@@ -11,8 +11,7 @@ import shiborDataNetSpider
 import LPRDataNetSpider
 
 def  crawDataCenter():
-    
-    
+
     # CRAW FOREXGOLD DATA SIPDER
     print '----START CRAW FOREXGOLD DATA----'
     ForexGoldDataNetSpider.writeForexGoldDataSource()
