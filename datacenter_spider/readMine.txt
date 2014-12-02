@@ -14,4 +14,5 @@ http://data.eastmoney.com/IF/Data/Contract.html
 http://app.finance.ifeng.com/data/indu/jgzs.php?symbol=58 ---干散货运输市场波罗的海综合运价指数BDI
 
 http://finance.sina.com.cn/money/globalindex/ibor.shtml  ---隔夜银行拆借利率
+http://www.shibor.org/shibor/web/html/LPR.html  ---一年期贷款利率
 http://www.shibor.org/shibor/web/html/  ---上海银行同业拆借利率
