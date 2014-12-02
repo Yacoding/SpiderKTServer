@@ -1,5 +1,4 @@
 import shiborDataNetSpiderUtils
-import MySQLdb
 
 def crawShiborDataSource(link):
     startContext = shiborDataNetSpiderUtils.returnStartContext(link,'class="infoTitleW">')

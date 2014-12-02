@@ -24,7 +24,7 @@ def filterAfterContext(startContext,filterContext):
 def decideMessageExist(currenttime):
     conn = getMySQLConn()
     cursor = conn.cursor()
-    sql = " SELECT COUNT(RESOURCE.CURRENTTIME) AS COUNTS  DATACENTER_SHIBOR_RESOURCE_TABLE AS RESOURCE" \
+    sql = " SELECT COUNT(RESOURCE.CURRENTTIME) AS COUNTS  DATACENTER_LPR_RESOURCE_TABLE AS RESOURCE" \
           " WHERE RESOURCE.CURRENTTIME='%s'"%currenttime
     flag =False
     try:

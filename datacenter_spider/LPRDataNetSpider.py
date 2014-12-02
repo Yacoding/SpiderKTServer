@@ -20,12 +20,34 @@ def crawShiborDataSource(link):
             break
         else:
             LPR1YValue = lprValue
-    print LPR1YValue
+    return {'LPR1Y':LPR1YValue,'CURRENTTIME':currentTime}
 
 def writeShiborConceptDataSource():
     link  = 'http://www.shibor.org/shibor/web/html/LPR.html'
-    crawShiborDataSource(link)
-
+    dict = crawShiborDataSource(link)
+    conn = LPRDataNetSpiderUtils.getMySQLConn()
+    cursor = conn.cursor()
+    flag = LPRDataNetSpiderUtils.decideMessageExist(dict['CURRENTTIME'])
+    if(flag):
+        SQL = ' UPDATE  DATACENTER_LPR_RESOURCE_TABLE RESOURCE SET RESOURCE.LRPIY=%s ' \
+              ' WHERE 1=1 AND RESOURCE.CURRENTTIME=%s '
+        params = (dict['LPR1Y'],dict['CURRENTTIME'])
+        try:
+            cursor.execute(SQL,params)
+            conn.commit()
+        except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            conn.rollback()
+    else:
+        SQL = ' INSERT INTO DATACENTER_LPR_RESOURCE_TABLE(CURRENTTIME,LRPIY) ' \
+              ' VALUES(%s,%s)'
+        params = (dict['CURRENTTIME'],dict['LPR1Y'])
+        try:
+            cursor.execute(SQL,params)
+            conn.commit()
+        except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+            conn.rollback()
 
 if __name__=='__main__':
    writeShiborConceptDataSource()
