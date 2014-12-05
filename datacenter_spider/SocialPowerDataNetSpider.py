@@ -5,7 +5,7 @@ def crawShiborDataSource(link):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
     startContext = browsor.find_element_by_id('datatab').text
-    startContext = startContext[5:]
+    print  startContext
     browsor.quit()
 
 
