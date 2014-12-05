@@ -1,11 +1,10 @@
-import SocialPowerDataNetSpiderUtils
 from  selenium import webdriver
 
 
 def crawShiborDataSource(link):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
-    print browsor.find_element_by_id('datatab')
+    print browsor.find_element_by_id('datatab').text
     browsor.quit()
 
 
