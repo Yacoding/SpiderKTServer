@@ -1,11 +1,11 @@
 from  selenium import webdriver
-
+import SocialPowerDataNetSpiderUtils
 
 def crawShiborDataSource(link):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
     startContext = browsor.find_element_by_id('datatab').text
-    print  startContext
+    print  SocialPowerDataNetSpiderUtils.removeSpecialCharacter(startContext)
     browsor.quit()
 
 
