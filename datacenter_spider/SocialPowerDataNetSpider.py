@@ -10,9 +10,7 @@ def crawShiborDataSource(link):
     startContext = SocialPowerDataNetSpiderUtils.removeSpecialCharacter(startContext)
     print  startContext
     len  =   SocialPowerDataNetSpiderUtils.findAllTarget(startContext,currentYear)
-    for i in range(len):
-        i
-
+    print len
     browsor.quit()
 
 
