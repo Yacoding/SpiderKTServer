@@ -5,13 +5,13 @@ import time
 def crawShiborDataSource(link):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
-    startContext = browsor.find_element_by_id('datatab').text
-    currentYear = time.strftime("%Y",time.localtime())
-    startContext = SocialPowerDataNetSpiderUtils.removeSpecialCharacter(startContext)
-    print  startContext
-    len  =   SocialPowerDataNetSpiderUtils.findAllTarget(startContext,currentYear)
-    print len
-    browsor.quit()
+    currentList = []
+    contextList = browsor.find_element_by_id('datatab').text.split('\n')
+    contextList = contextList[1:len(contextList)-1]
+    for var in contextList:
+        varList = var.split(' ')
+        currentList.append(varList)
+    return currentList
 
 
 def writeShiborConceptDataSource():
