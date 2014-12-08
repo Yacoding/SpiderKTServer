@@ -1,6 +1,5 @@
 from  selenium import webdriver
 import SocialPowerDataNetSpiderUtils
-import time
 
 def crawSocialPowerDataSource(link):
     browsor = webdriver.PhantomJS()
