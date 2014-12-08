@@ -2,7 +2,7 @@ from  selenium import webdriver
 import SocialPowerDataNetSpiderUtils
 import time
 
-def crawShiborDataSource(link):
+def crawSocialPowerDataSource(link):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
     currentList = []
@@ -14,10 +14,10 @@ def crawShiborDataSource(link):
     return currentList
 
 
-def writeShiborConceptDataSource():
+def writeSocialPowerDataSource():
     link = 'http://www.shippingdata.cn/free/item.do?lmid=9544F54344034694A5377ED08483A707' \
            '&toplmid=4611C52922C944B5A9325031E6DF4479&type=1'
-    currentList = crawShiborDataSource(link)
+    currentList = crawSocialPowerDataSource(link)
     conn = SocialPowerDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     SQL = ' INSERT INTO DATACENTER_SOCIALPOWER_RESOURCE_TABLE(CURRENTTIME,SOCIALPOWER,CHANGERATIO)' \
@@ -32,4 +32,4 @@ def writeShiborConceptDataSource():
     conn.close()
 
 if __name__=='__main__':
-    writeShiborConceptDataSource()
+    writeSocialPowerDataSource()
