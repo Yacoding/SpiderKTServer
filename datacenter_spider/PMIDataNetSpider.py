@@ -19,10 +19,11 @@ def crawPMIDataSource(link):
 def writePMIDataSource():
     link = 'http://www.100ppi.com/mac/data---116N.html'
     currentArray = crawPMIDataSource(link)
+    print currentArray
     conn = PMIDataNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
-          " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(?,?,?,?)"
+          " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
     try:
         cursor.executemany(SQL,currentArray)
         conn.commit()
