@@ -4,7 +4,7 @@ from DBUtils.PooledDB import PooledDB
 
 class DbManager():
       def __init__(self):
-          self._pool =PooledDB(MySQLdb, user =DBConfiger.getConfig('spiderdatabase','dbuser'),
+          self._spiderpool =PooledDB(MySQLdb, user =DBConfiger.getConfig('spiderdatabase','dbuser'),
                                passwd =DBConfiger.getConfig('spiderdatabase','dbpassword'),
                                host =DBConfiger.getConfig('spiderdatabase','dbhost'),
                                port=3306,
@@ -13,8 +13,9 @@ class DbManager():
                                maxcached=100,
                                maxshared=50,
                                maxconnections=10)
+
       def getConn(self):
-          self._pool.connection()
+          self._spiderpool.connection()
 
 
 def returnMySQLConn():
@@ -31,6 +32,7 @@ def returnErrorMysqlConn():
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1]) 
     return conn
+
 
 if __name__=='__main__':
     returnMySQLConn()
