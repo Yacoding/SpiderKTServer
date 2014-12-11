@@ -3,24 +3,23 @@ import DBConfiger
 from DBUtils.PooledDB import PooledDB
 
 class DbManager():
-      def __init__(self):
-          self._spiderpool =PooledDB(MySQLdb, user =DBConfiger.getConfig('spiderdatabase','dbuser'),
-                               passwd =DBConfiger.getConfig('spiderdatabase','dbpassword'),
-                               host =DBConfiger.getConfig('spiderdatabase','dbhost'),
+      def __init__(self,databaseName):
+          self._spiderpool =PooledDB(MySQLdb, user =DBConfiger.getConfig(databaseName,'dbuser'),
+                               passwd =DBConfiger.getConfig(databaseName,'dbpassword'),
+                               host =DBConfiger.getConfig(databaseName,'dbhost'),
                                port=3306,
-                               db=DBConfiger.getConfig('spiderdatabase','dbname'),
+                               db=DBConfiger.getConfig(databaseName,'dbname'),
                                mincached=10,
                                maxcached=100,
                                maxshared=50,
                                maxconnections=10)
-
       def getConn(self):
-          self._spiderpool.connection()
+          return self._spiderpool.connection()
 
 
 def returnMySQLConn():
     try:
-        conn =DbManager().getConn()
+        conn =DbManager('spiderdatabase').getConn()
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
@@ -35,4 +34,4 @@ def returnErrorMysqlConn():
 
 
 if __name__=='__main__':
-    returnMySQLConn()
+    print DbManager('spiderdatabase').getConn()
