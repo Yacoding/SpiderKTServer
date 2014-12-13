@@ -8,6 +8,7 @@ class DbManager():
                                passwd =DBConfiger.getConfig(databaseName,'dbpassword'),
                                host =DBConfiger.getConfig(databaseName,'dbhost'),
                                port=3306,
+                               charset=DBConfiger.getConfig(databaseName,'utf8'),
                                db=DBConfiger.getConfig(databaseName,'dbname'),
                                mincached=10,
                                maxcached=100,
@@ -18,11 +19,11 @@ class DbManager():
           return self._spiderpool.connection()
 
 ##
-_dbManager = DbManager()
+_dbManager = DbManager('database')
 
 def returnMySQLConn():
     try:
-        conn =DbManager('spiderdatabase').getConn()
+        conn =DbManager('database').getConn()
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
