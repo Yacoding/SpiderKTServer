@@ -8,7 +8,7 @@ class DbManager():
                                passwd =DBConfiger.getConfig(databaseName,'dbpassword'),
                                host =DBConfiger.getConfig(databaseName,'dbhost'),
                                port=3306,
-                               charset=DBConfiger.getConfig(databaseName,'utf8'),
+                               charset=DBConfiger.getConfig(databaseName,'charset'),
                                db=DBConfiger.getConfig(databaseName,'dbname'),
                                mincached=10,
                                maxcached=100,
