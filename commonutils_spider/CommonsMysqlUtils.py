@@ -18,12 +18,12 @@ class DbManager():
       def getConn(self):
           return self._spiderpool.connection()
 
-##
+#database connection and init #
 _dbManager = DbManager('database')
 
 def returnMySQLConn():
     try:
-        conn =DbManager('database').getConn()
+        conn =_dbManager.getConn()
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
