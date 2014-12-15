@@ -14,19 +14,31 @@ class DbManager():
                                maxcached=100,
                                maxshared=50,
                                maxconnections=10)
-
+      #GET DATABASE CONNECTION#
       def getConn(self):
           return self._spiderpool.connection()
 
-#database connection and init #
-_dbManager = DbManager('database')
+      #CLOSE ALL DATABASE RESOURCE#
+      def close(self,conn=None,cursor=None):
+          if cursor != None:
+              cursor.close()
+          if conn != None:
+              conn.close()
 
+
+#DATABASE CONNECTION AND INIT #
+_dbManager = DbManager('spiderdatabase')
+
+#GET DATABASE CONNECTION #
 def returnMySQLConn():
     try:
         conn =_dbManager.getConn()
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
+
+
+
 
 
 
@@ -41,4 +53,5 @@ def returnErrorMysqlConn():
 
 
 if __name__=='__main__':
-    print  returnMySQLConn()
+    conn = returnMySQLConn()
+    _dbManager.close(conn)
