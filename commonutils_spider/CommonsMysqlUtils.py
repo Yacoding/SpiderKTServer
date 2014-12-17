@@ -4,6 +4,7 @@ from DBUtils.PooledDB import PooledDB
 
 class DbManager():
       def __init__(self,databaseName):
+          # init database pool #
           self._spiderpool =PooledDB(MySQLdb, user =DBConfiger.getConfig(databaseName,'dbuser'),
                                passwd =DBConfiger.getConfig(databaseName,'dbpassword'),
                                host =DBConfiger.getConfig(databaseName,'dbhost'),
@@ -14,16 +15,20 @@ class DbManager():
                                maxcached=100,
                                maxshared=50,
                                maxconnections=10)
+          ##
+          self._conn =self.getConn()
+          self._cursor=self._conn.cursor()
+
       #GET DATABASE CONNECTION#
       def getConn(self):
           return self._spiderpool.connection()
 
       #CLOSE ALL DATABASE RESOURCE#
-      def close(self,conn=None,cursor=None):
-          if cursor != None:
-              cursor.close()
-          if conn != None:
-              conn.close()
+      def closeRes(self):
+          if self._cursor != None:
+              self._cursor.close()
+          if self._conn != None:
+             self._conn.close()
 
 
 #DATABASE CONNECTION AND INIT #
