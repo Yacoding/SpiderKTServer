@@ -1,5 +1,7 @@
 from  selenium import webdriver
-import PMIDataNetSpiderUtils
+import sys
+sys.path.append("../commonutils_spider/")
+import CommonsMysqlUtils
 
 def crawPMIDataSource(link):
     browsor = webdriver.PhantomJS()
@@ -19,18 +21,11 @@ def crawPMIDataSource(link):
 def writePMIDataSource():
     link = 'http://www.100ppi.com/mac/data---116N.html'
     currentArray = crawPMIDataSource(link)
-    conn = PMIDataNetSpiderUtils.getMySQLConn()
-    cursor = conn.cursor()
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
           " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
-    try:
-        cursor.executemany(SQL,currentArray)
-        conn.commit()
-    except conn.Error,e:
-        print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-        conn.rollback()
-    cursor.close()
-    conn.close()
+    dbManager = CommonsMysqlUtils._dbManager
+    dbManager.executeManyInsert(SQL,currentArray)
+    dbManager.closeResource()
 
 if __name__=='__main__':
     writePMIDataSource()
