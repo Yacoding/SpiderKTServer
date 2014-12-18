@@ -20,10 +20,16 @@ def crawPMIDataSource(link):
 
 def writePMIDataSource():
     link = 'http://www.100ppi.com/mac/data---116N.html'
+    dbManager = CommonsMysqlUtils._dbManager
+
+    selectSQL = "SELECT  RESOURCE.STATISTICS  FROM    DATACENTER_PMI_RESOURCE_TABLE RESOURCE"
+    selectDict =  dbManager.selectDictMany(selectSQL)
+    print  selectDict
+
     currentArray = crawPMIDataSource(link)
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
           " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
-    dbManager = CommonsMysqlUtils._dbManager
+
     dbManager.executeManyInsert(SQL,currentArray)
     dbManager.closeResource()
 
