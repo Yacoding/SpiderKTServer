@@ -23,9 +23,6 @@ class DbManager():
           #get current cursor#
           self._cursor=self._conn.cursor()
 
-
-
-
       #GET DATABASE CONNECTION#
       def getConn(self):
           return self._spiderpool.connection()
