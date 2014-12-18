@@ -23,16 +23,28 @@ class DbManager():
           #get current cursor#
           self._cursor=self._conn.cursor()
 
+
+
+
       #GET DATABASE CONNECTION#
       def getConn(self):
           return self._spiderpool.connection()
 
       #CLOSE ALL DATABASE RESOURCE#
-      def closeRes(self):
+      def closeResource(self):
           if self._cursor != None:
               self._cursor.close()
           if self._conn != None:
              self._conn.close()
+
+      #execute  many insert #
+      def executeManyInsert(self,SQL,param=None):
+          try:
+              self._cursor.executemany(SQL,param)
+          except self._conn.Error,e:
+              print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+              self._conn.rollback()
+
 
 
 #DATABASE CONNECTION AND INIT #
