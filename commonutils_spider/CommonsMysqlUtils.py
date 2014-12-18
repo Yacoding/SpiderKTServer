@@ -37,13 +37,16 @@ class DbManager():
           if self._conn != None:
              self._conn.close()
 
-      #execute  many insert #
+      #execute many insert #
       def executeManyInsert(self,SQL,param=None):
+          conn = self._conn
+          cursor = self._cursor
           try:
-              self._cursor.executemany(SQL,param)
-          except self._conn.Error,e:
+              cursor.executemany(SQL,param)
+              conn.commit()
+          except conn.Error,e:
               print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-              self._conn.rollback()
+              conn.rollback()
 
 
 
