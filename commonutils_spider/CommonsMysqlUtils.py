@@ -23,6 +23,9 @@ class DbManager():
           #get current cursor#
           self._cursor=self._conn.cursor()
 
+          #get current dictcursor#
+          self._dictcursor = self._conn.cursor(cursorclass = MySQLdb.cursors.DictCursor)
+
       #GET DATABASE CONNECTION#
       def getConn(self):
           return self._spiderpool.connection()
@@ -45,6 +48,29 @@ class DbManager():
               print "Mysql Error %d: %s" % (e.args[0], e.args[1])
               conn.rollback()
 
+      #GET ONE CURRENTDATA#
+      def selectOne(self,SQL,param=None):
+          conn = self._conn
+          cursor = self._dictcursor
+          result = None
+          try:
+            cursor.execute(SQL)
+            result = cursor.fetchone()
+          except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+          return result
+
+      #GET MANY CURRENTDATA #
+      def selectMany(self,SQL,param =None):
+          conn = self._conn
+          cursor = self._dictcursor
+          result = None
+          try:
+            cursor.execute(SQL)
+            result = cursor.fetchall()
+          except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+          return result
 
 
 #DATABASE CONNECTION AND INIT #
@@ -57,13 +83,6 @@ def returnMySQLConn():
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
     return conn
-
-
-
-
-
-
-
 
 def returnErrorMysqlConn():
     try:
