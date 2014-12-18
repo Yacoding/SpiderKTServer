@@ -50,8 +50,7 @@ class DbManager():
 
       #GET ONE CURRENTDATA#
       def selectOne(self,SQL,param=None):
-          conn = self._conn
-          cursor = self._dictcursor
+          cursor = self._cursor
           result = None
           try:
             cursor.execute(SQL)
@@ -62,7 +61,28 @@ class DbManager():
 
       #GET MANY CURRENTDATA #
       def selectMany(self,SQL,param =None):
-          conn = self._conn
+          cursor = self._cursor
+          result = None
+          try:
+            cursor.execute(SQL)
+            result = cursor.fetchall()
+          except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+          return result
+
+      #GET ONE CURRENTDATA#
+      def selectDictOne(self,SQL,param=None):
+          cursor = self._dictcursor
+          result = None
+          try:
+            cursor.execute(SQL)
+            result = cursor.fetchone()
+          except conn.Error,e:
+            print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+          return result
+
+      #GET MANY CURRENTDATA #
+      def selectDictMany(self,SQL,param =None):
           cursor = self._dictcursor
           result = None
           try:
