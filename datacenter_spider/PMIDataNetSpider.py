@@ -30,7 +30,6 @@ def writePMIDataSource():
                 keyList.append(value)
 
     currentArray = crawPMIDataSource(link,keyList)
-    print  currentArray
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
           " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
 
