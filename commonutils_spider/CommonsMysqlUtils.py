@@ -50,6 +50,7 @@ class DbManager():
 
       #GET ONE CURRENTDATA#
       def selectOne(self,SQL,param=None):
+          conn = self._conn
           cursor = self._cursor
           result = None
           try:
@@ -61,6 +62,7 @@ class DbManager():
 
       #GET MANY CURRENTDATA #
       def selectMany(self,SQL,param =None):
+          conn = self._conn
           cursor = self._cursor
           result = None
           try:
@@ -72,6 +74,7 @@ class DbManager():
 
       #GET ONE CURRENTDATA#
       def selectDictOne(self,SQL,param=None):
+          conn = self._conn
           cursor = self._dictcursor
           result = None
           try:
@@ -83,6 +86,7 @@ class DbManager():
 
       #GET MANY CURRENTDATA #
       def selectDictMany(self,SQL,param =None):
+          conn = self._conn
           cursor = self._dictcursor
           result = None
           try:
