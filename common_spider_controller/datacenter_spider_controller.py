@@ -10,6 +10,7 @@ import BulkCargoTransDataNetSpider
 import shiborDataNetSpider
 import LPRDataNetSpider
 import PMIDataNetSpider
+import SocialPowerDataNetSpider
 
 def  crawDataCenter():
 
@@ -51,6 +52,9 @@ def  crawDataCenter():
 
     #CRAW THE PMI DATA#
     PMIDataNetSpider.writePMIDataSource()
-     
+
+    #CRAW THE SOCIALPOWER#
+    SocialPowerDataNetSpider.writeSocialPowerDataSource()
+
 if __name__=='__main__':
     crawDataCenter()
