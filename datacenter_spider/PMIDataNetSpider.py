@@ -3,7 +3,7 @@ import sys
 sys.path.append("../commonutils_spider/")
 import CommonsMysqlUtils
 
-def crawPMIDataSource(link):
+def crawPMIDataSource(link,keyList):
     browsor = webdriver.PhantomJS()
     browsor.get(link)
     currentArray = []
@@ -15,18 +15,22 @@ def crawPMIDataSource(link):
         for i in range(len(varList)):
             if varList[i] =='-':
                 varList[i] ='0'
-        currentArray.append(varList)
+        if not (varList[0] in keyList):
+            currentArray.append(varList)
     return currentArray
 
 def writePMIDataSource():
     link = 'http://www.100ppi.com/mac/data---116N.html'
     dbManager = CommonsMysqlUtils._dbManager
-
     selectSQL = "SELECT  RESOURCE.STATISTICS  FROM    DATACENTER_PMI_RESOURCE_TABLE RESOURCE"
     selectDict =  dbManager.selectDictMany(selectSQL)
-    print  selectDict
+    keyList = []
+    for current_dict in selectDict:
+            for (key,value) in current_dict.iteritems():
+                keyList.append(value)
 
-    currentArray = crawPMIDataSource(link)
+    currentArray = crawPMIDataSource(link,keyList)
+    print  currentArray
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
           " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
 
