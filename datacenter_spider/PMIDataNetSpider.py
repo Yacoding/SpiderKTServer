@@ -37,5 +37,3 @@ def writePMIDataSource():
     dbManager.executeManyInsert(SQL,currentArray)
     dbManager.closeResource()
 
-if __name__=='__main__':
-    writePMIDataSource()
