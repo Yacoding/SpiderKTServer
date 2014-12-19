@@ -98,7 +98,7 @@ class DbManager():
 
 
 #DATABASE CONNECTION AND INIT #
-_dbManager = DbManager('spiderdatabase')
+_dbManager = DbManager('database')
 
 #GET DATABASE CONNECTION #
 def returnMySQLConn():

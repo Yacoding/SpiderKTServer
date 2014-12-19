@@ -51,9 +51,11 @@ def  crawDataCenter():
     LPRDataNetSpider.writeLPRConceptDataSource()
 
     #CRAW THE PMI DATA#
+    print '-----START CRAW THE PMI DATA-----'
     PMIDataNetSpider.writePMIDataSource()
 
     #CRAW THE SOCIALPOWER#
+    print '-----START CRAW THE SOCIALPOWER DATA-----'
     SocialPowerDataNetSpider.writeSocialPowerDataSource()
 
 if __name__=='__main__':
