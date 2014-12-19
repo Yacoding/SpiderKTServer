@@ -9,6 +9,7 @@ import IndexFutureDataNetSpider
 import BulkCargoTransDataNetSpider
 import shiborDataNetSpider
 import LPRDataNetSpider
+import PMIDataNetSpider
 
 def  crawDataCenter():
 
@@ -47,6 +48,9 @@ def  crawDataCenter():
     #CRAW THE LPR DATA
     print '-----START CRAW THE LPR DATA-----'
     LPRDataNetSpider.writeLPRConceptDataSource()
+
+    #CRAW THE PMI DATA#
+    PMIDataNetSpider.writePMIDataSource()
      
 if __name__=='__main__':
     crawDataCenter()
