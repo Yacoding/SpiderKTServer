@@ -11,9 +11,9 @@ def crawSocialPowerDataSource(link,keyList):
     contextList = contextList[1:len(contextList)-1]
     for var in contextList:
         varList = var.split(' ')
-        currentList.append(varList)
+        if not (varList[0] in keyList):
+           currentList.append(varList)
     return currentList
-
 
 def writeSocialPowerDataSource():
     link = 'http://www.shippingdata.cn/free/item.do?lmid=9544F54344034694A5377ED08483A707' \
