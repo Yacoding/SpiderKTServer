@@ -23,7 +23,7 @@ def writePMIDataSource():
     link = 'http://www.100ppi.com/mac/data---116N.html'
     dbManager = CommonsMysqlUtils._dbManager
     selectSQL = "SELECT  RESOURCE.STATISTICS  FROM    DATACENTER_PMI_RESOURCE_TABLE RESOURCE"
-    selectDict =  dbManager.selectDictMany(selectSQL)
+    selectDict =dbManager.selectDictMany(selectSQL)
     keyList = []
     for current_dict in selectDict:
             for (key,value) in current_dict.iteritems():
