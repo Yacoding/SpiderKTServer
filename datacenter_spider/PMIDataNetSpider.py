@@ -32,9 +32,4 @@ def writePMIDataSource():
     currentArray = crawPMIDataSource(link,keyList)
     SQL = " INSERT INTO DATACENTER_PMI_RESOURCE_TABLE(STATISTICS,CHINA_MULTIPLEP_MI," \
           " HSBC_MANUFACTURING_PMI,HSBC_SERVICE_PMI)VALUES(%s,%s,%s,%s)"
-
     dbManager.executeManyInsert(SQL,currentArray)
-    dbManager.closeResource()
-
-if __name__=='__main__':
-    writePMIDataSource()
