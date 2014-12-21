@@ -32,7 +32,3 @@ def writeSocialPowerDataSource():
           ' VALUES(%s,%s,%s)'
 
     dbManager.executeManyInsert(SQL,currentList)
-    dbManager.closeResource()
-
-if __name__=='__main__':
-    writeSocialPowerDataSource()

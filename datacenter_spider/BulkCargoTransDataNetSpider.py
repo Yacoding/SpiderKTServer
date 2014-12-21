@@ -21,7 +21,7 @@ def writeBulkCargoTransDataSource():
     link = 'http://app.finance.ifeng.com/data/indu/jgzs.php?symbol=58'
     dbManager = CommonsMysqlUtils._dbManager
     selectSQL = "SELECT  RESOURCE.CURRENTTIME  FROM    DATACENTER_BULKCARGOTRANS_RESOURCE_TABLE RESOURCE"
-    selectDict =  dbManager.selectDictMany(selectSQL)
+    selectDict =dbManager.selectDictMany(selectSQL)
     keyList = []
     for current_dict in selectDict:
             for (key,value) in current_dict.iteritems():
@@ -33,4 +33,3 @@ def writeBulkCargoTransDataSource():
                 ' VALUES (%s,%s,%s,%s)'
 
     dbManager.executeManyInsert(SQL,currentArray)
-    dbManager.closeResource()
