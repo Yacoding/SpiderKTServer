@@ -34,7 +34,8 @@ def writeMarketSentimentDataSource():
         currentList += crawMarketSentimentDataSource(link)
         i +=1
         
-    formatSQL = 'INSERT INTO  DATACENTER_MARKETSENTIMENT_RESOURCE_TABLE(CURRENTDATE,CURRENTVALUE,DESCRIPTCONTEXT) VALUES (%s,%s,%s)'
+    formatSQL = 'INSERT INTO  DATACENTER_MARKETSENTIMENT_RESOURCE_TABLE' \
+                '(CURRENTDATE,CURRENTVALUE,DESCRIPTCONTEXT) VALUES (%s,%s,%s)'
     try:
         cursor.executemany(formatSQL,currentList)
         conn.commit()
