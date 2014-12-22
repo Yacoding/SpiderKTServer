@@ -18,12 +18,12 @@ def crawXQNewsNetDataSource(link):
         pubDate = div.find_element_by_class_name('item_time_source') .text
         pubTime = time.strftime("%m-%d",time.localtime())
         unicodeText = pubDate[:len(pubDate)-6]
-        if re.match('^[0-9]+$',unicodeText):
+        if not re.match('^[0-9]',unicodeText):
            print title+imageUrl +discriptContext+pubDate[:len(pubDate)-6]
 
 
 def writeXQNewsNetDataSource():
-
+    print ''
 
 
 if __name__=='__main__':
