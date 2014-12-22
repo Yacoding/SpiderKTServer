@@ -44,9 +44,21 @@ class DbManager():
           try:
               cursor.executemany(SQL,param)
               conn.commit()
+          except Exception,e:
+              print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+              conn.rollback()
+
+      #update or delete data#
+      def executeUpdateOrDelete(self,SQL,param=None):
+          conn = self._conn
+          cursor = self._cursor
+          try:
+              cursor.execute(SQL,param)
+              conn.commit()
           except conn.Error,e:
               print "Mysql Error %d: %s" % (e.args[0], e.args[1])
               conn.rollback()
+
 
       #GET ONE CURRENTDATA#
       def selectOne(self,SQL,param=None):
@@ -98,7 +110,7 @@ class DbManager():
 
 
 #DATABASE CONNECTION AND INIT #
-_dbManager = DbManager('database')
+_dbManager = DbManager('spiderdatabase')
 
 #GET DATABASE CONNECTION #
 def returnMySQLConn():
