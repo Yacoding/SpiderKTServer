@@ -3,19 +3,25 @@ import sys
 sys.path.append("../commonutils_spider/")
 import CommonsMysqlUtils
 
-
-
+# the  time is  too long #
 def  crawDollarIndexDataSource(link):
      browsor = webdriver.PhantomJS()
      browsor.get(link)
      currentArray = []
-     contextList = browsor.find_element_by_id('curr_table').text
-     print contextList
+     contextList = browsor.find_element_by_id('curr_table').text.split('\n')
+     contextList = contextList[1:len(contextList)-1]
+     for var in contextList:
+        varList = var.split(' ')
+        print  varList
+        currentArray.append(varList)
+     return currentArray
 
 def  writeDollarIndexDataSource():
      link ='http://cn.investing.com/quotes/us-dollar-index-historical-data'
-     crawDollarIndexDataSource(link)
+     resultArray = crawDollarIndexDataSource(link)
+     SQL  = 'SELECT  RESOURCE.OPENTIME  FROM  DATACENTER_DOLLARINDEX_RESOURCE_TABLE RESOURCE '
 
+     print resultArray
 
 
 if __name__=='__main__':
