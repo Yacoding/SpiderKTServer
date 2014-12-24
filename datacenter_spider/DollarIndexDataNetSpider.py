@@ -10,7 +10,7 @@ def  crawDollarIndexDataSource(link):
      browsor.get(link)
      currentArray = []
      contextList = browsor.find_element_by_id('curr_table').text
-     print  contextList
+     print contextList
 
 def  writeDollarIndexDataSource():
      link ='http://cn.investing.com/quotes/us-dollar-index-historical-data'
