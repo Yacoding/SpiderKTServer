@@ -4,7 +4,7 @@ sys.path.append("../commonutils_spider/")
 import CommonsMysqlUtils
 
 # the  time is  too long #
-def  crawDollarIndexDataSource(link):
+def  crawDollarIndexDataSource(link,keyList):
      browsor = webdriver.PhantomJS()
      browsor.get(link)
      currentArray = []
@@ -12,16 +12,27 @@ def  crawDollarIndexDataSource(link):
      contextList = contextList[1:len(contextList)-1]
      for var in contextList:
         varList = var.split(' ')
-        print varList
-        currentArray.append(varList)
+        openTime = varList[0]
+        if not (openTime in keyList):
+           currentArray.append(varList)
      return currentArray
 
 def  writeDollarIndexDataSource():
      link ='http://cn.investing.com/quotes/us-dollar-index-historical-data'
-     resultArray = crawDollarIndexDataSource(link)
-     SQL  = 'SELECT  RESOURCE.OPENTIME  FROM  DATACENTER_DOLLARINDEX_RESOURCE_TABLE RESOURCE '
-
-     print resultArray
+     dbManager = CommonsMysqlUtils._dbManager
+     selectSQL = ' SELECT  RESOURCE.OPENTIME AS OPENTIME' \
+                 ' FROM  DATACENTER_DOLLARINDEX_RESOURCE_TABLE RESOURCE '
+     selectDict =dbManager.selectDictMany(selectSQL)
+     keyList = []
+     for current_dict in selectDict:
+            for (key,value) in current_dict.iteritems():
+                keyList.append(value)
+     resultArray = crawDollarIndexDataSource(link,keyList)
+     SQL = ' INSERT INTO  DATACENTER_DOLLARINDEX_RESOURCE_TABLE' \
+           ' (OPENTIME,NEWSTOCKPRICE,OPENSTOCKPRICE,HIGHSTOCKPRICE,' \
+           ' LOWSTOCKPRICE,TRADEVOLUME,PERCENTCHANGE)' \
+           ' VALUES(%s,%s,%s,%s,%s,%s,%s)'
+     dbManager.executeManyInsert(SQL,resultArray)
 
 
 if __name__=='__main__':
