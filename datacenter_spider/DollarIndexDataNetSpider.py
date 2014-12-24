@@ -12,7 +12,7 @@ def  crawDollarIndexDataSource(link):
      contextList = contextList[1:len(contextList)-1]
      for var in contextList:
         varList = var.split(' ')
-        print  varList
+        print varList
         currentArray.append(varList)
      return currentArray
 
