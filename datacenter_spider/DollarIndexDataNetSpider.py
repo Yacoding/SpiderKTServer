@@ -13,7 +13,9 @@ def  crawDollarIndexDataSource(link,keyList):
      for var in contextList:
         varList = var.split(' ')
         openTime = varList[0]
-        if not (openTime in keyList):
+        currentTime = openTime[0:4]+'-'+openTime[5:7]+'-'+openTime[8:len(openTime)-1]
+        varList[0] = currentTime
+        if not (currentTime in keyList):
            currentArray.append(varList)
      return currentArray
 
