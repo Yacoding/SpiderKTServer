@@ -26,7 +26,7 @@ def decideMessageExist(currenttime):
     cursor = conn.cursor()
     sql = " SELECT COUNT(RESOURCE.CURRENTTIME) AS COUNTS FROM DATACENTER_LPR_RESOURCE_TABLE AS RESOURCE" \
           " WHERE 1=1 " \
-          " AND  RESOURCE.CURRENTTIME='%s'"%currenttime
+          " AND  SUBSTRING(RESOURCE.CURRENTTIME,1,10)='%s'"%currenttime
     flag =False
     try:
         cursor.execute(sql)
