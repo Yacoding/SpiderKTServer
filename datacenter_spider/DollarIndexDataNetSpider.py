@@ -37,6 +37,4 @@ def  writeDollarIndexDataSource():
      dbManager.executeManyInsert(SQL,resultArray)
 
 
-if __name__=='__main__':
-    writeDollarIndexDataSource()
 

@@ -48,6 +48,3 @@ def writeLPRConceptDataSource():
         except conn.Error,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
             conn.rollback()
-
-if __name__=='__main__':
-   writeLPRConceptDataSource()
