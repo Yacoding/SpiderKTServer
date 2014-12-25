@@ -22,7 +22,7 @@ def  crawDollarIndexDataSource(link,keyList):
 def  writeDollarIndexDataSource():
      link ='http://cn.investing.com/quotes/us-dollar-index-historical-data'
      dbManager = CommonsMysqlUtils._dbManager
-     selectSQL = ' SELECT  RESOURCE.OPENTIME AS OPENTIME' \
+     selectSQL = ' SELECT  SUBSTRING(RESOURCE.OPENTIME,1,10) AS OPENTIME' \
                  ' FROM  DATACENTER_DOLLARINDEX_RESOURCE_TABLE RESOURCE '
      selectDict =dbManager.selectDictMany(selectSQL)
      keyList = []
