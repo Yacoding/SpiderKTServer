@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-12-19 11:24:13
+Date: 2014-12-25 16:57:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `datacenter_bulkcargotrans_resource_table`;
 CREATE TABLE `datacenter_bulkcargotrans_resource_table` (
-  `CURRENTTIME` varchar(20) NOT NULL DEFAULT '' COMMENT '截止日期',
+  `CURRENTTIME` datetime NOT NULL ,
   `INDEXVALUE` double(8,4) DEFAULT NULL COMMENT '指数',
   `INCREASEVALUE` double(8,4) DEFAULT NULL COMMENT '涨跌额',
   `INCREASERANGE` varchar(20) DEFAULT NULL COMMENT '涨跌幅',
