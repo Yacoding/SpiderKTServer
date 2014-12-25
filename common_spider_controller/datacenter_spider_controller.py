@@ -11,6 +11,7 @@ import shiborDataNetSpider
 import LPRDataNetSpider
 import PMIDataNetSpider
 import SocialPowerDataNetSpider
+import DollarIndexDataNetSpider
 
 def  crawDataCenter():
 
@@ -57,6 +58,11 @@ def  crawDataCenter():
     #CRAW THE SOCIALPOWER#
     print '-----START CRAW THE SOCIALPOWER DATA-----'
     SocialPowerDataNetSpider.writeSocialPowerDataSource()
+
+    #CRAW THE DOLLARINDEX#
+    print '-----START CRAW THE DOLLARINDEX DATA-----'
+    DollarIndexDataNetSpider.writeDollarIndexDataSource()
+
 
 if __name__=='__main__':
     crawDataCenter()
