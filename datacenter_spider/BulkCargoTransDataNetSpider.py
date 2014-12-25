@@ -20,7 +20,7 @@ def crawBulkCargoTransDataSource(link,keyList):
 def writeBulkCargoTransDataSource():
     link = 'http://app.finance.ifeng.com/data/indu/jgzs.php?symbol=58'
     dbManager = CommonsMysqlUtils._dbManager
-    selectSQL = "SELECT  RESOURCE.CURRENTTIME  FROM    DATACENTER_BULKCARGOTRANS_RESOURCE_TABLE RESOURCE"
+    selectSQL = "SELECT SUBSTRING(RESOURCE.CURRENTTIME,1,10)  FROM    DATACENTER_BULKCARGOTRANS_RESOURCE_TABLE RESOURCE"
     selectDict =dbManager.selectDictMany(selectSQL)
     keyList = []
     for current_dict in selectDict:
