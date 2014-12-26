@@ -8,14 +8,19 @@ def  crawDollarIndexDataSource(link,keyList):
      browsor = webdriver.PhantomJS()
      browsor.get(link)
      currentArray = []
+     print keyList
      contextList = browsor.find_element_by_id('curr_table').text.split('\n')
      contextList = contextList[1:len(contextList)-1]
      for var in contextList:
         varList = var.split(' ')
         openTime = varList[0]
-        currentTime = openTime[0:4]+'-'+openTime[5:7]+'-'+openTime[8:len(openTime)-1]
+        if(len(openTime[8:len(openTime)-1])>1):
+          currentTime = openTime[0:4]+'-'+openTime[5:7]+'-'+openTime[8:len(openTime)-1]
+        else:
+          currentTime = openTime[0:4]+'-'+openTime[5:7]+'-0'+openTime[8:len(openTime)-1]
         varList[0] = currentTime
         if not (currentTime in keyList):
+           print(varList)
            currentArray.append(varList)
      return currentArray
 
@@ -36,5 +41,7 @@ def  writeDollarIndexDataSource():
            ' VALUES(%s,%s,%s,%s,%s,%s,%s)'
      dbManager.executeManyInsert(SQL,resultArray)
 
+if __name__ == '__main__':
+    writeDollarIndexDataSource()
 
 
