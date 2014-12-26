@@ -55,44 +55,41 @@ class DbManager():
           try:
               cursor.execute(SQL,param)
               conn.commit()
-          except conn.Error,e:
+          except Exception,e:
               print "Mysql Error %d: %s" % (e.args[0], e.args[1])
               conn.rollback()
 
 
       #GET ONE CURRENTDATA#
       def selectOne(self,SQL,param=None):
-          conn = self._conn
           cursor = self._cursor
           result = None
           try:
             cursor.execute(SQL)
             result = cursor.fetchone()
-          except conn.Error,e:
+          except Exception,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
           return result
 
       #GET MANY CURRENTDATA #
       def selectMany(self,SQL,param =None):
-          conn = self._conn
           cursor = self._cursor
           result = None
           try:
             cursor.execute(SQL)
             result = cursor.fetchall()
-          except conn.Error,e:
+          except Exception,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
           return result
 
       #GET ONE CURRENTDATA#
       def selectDictOne(self,SQL,param=None):
-          conn = self._conn
           cursor = self._dictcursor
           result = None
           try:
             cursor.execute(SQL)
             result = cursor.fetchone()
-          except conn.Error,e:
+          except Exception,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
           return result
 
@@ -104,7 +101,7 @@ class DbManager():
           try:
             cursor.execute(SQL)
             result = cursor.fetchall()
-          except conn.Error,e:
+          except Exception,e:
             print "Mysql Error %d: %s" % (e.args[0], e.args[1])
           return result
 
