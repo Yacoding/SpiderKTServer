@@ -2,4 +2,5 @@
 selenium  插件
 phantomjs  配置环境变量PATH
 DBUtils  数据池
+apscheduler 定时任务机制
 http://www.askci.com/finance/
