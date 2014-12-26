@@ -35,11 +35,14 @@ def  writeDollarIndexDataSource():
             for (key,value) in current_dict.iteritems():
                 keyList.append(value)
      resultArray = crawDollarIndexDataSource(link,keyList)
+
+     #THE  TIME  IS  TOO  LONG AND INIT DATABASE DATASOURCE#
      SQL = ' INSERT INTO  DATACENTER_DOLLARINDEX_RESOURCE_TABLE' \
            ' (OPENTIME,NEWSTOCKPRICE,OPENSTOCKPRICE,HIGHSTOCKPRICE,' \
            ' LOWSTOCKPRICE,TRADEVOLUME,PERCENTCHANGE)' \
            ' VALUES(%s,%s,%s,%s,%s,%s,%s)'
      dbManager.executeManyInsert(SQL,resultArray)
+     dbManager.closeResource()
 
 if __name__ == '__main__':
     writeDollarIndexDataSource()
