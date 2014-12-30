@@ -1,24 +1,24 @@
-import QQFinanceNetSpiderUtils
+import QQNewsNetSpiderUtils
 import uuid
 import time
 
 
 def crawMorningDailyNews(linkUrl,WebNet):
     currentList = []
-    startContext = QQFinanceNetSpiderUtils.returnStartContext(linkUrl,'<ul class="jdbgList">')
-    startContext = QQFinanceNetSpiderUtils.filterContextByTarget(startContext,'<ul class="jdbgList">','</ul>')
-    len = QQFinanceNetSpiderUtils.findAllTarget(startContext,'<li>')
+    startContext = QQNewsNetSpiderUtils.returnStartContext(linkUrl,'<ul class="jdbgList">')
+    startContext = QQNewsNetSpiderUtils.filterContextByTarget(startContext,'<ul class="jdbgList">','</ul>')
+    len = QQNewsNetSpiderUtils.findAllTarget(startContext,'<li>')
     for i in range(len):
-        targetContext = QQFinanceNetSpiderUtils.divisionTarget(startContext,'<li>','</li>')
+        targetContext = QQNewsNetSpiderUtils.divisionTarget(startContext,'<li>','</li>')
         startContext = targetContext['nextContext']
         currentContext =  targetContext['targetContext']
-        currentContext = QQFinanceNetSpiderUtils.removeSpecialCharacter(currentContext)
-        imageUrl = QQFinanceNetSpiderUtils.filterContextByTarget(currentContext,'src="','"alt=')
-        linkUrl = QQFinanceNetSpiderUtils.filterContextByTarget(currentContext,'href="','"><imgwidth')
-        title = QQFinanceNetSpiderUtils.filterContextByTarget(currentContext,'alt="','"></a><divclass')
-        descriptContext = QQFinanceNetSpiderUtils.filterAfterContext(currentContext, '<divclass="text">')
-        descriptContext = QQFinanceNetSpiderUtils.filterContextByTarget(descriptContext,'','<atarget')
-        pubDate = QQFinanceNetSpiderUtils.filterContextByTarget(currentContext,'<spanclass="aTime">','</span><spanclass="techTag">')
+        currentContext = QQNewsNetSpiderUtils.removeSpecialCharacter(currentContext)
+        imageUrl = QQNewsNetSpiderUtils.filterContextByTarget(currentContext,'src="','"alt=')
+        linkUrl = QQNewsNetSpiderUtils.filterContextByTarget(currentContext,'href="','"><imgwidth')
+        title = QQNewsNetSpiderUtils.filterContextByTarget(currentContext,'alt="','"></a><divclass')
+        descriptContext = QQNewsNetSpiderUtils.filterAfterContext(currentContext, '<divclass="text">')
+        descriptContext = QQNewsNetSpiderUtils.filterContextByTarget(descriptContext,'','<atarget')
+        pubDate = QQNewsNetSpiderUtils.filterContextByTarget(currentContext,'<spanclass="aTime">','</span><spanclass="techTag">')
         currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'CHINA','QQNET'])
     return currentList
     
@@ -26,7 +26,7 @@ def writeMorningDailyNews():
     link = 'http://finance.qq.com/focus.htm'
     webNet = ''
     currentList =  crawMorningDailyNews(link,webNet)
-    conn = QQFinanceNetSpiderUtils.getMySQLConn()
+    conn = QQNewsNetSpiderUtils.getMySQLConn()
     cursor = conn.cursor()
     try:
         cursor.execute("DELETE  FROM  MORNING_FINANCENEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQNET'")
