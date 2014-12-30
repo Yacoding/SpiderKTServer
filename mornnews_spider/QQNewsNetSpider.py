@@ -25,7 +25,6 @@ def crawMorningQQDailyNews(link):
     
 def writeMorningQQDailyNews():
     link = 'http://finance.qq.com/focus.htm'
-
     dbManager = CommonsMysqlUtils._dbManager
     SQL = " DELETE  FROM  MORNING_FINANCENEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQNET' " \
           " AND  NEWSFLAG='STOCK'"
@@ -36,7 +35,3 @@ def writeMorningQQDailyNews():
                 '(KEYID,LINKURL,IMAGEURL,TITLE,PUBDATE,DESCRIPTCONTEXT,NEWSFLAG,SOURCEFLAG)' \
                 ' VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
     dbManager.executeManyInsert(formatSQL,currentArray)
-
-
-if __name__=='__main__':
-    writeMorningQQDailyNews()
