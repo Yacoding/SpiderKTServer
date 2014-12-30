@@ -27,7 +27,7 @@ def writeMorningQQDailyNews():
     link = 'http://finance.qq.com/focus.htm'
     dbManager = CommonsMysqlUtils._dbManager
     SQL = " DELETE  FROM  MORNING_FINANCENEWS_RESOURCE_TABLE  WHERE  SOURCEFLAG = 'QQNET' " \
-          " AND  NEWSFLAG='STOCK'"
+          " AND  NEWSFLAG='CHINA' "
     dbManager.executeUpdateOrDelete(SQL)
 
     currentArray = crawMorningQQDailyNews(link)
