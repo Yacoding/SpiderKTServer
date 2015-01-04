@@ -15,8 +15,11 @@ def crawMorningJRJDailyNews(link):
     for div in  resultList:
         linkUrl = div.find_element_by_tag_name('a').get_attribute('href')
         imageUrl = div.find_element_by_tag_name('img').get_attribute('src')
-        title  =div.find_element_by_class_name('xh_dis').find_element_by_class_name('f16 white').text
-        print title
+
+        contextArray  =div.find_element_by_class_name('xh_dis').find_elements_by_tag_name('li')
+        for contextDiv in  contextArray :
+            context  = contextDiv.find_element_by_tag_name('a').text
+            print  context
     return listArray
 
 
