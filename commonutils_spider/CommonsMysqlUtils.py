@@ -109,6 +109,9 @@ class DbManager():
 #DATABASE CONNECTION AND INIT #
 _dbManager = DbManager('spiderdatabase')
 
+#ERRORDATABASE CONNECTION AND INIT#
+_dbErrorManager = DbManager('spidererrordatabase')
+
 #GET DATABASE CONNECTION #
 def returnMySQLConn():
     try:
@@ -119,12 +122,7 @@ def returnMySQLConn():
 
 def returnErrorMysqlConn():
     try:
-        conn = MySQLdb.connect(host='127.0.0.1',user='root',passwd='4559065',db='crawerror',port=3306,charset='utf8')
+        conn = _dbErrorManager.getConn()
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1]) 
     return conn
-
-
-if __name__=='__main__':
-    conn = returnMySQLConn()
-    _dbManager.close(conn)
