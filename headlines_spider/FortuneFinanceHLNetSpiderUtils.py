@@ -1,7 +1,6 @@
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsSpiderUtils
-import CommonsMysqlUtils
 
 def returnStartContext(link,startTarget):
     return CommonsSpiderUtils.returnCommonStartContext(link,startTarget)
@@ -21,6 +20,3 @@ def divisionTarget(startcontext,startfilter,endfilter):
 def filterAfterContext(startContext,filterContext):
     return startContext[CommonsSpiderUtils.filterContext(startContext,filterContext)+len(filterContext):]
 
-# GET MYSQL CONNECTION
-def getMySQLConn():
-    return CommonsMysqlUtils.returnMySQLConn()
