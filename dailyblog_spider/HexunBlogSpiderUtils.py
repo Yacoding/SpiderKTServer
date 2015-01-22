@@ -39,7 +39,7 @@ def getConnection():
 def returnAuthorList():
     conn = getConnection()
     cursor = conn.cursor()
-    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM DAILYBLOG_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='hexun'"
+    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM DAILYBLOG_AUTHOR_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='hexun'"
     cursor.execute(sql)
     result = cursor.fetchall()
     conn.close()
