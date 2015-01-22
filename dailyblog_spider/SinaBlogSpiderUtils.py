@@ -30,7 +30,7 @@ def returnMySQLConn():
 def returnAuthorList():
     conn = returnMySQLConn()
     cursor = conn.cursor()
-    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM CJXJ_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='sina'"
+    sql = "SELECT CJXJ.LINKURL , CJXJ.ID  FROM DAILYBLOG_RESOURCE_TABLE CJXJ WHERE CJXJ.NET_FL='sina'"
     cursor.execute(sql)
     result = cursor.fetchall()
     conn.close()
@@ -40,9 +40,11 @@ def returnAuthorList():
 def judjeResult(id):    
     conn = returnMySQLConn()
     cursor = conn.cursor()
-    sql = "SELECT  COUNT(*)  FROM   CJXJ_RESOURCE_DETAIL_TABLE A  WHERE  A.ID ='%s' "%id
+    sql = "SELECT  COUNT(*)  FROM   DAILYBLOG_RESOURCE_DETAIL_TABLE A  WHERE  A.ID ='%s' "%id
     cursor.execute(sql)
     result = cursor.fetchone()
+    conn.close()
+    cursor.close()
     if int(result[0])>0:
         return False
     else:

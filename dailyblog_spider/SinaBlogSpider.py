@@ -19,11 +19,11 @@ def dailySinaBlog(link,id):
 def writeDailySinaBlog():
     conn = SinaBlogSpiderUtils.returnMySQLConn()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM  CJXJ_RESOURCE_DETAIL_TABLE")
+    cursor.execute("DELETE FROM  DAILYBLOG_RESOURCE_DETAIL_TABLE")
     conn.commit()
     for row in SinaBlogSpiderUtils.returnAuthorList():
         currentReult = dailySinaBlog(row[0],row[1])
-        cursor.executemany('INSERT  INTO  CJXJ_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,IMAGEURL) VALUES (%s,%s,%s,%s,%s)',currentReult)
+        cursor.executemany('INSERT  INTO  DAILYBLOG_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE,IMAGEURL) VALUES (%s,%s,%s,%s,%s)',currentReult)
         conn.commit()
     cursor.close()
     conn.close()

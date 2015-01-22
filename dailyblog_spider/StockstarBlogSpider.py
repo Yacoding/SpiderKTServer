@@ -19,7 +19,7 @@ def crawDailyNews(link,keyid):
     
 def writeCurrentDailyNews():
     conn = StockstarBlogSpiderUtils.getConnection()
-    sql = 'INSERT  INTO  CJXJ_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE) VALUES (%s,%s,%s,%s)'
+    sql = 'INSERT  INTO  DAILYBLOG_RESOURCE_DETAIL_TABLE (ID,TITLE,LINKURL,PUBDATE) VALUES (%s,%s,%s,%s)'
     cursor = conn.cursor()
     for row in StockstarBlogSpiderUtils.returnAuthorList():
         currentReult = crawDailyNews(row[0],row[1])
