@@ -1,27 +1,19 @@
-import FortuneFinanceHLNetSpiderUtils
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsMysqlUtils
+from  selenium import webdriver
 import time
 import uuid
 
 def crawFinanceHLDataSource(link):
     currentList = []
-    target ='<div style="line-height:35px;padding-top:10px;">'
-    startContext = FortuneFinanceHLNetSpiderUtils.returnStartContext(link,target)
-    startContext = FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,target,'<div class="article-info">')
-    startContext = FortuneFinanceHLNetSpiderUtils.removeSpecialCharacter(startContext)
-    linkUrl = FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<ahref="','"class')
-    title = FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<b>','</b>')
-    imageUrl = link+FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'<imgsrc="/','"style')
-    startContext = FortuneFinanceHLNetSpiderUtils.filterAfterContext(startContext,'</div>')
-    descriptContext = FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'>','<fontclass')
-    startContext = FortuneFinanceHLNetSpiderUtils.filterAfterContext(startContext,'</div>')
-    pubDate = FortuneFinanceHLNetSpiderUtils.filterContextByTarget(startContext,'>','</font>')
-    pubDate = FortuneFinanceHLNetSpiderUtils.removeSpecialCharacter(pubDate)
-    currentYear = str(time.strftime('%Y',time.localtime(time.time())))
-    pubDate = FortuneFinanceHLNetSpiderUtils.filterAfterContext(pubDate,currentYear)
-    pubDate = currentYear+'-'+pubDate[:2]+'-'+pubDate[2:4]
+    browsor = webdriver.PhantomJS()
+    browsor.get(link)
+    imageUrl = browsor.find_element_by_class_name('toutu').find_element_by_tag_name('img').get_attribute('src')
+    descriptContext = browsor.find_element_by_class_name('abst1').text
+    title = browsor.find_element_by_class_name('headtitle').text
+    pubDate = time.strftime("%Y-%m-%d",time.localtime())
+    linkUrl =browsor.find_element_by_class_name('headtitle').find_element_by_tag_name('a').get_attribute('href')
     currentList.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'MACRO','FORTUNECHINA'])
     return currentList
      
