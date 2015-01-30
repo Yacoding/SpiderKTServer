@@ -2,13 +2,10 @@ from  selenium import webdriver
 import sys
 sys.path.append("../commonutils_spider/")
 import CommonsMysqlUtils
-import time
+import CommonsTimeUtils
 import uuid
 
-
-
 def dailyCnfolBlogSpider(link):
-    'articleListAll'
     browsor = webdriver.PhantomJS()
     browsor.get(link)
     resultList = browsor.find_elements_by_class_name('ArticleBox')
@@ -19,14 +16,19 @@ def dailyCnfolBlogSpider(link):
         titleHtml = div.find_element_by_tag_name('h2').find_element_by_tag_name('a')
         title = titleHtml.text
         linkUrl = titleHtml.get_attribute('href')
-        pubtime = div.find_element_by_class_name('Time').text
+        if(count ==1):
+            pubtime = CommonsTimeUtils.initNowTime()
+        else:
+            pubtime = CommonsTimeUtils.initBeforeDayTime()
         count +=1
+        listArray.append([id,title,linkUrl,pubtime,''])
+    return listArray
 
-        print pubtime +' : '+str(count)
+
 
 def writeDailyCnfolBlogSpider():
     linkUrl = 'http://new.blog.cnfol.com/zhangping626'
-    dailyCnfolBlogSpider(linkUrl)
+    print(dailyCnfolBlogSpider(linkUrl))
 
 
 if __name__=='__main__':
