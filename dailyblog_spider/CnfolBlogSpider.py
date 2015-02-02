@@ -17,9 +17,9 @@ def dailyCnfolBlogSpider(link):
         title = titleHtml.text
         linkUrl = titleHtml.get_attribute('href')
         if(count ==1):
-            pubtime = CommonsTimeUtils.initNowTime()
+            pubtime =  CommonsTimeUtils.initNowTime()
         else:
-            pubtime = CommonsTimeUtils.initBeforeDayTime()
+            pubtime =  CommonsTimeUtils.initBeforeDayTime()
         count +=1
         listArray.append([id,title,linkUrl,pubtime,''])
     return listArray
