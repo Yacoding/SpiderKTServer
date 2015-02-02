@@ -6,7 +6,7 @@ class CommonsTimeUtils():
     def initBeforeDayTime(self):
         now_time = datetime.datetime.now()
         befor_time = now_time + datetime.timedelta(days=-1)
-        yes_time_format = befor_time.strftime('%Y-%m-%d')
+        yes_time_format =  befor_time.strftime('%Y-%m-%d')
         return yes_time_format
 
     def initNowTime(self):
