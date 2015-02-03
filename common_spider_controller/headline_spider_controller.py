@@ -7,7 +7,7 @@ import TakFinanceHLNetSpider
 import NBDFinanceHLNetSpider
 import CCTVFinanceHLNetSpider
 import JRJFinanceHLNetSpider
-import YiCaiFinanceHLNetSpider
+import CXFinanceHLNetSpider
 
 def crawDataCenter():
     
@@ -41,7 +41,10 @@ def crawDataCenter():
     # CRAW JRJFINANCEHL DATA SIPDER
     print '----START CRAW JRJFINANCEHL DATA----'
     JRJFinanceHLNetSpider.writeFinanceHLDataSource()
-    
+
+    # CRAW CXFinanceHLNet DATA SIPDER
+    print '----START CRAW CXFinanceHLNet DATA----'
+    CXFinanceHLNetSpider.writeCXFinanceHLDataSource()
 
     
 if __name__=='__main__':
