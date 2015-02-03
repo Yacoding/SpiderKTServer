@@ -42,9 +42,7 @@ def crawDataCenter():
     print '----START CRAW JRJFINANCEHL DATA----'
     JRJFinanceHLNetSpider.writeFinanceHLDataSource()
     
-    # CRAW YICAIFINANCEHL DATA SIPDER
-    print '----START CRAW YICAIFINANCEHL DATA----'
-    YiCaiFinanceHLNetSpider.writeFinanceHLDataSource()
+
     
 if __name__=='__main__':
     crawDataCenter()  
