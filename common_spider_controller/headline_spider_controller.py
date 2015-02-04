@@ -43,7 +43,7 @@ def crawDataCenter():
     JRJFinanceHLNetSpider.writeFinanceHLDataSource()
 
     # CRAW CXFinanceHLNet DATA SIPDER
-    print '----START CRAW CXFinanceHLNet DATA----'
+    print '----START CRAW CXFINANCEHLNET DATA----'
     CXFinanceHLNetSpider.writeCXFinanceHLDataSource()
 
     
