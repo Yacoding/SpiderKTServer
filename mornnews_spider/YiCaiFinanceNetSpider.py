@@ -16,18 +16,14 @@ def crawYCFinanceHLDataSource(link):
          try:
               imageObj = currentDiv.find_element_by_tag_name('img')
               imageUrl = imageObj.get_attribute('src')
-
-              titleObj = currentDiv.find_element_by_tag_name('hi')
-              title = titleObj.text
-              print  title
-              linkUrl = titleObj.find_element_by_tag_name('a').get_attribute('href')
-
               pubDate = time.strftime("%Y-%m-%d %X",time.localtime())
-              listArray.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,'','CHINA','YCNET'])
-              print linkUrl
+              titleObj = currentDiv.find_element_by_tag_name('h1')
+              title = titleObj.text
+              linkUrl = titleObj.find_element_by_tag_name('a').get_attribute('href')
+              descriptContext = currentDiv.find_element_by_tag_name('p').text
+              listArray.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'CHINA','YCNET'])
          except NoSuchElementException,e:
               continue
-    print listArray
     return listArray
 
 def writeFinanceHLDataSource():
@@ -46,5 +42,4 @@ def writeFinanceHLDataSource():
 
 
 if __name__=='__main__':
-    link = 'http://www.yicai.com/finance/'
-    crawYCFinanceHLDataSource(link)
+    writeFinanceHLDataSource()
