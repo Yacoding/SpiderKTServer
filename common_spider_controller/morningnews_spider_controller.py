@@ -62,6 +62,7 @@ def crawDailyNews():
     XQNewsNetSpider.writeXQNewsNetDataSource()
 
     # CRAW YICAI NEWS SIPDER#
+    print  '----START CRAW YCFINANCE NEWS----'
     YiCaiFinanceNetSpider.writeFinanceHLDataSource()
 
 if __name__=='__main__':
