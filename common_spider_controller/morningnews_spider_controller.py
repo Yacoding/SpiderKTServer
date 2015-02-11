@@ -12,6 +12,7 @@ import CNNewsNetSpider
 import XQNewsNetSpider
 import QQNewsNetSpider
 import YiCaiFinanceNetSpider
+import QJNewsStockNetSpider
 
 def crawDailyNews():
     
@@ -57,13 +58,17 @@ def crawDailyNews():
     print '----START CRAW 21CNNEWS NEWS----'
     CNNewsNetSpider.writeCNStockNetDailyNews()
 
-    # CRAW XQ NEWS SIPDER#
+    # CRAW XQ NEWS SIPDER #
     print '----START CRAW XQ NEWS----'
     XQNewsNetSpider.writeXQNewsNetDataSource()
 
-    # CRAW YICAI NEWS SIPDER#
+    # CRAW YICAI NEWS SIPDER #
     print  '----START CRAW YCFINANCE NEWS----'
     YiCaiFinanceNetSpider.writeFinanceHLDataSource()
+
+    # CRAW QJ STOCK NEWS SIPDER #
+    print  '----START CRAW QJ STOCK NEWS----'
+    QJNewsStockNetSpider.writeMorningQJDailyStockNews()
 
 if __name__=='__main__':
     crawDailyNews()
