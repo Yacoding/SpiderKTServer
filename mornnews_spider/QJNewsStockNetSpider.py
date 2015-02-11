@@ -18,7 +18,6 @@ def crawMorningQJDailyStockNews(link):
         pubDate = time.strftime("%Y-%m-%d",time.localtime())
         descriptContext = div.find_element_by_class_name('hui').text
         listArray.append([str(uuid.uuid1()),linkUrl,imageUrl,title,pubDate,descriptContext,'STOCK','QJNET'])
-    print  listArray
     return listArray
 
 
